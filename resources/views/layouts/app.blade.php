@@ -67,32 +67,26 @@
                             <li>
                                 <a style="cursor: pointer;">
                                     <i class="topbar-icon fa fa-fw fa-user"></i>
-                                    <!--<span>Perfil</span>-->
+                                    <span>{{ Auth::user()->name }}</span>
                                 </a>
                                 
                                 <ul class="poseidon-menu animated fadeInDown">
                                         <li role="menuitem">
                                                 <a href="#">
                                                         <i class="fa fa-fw fa-user"></i>
-                                                        <span>Profile</span>
-                                                </a>
-                                        </li>
-                                        <li role="menuitem">
-                                                <a href="#">
-                                                        <i class="fa fa-fw fa-user-secret"></i>
-                                                        <span>Privacy</span>
+                                                        <span>Mi Perfil</span>
                                                 </a>
                                         </li>
                                         <li role="menuitem">
                                                 <a href="#">
                                                         <i class="fa fa-fw fa-cog"></i>
-                                                        <span>Settings</span>
+                                                        <span>Configuración</span>
                                                 </a>
                                         </li>
                                         <li role="menuitem">
                                                 <a href="<?php echo url('logout'); ?>">
                                                         <i class="fa fa-fw fa-sign-out"></i>
-                                                        <span>Logout</span>
+                                                        <span>Cerrar Sesión</span>
                                                 </a>
                                         </li>
                                 </ul>
@@ -147,19 +141,20 @@
                                     </a>
                                     <ul role="menu">
                                         <li role="menuitem">
-                                            <a href="#" >
-                                                <i class="fa fa-fw fa-bars"></i>
+                                            <a href="{{ route('list_users') }}" >
+                                                <i class="fa fa-fw fa-users"></i>
                                                 <span>Usuarios</span>
-                                            </a>
+                                            </a>                                            
                                         </li>
                                         <li role="menuitem">
-                                            <a href="dashboard.html" >
-                                                <i class="fa fa-fw fa-bars"></i>
-                                                <span>Parámetros</span>
+                                            <a href="#" >
+                                                <i class="fa fa-fw fa-tree"></i>
+                                                <span>Perfiles</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                                <li id="menuform:um_customization" role="menuitem" class="active-menuitem"><a href="#" class="ripplelink"><i class="fa fa-fw fa-bars"></i><span>Menu Modes</span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down"></i></a><ul role="menu" style="display: block;"><li id="menuform:custom3" role="menuitem" class="active-menuitem"><a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom3':'menuform:custom3'}).submit('menuform');return false;"><i class="fa fa-fw fa-bars"></i><span>Static Menu</span></a></li><li id="menuform:custom4" role="menuitem"><a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom4':'menuform:custom4'}).submit('menuform');return false;"><i class="fa fa-fw fa-bars"></i><span>Overlay Menu</span></a></li><li id="menuform:custom5" role="menuitem"><a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom5':'menuform:custom5'}).submit('menuform');return false;"><i class="fa fa-fw fa-bars"></i><span>Horizontal Menu</span></a></li></ul></li>
                             </ul>                            
                             <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>
 

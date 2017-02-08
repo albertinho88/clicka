@@ -19,9 +19,10 @@ Route::get('service/{service_id}', 'SiteController@viewService');
 Route::post('contact', 'SiteController@contactUs');
 
 //Auth::routes();
-Route::get('/login', 'SessionController@create');
-Route::post('/login', 'SessionController@store');
-Route::get('/logout', 'SessionController@destroy');
+Route::get('login', 'SessionController@create')->name('login');
+Route::post('login', 'SessionController@store');
+Route::get('logout', 'SessionController@destroy');
 
+Route::get('application','ApplicationController@principal');
 
-Route::get('/home', 'HomeController@index');
+Route::get('application/management/users/list','UserController@viewList')->name('list_users');
