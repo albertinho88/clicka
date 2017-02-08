@@ -43,7 +43,7 @@ class SiteController extends Controller
         $newContacto->phone = $request->phone;
         $newContacto->message = $request->message;        
         $newContacto->ip_creator = $request->ip();
-        $newContacto->state = 'CR';
+        $newContacto->state = 'R'; //R -> REGISTRADO
         $newContacto->save();
 
         return response()->json(["codigoRespuesta"=>"1"]);

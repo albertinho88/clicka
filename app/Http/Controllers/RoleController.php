@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('application.management.users.listUsers');
-    }
-    
-    public function getUsersJsonList() {
-        $users = \App\User::all();        
-        return response()->json($users);
+        return view('application.management.roles.listRoles');
     }
 
     /**
@@ -30,7 +25,6 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('application.management.users.createUser');
     }
 
     /**

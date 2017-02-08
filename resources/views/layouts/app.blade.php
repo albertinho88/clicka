@@ -147,9 +147,9 @@
                                             </a>                                            
                                         </li>
                                         <li role="menuitem">
-                                            <a href="#" >
+                                            <a href="{{ route('list_roles') }}" >
                                                 <i class="fa fa-fw fa-tree"></i>
-                                                <span>Perfiles</span>
+                                                <span>Roles</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -190,6 +190,6 @@
             </div>
         </div>
         
-        @include('partial.ajax_forms')
+        <div id="growlel"></div>                  
     </body>
 </html>

@@ -22,7 +22,7 @@ class CreateContactosTable extends Migration
             $table->string('ip_creator',50)->nullable();                        
             $table->integer('updater_user')->nullable();                        
             $table->string('ip_updater',50)->nullable();                        
-            $table->string('state',2);            
+            $table->string('state',1);            
             $table->timestamps();
         });
     }
