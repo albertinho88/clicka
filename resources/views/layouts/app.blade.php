@@ -39,7 +39,7 @@
         
     </head>
     <body class="main-body">
-        <div class="layout-wrapper menu-layout-overlay">
+        <div class="layout-wrapper {{ Auth::check() ? 'layout-menu-static-active' : 'menu-layout-overlay' }}">
             
             <!-- Topbar -->
             <div class="topbar clearfix">
@@ -128,8 +128,8 @@
                     <div class="nano">
                         <div class="nano-content menu-scroll-content">
                             <div class="search-input">
-                                <input type="text" placeholder="Search" />
-                                <i class="fa fa-search"></i>
+                                <!--<input type="text" placeholder="Search" />
+                                <i class="fa fa-search"></i>-->
                             </div>
                             <ul id="pm" class="layout-menu clearfix">
                                 <li role="menuitem">
@@ -154,16 +154,49 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li id="menuform:um_customization" role="menuitem" class="active-menuitem"><a href="#" class="ripplelink"><i class="fa fa-fw fa-bars"></i><span>Menu Modes</span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down"></i></a><ul role="menu" style="display: block;"><li id="menuform:custom3" role="menuitem" class="active-menuitem"><a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom3':'menuform:custom3'}).submit('menuform');return false;"><i class="fa fa-fw fa-bars"></i><span>Static Menu</span></a></li><li id="menuform:custom4" role="menuitem"><a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom4':'menuform:custom4'}).submit('menuform');return false;"><i class="fa fa-fw fa-bars"></i><span>Overlay Menu</span></a></li><li id="menuform:custom5" role="menuitem"><a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom5':'menuform:custom5'}).submit('menuform');return false;"><i class="fa fa-fw fa-bars"></i><span>Horizontal Menu</span></a></li></ul></li>
+                                <li id="menuform:um_customization" role="menuitem" class="active-menuitem">
+                                    <a href="#" class="ripplelink">
+                                        <i class="fa fa-fw fa-bars"></i>
+                                        <span>Menu Modes</span>
+                                        <span class="ink animate"></span>
+                                        <i class="fa fa-fw fa-angle-down"></i>
+                                    </a>
+                                    <ul role="menu" style="display: block;">
+                                        <li id="menuform:custom3" role="menuitem" class="active-menuitem">
+                                            <a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom3':'menuform:custom3'}).submit('menuform');return false;">
+                                                <i class="fa fa-fw fa-bars"></i>
+                                                <span>Static Menu</span>
+                                            </a>
+                                        </li>
+                                        <li id="menuform:custom4" role="menuitem">
+                                            <a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom4':'menuform:custom4'}).submit('menuform');return false;">
+                                                <i class="fa fa-fw fa-bars"></i>
+                                                <span>Overlay Menu</span>
+                                            </a>
+                                        </li>
+                                        <li id="menuform:custom5" role="menuitem">
+                                            <a href="#" onclick="PrimeFaces.addSubmitParam('menuform',{'menuform:custom5':'menuform:custom5'}).submit('menuform');return false;">
+                                                <i class="fa fa-fw fa-bars"></i>
+                                                <span>Horizontal Menu</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>                            
                             <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>
 
                             <div class="layout-menu-footer">
-                                <span class="layout-menu-footer-title">Tasks Overview</span><div id="menuform:j_idt26" class="ui-progressbar ui-widget ui-widget-content ui-corner-all"><div class="ui-progressbar-value ui-widget-header ui-corner-all" style="display:block;width:50%"></div><div class="ui-progressbar-label" style="display:block"></div></div>
+                                <!--<span class="layout-menu-footer-title">Tasks Overview</span>
+                                <div id="menuform:j_idt26" class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                                    <div class="ui-progressbar-value ui-widget-header ui-corner-all" style="display:block;width:50%"></div>
+                                    <div class="ui-progressbar-label" style="display:block"></div>                                        
+                                </div>
                                 Today
-
-                                <div id="menuform:j_idt28" class="ui-progressbar ui-widget ui-widget-content ui-corner-all"><div class="ui-progressbar-value ui-widget-header ui-corner-all" style="display:block;width:80%"></div><div class="ui-progressbar-label" style="display:block"></div></div>
-                                Overall
+                                <div id="menuform:j_idt28" class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                                    <div class="ui-progressbar-value ui-widget-header ui-corner-all" style="display:block;width:80%"></div>
+                                    <div class="ui-progressbar-label" style="display:block"></div>                                        
+                                </div>
+                                Overall-->
                             </div>                                                                                                                
 
                         </div>

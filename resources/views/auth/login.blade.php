@@ -2,13 +2,10 @@
 
 @section('content')
 
-<div class="ui-breadcrumb ui-module ui-widget ui-widget-header ui-helper-clearfix ui-corner-all" role="menu">
-    <ul>
-        <li role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all ui-icon ui-icon-home" href="{{ route('home') }}"><span class="ui-menuitem-text">Inicio</span></a></li>
-        <li class="ui-breadcrumb-chevron ui-icon ui-icon-triangle-1-e"></li>
-        <li role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" ><span class="ui-menuitem-text">Login</span></a></li>                   
-    </ul>
-</div>
+<p-breadcrumb>
+    <p-menuitem value=""></p-menuitem>     
+    <p-menuitem value="Login"></p-menuitem>    
+</p-breadcrumb>
 
 <div class="">
     <div class="ui-g dashboard">
