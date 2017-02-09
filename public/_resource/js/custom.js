@@ -74,3 +74,7 @@ $( document ).ready(function() {
 addMessage = function(msg) {
     $('#growlel').puigrowl('show', msg);
 };
+
+clearMessage = function() {
+    $('#growlel').puigrowl('clear');
+}

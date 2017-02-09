@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -53,6 +57,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
+        $user = \App\User::find($id);
+        return view('application.management.users.showUser', compact('user'));
     }
 
     /**

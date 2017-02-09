@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +21,11 @@ class RoleController extends Controller
         //
         return view('application.management.roles.listRoles');
     }
+    
+    public function getRolesJsonList() {
+        $roles = \App\Role::all();        
+        return response()->json($roles);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -25,6 +35,7 @@ class RoleController extends Controller
     public function create()
     {
         //
+        return view('application.management.roles.createRole');
     }
 
     /**

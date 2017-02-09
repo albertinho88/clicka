@@ -28,5 +28,9 @@ Route::get('application','ApplicationController@principal');
 Route::get('application/management/users','UserController@index')->name('list_users');
 Route::get('application/management/users/getUsersJsonList','UserController@getUsersJsonList')->name('get_users_json');
 Route::get('application/management/users/create','UserController@create')->name('create_user');
+Route::get('application/management/users/edit/{user_id}','UserController@edit')->name('edit_user');
+Route::get('application/management/users/show/{user_id}','UserController@show')->name('show_user');
 
 Route::get('application/management/roles','RoleController@index')->name('list_roles');
+Route::get('application/management/roles/getRolesJsonList','RoleController@getRolesJsonList')->name('get_roles_json');
+Route::get('application/management/roles/create','RoleController@create')->name('create_role');
