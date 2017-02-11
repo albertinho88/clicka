@@ -76,7 +76,7 @@ PrimeFaces.widget.Poseidon = PrimeFaces.widget.BaseWidget.extend({
             e.preventDefault();
         });
         
-        this.topbarMenuButton.on('click', function(e) {
+        this.topbarMenuButton.on('click', function(e) {            
             $this.topbarMenuClick = true;
             $this.topbarItems.find('ul').removeClass('fadeInDown fadeOutUp');
             
@@ -190,8 +190,7 @@ PrimeFaces.widget.Poseidon = PrimeFaces.widget.BaseWidget.extend({
             e.preventDefault();
         });
         
-        this.topbarLinks.on('click', function(e) {
-            console.log('click link...');
+        this.topbarLinks.on('click', function(e) {           
             var link = $(this),
             item = link.parent(),
             submenu = link.next();

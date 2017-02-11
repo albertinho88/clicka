@@ -11,9 +11,9 @@
     <div class="ui-g dashboard">
         <div class="ui-g-12"> 
             <div class="card card-w-title">
-                <div class="text-center">
-                    <p><i class="fa fa-lock" style="font-size: 40px; font-weight: bold;"></i></p>
-                    <p><h1 class="coolvetica-rg" style="font-size: 28px;" >Login.</h1></p>                
+                <div class="text-center titulo">
+                    <p><i class="fa fa-lock" ></i></p>
+                    <p><h1 class="coolvetica-rg" >Login.</h1></p>                
                 </div>
                 
                 <br />                                   
@@ -22,7 +22,7 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2"></div>
                         <div class="ui-grid-col-8">
-                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                            <form class="form-horizontal" role="form" method="POST" action="{{ url('login') }}">
                                 {{ csrf_field() }}
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-2">

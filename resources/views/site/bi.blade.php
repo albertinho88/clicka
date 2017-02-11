@@ -12,8 +12,11 @@
     <div class="ui-g">
         <div class="ui-g-12"> 
             <div class="card card-w-title seccionSite text-center">
-                <p><i class="fa fa-line-chart" style="font-size: 40px; font-weight: bold;"></i></p>
-                <p><h1 class="coolvetica-rg" style="font-size: 28px;" >Inteligencia de Negocios.</h1></p>
+                <div class="titulo">
+                    <p><i class="fa fa-line-chart" ></i></p>
+                    <p><h1 class="coolvetica-rg" >Inteligencia de Negocios.</h1></p>
+                </div>
+                
                 <p>"Algo peor que no tener información disponible, es tener mucha información y no saber que hacer con ella."</p>
                 
                 <br />

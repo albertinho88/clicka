@@ -21,10 +21,10 @@
                     
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
-                            <div class="text-center">
+                            <div class="text-center titulo">
                                 <p>
-                                    <i class="fa fa-users" style="font-size: 30px; font-weight: bold;"></i>
-                                    <h1 class="coolvetica-rg" style="font-size: 18px;" >Roles.</h1>
+                                    <i class="fa fa-users" ></i>
+                                    <h1 class="coolvetica-rg" >Roles.</h1>
                                 </p>                
                             </div>
                         </div>

@@ -12,9 +12,10 @@
     <div class="ui-g dashboard">            
         <div class="ui-g-12"> 
             <div class="card card-w-title seccionSite text-center">                                        
-
-                <p><i class="fa fa-industry" style="font-size: 40px; font-weight: bold;"></i></p>
-                <h1 class="coolvetica-rg" style="font-size: 28px;" >Software a la Medida.</h1>                    
+                <div class="titulo">
+                    <p><i class="fa fa-industry" ></i></p>
+                    <h1 class="coolvetica-rg" >Software a la Medida.</h1>                    
+                </div>
                 <p>"Un software personalizado puede convertirse en el activo más importante de tu empresa."</p>
 
                 <br />

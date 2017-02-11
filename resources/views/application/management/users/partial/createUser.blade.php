@@ -1,7 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
 <div class="ui-g">
         <div class="ui-g-12"> 
             <div class="card card-w-title">                                                                                                 
@@ -10,20 +6,20 @@
                         <div class="ui-grid-col-12">
                             <ul class="menubar">                                
                                 <li>
-                                    <a href="{{ route('list_users') }}" data-icon="fa-users">Usuarios</a>
+                                    <a href="{{ route('list_users') }}" data-icon="fa-users" class="ajaxLink">Usuarios</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('create_user') }}" data-icon="fa-plus">Nuevo Usuario</a>
+                                    <a href="{{ route('create_user') }}" data-icon="fa-plus" class="ajaxLink">Nuevo Usuario</a>
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> 
                     
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
-                            <div class="text-center">
-                                <p><i class="fa fa-user-plus" style="font-size: 40px; font-weight: bold;"></i></p>
-                                <p><h1 class="coolvetica-rg" style="font-size: 28px;" >Nuevo Usuario.</h1></p>                
+                            <div class="text-center titulo">
+                                <p><i class="fa fa-plus" ></i></p>
+                                <p><h1 class="coolvetica-rg" >Nuevo Usuario.</h1></p>                
                             </div>
                         </div>
                     </div>
@@ -37,5 +33,3 @@
             </div>
         </div>
 </div>
-
-@endsection

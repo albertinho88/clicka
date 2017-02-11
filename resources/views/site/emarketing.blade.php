@@ -12,8 +12,10 @@
     <div class="ui-g dashboard">
         <div class="ui-g-12"> 
             <div class="card card-w-title seccionSite text-center">
-                <p><i class="fa fa-cloud" style="font-size: 40px; font-weight: bold;"></i></p>
-                <p><h1 class="coolvetica-rg" style="font-size: 28px;" >E-Marketing.</h1></p>
+                <div class="titulo">
+                    <p><i class="fa fa-cloud" ></i></p>
+                    <p><h1 class="coolvetica-rg" >E-Marketing.</h1></p>
+                </div>
                 <p>"Si tu negocio no está en internet, tu negocio no existe."</p>
 
                 <br />

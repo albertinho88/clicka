@@ -12,8 +12,11 @@
     <div class="ui-g">
         <div class="ui-g-12"> 
             <div class="card card-w-title seccionSite text-center">
-                <p><i class="fa fa-shopping-cart" style="font-size: 40px; font-weight: bold;"></i></p>
-                <p><h1 class="coolvetica-rg" style="font-size: 28px;" >E-Commerce.</h1></p>
+                <div class="titulo">
+                    <p><i class="fa fa-shopping-cart" style="font-size: 40px; font-weight: bold;"></i></p>
+                    <p><h1 class="coolvetica-rg" style="font-size: 28px;" >E-Commerce.</h1></p>
+                </div>
+                
                 <p>"Vender por internet, optimizando los recursos."</p>
                 
                 <br />

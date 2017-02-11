@@ -29,13 +29,17 @@ class SiteController extends Controller
         return view('site.contact');
     }
     
-    public function contactUs(Request $request) {
+    public function getContactFormAjax() {
+        return view('partial.contact_form');
+    }
+    
+    public function contactAjax(Request $request) {
         
         $this->validate(request(),[
             'name' => 'required',
             'email' => 'required|email',
             'message' => 'required'            
-        ]);
+        ]);       
         
         $newContacto = new Contact();
         $newContacto->name = $request->name;
@@ -46,6 +50,6 @@ class SiteController extends Controller
         $newContacto->state = 'R'; //R -> REGISTRADO
         $newContacto->save();
 
-        return response()->json(["codigoRespuesta"=>"1"]);
+        return view('partial.contact_form_response', ['contacto' => $newContacto]);
     }
 }

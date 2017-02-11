@@ -39,7 +39,7 @@
         
     </head>
     <body class="main-body">
-        <div class="layout-wrapper {{ Auth::check() ? 'menu-layout-static' : 'menu-layout-overlay' }}">
+        <div class="layout-wrapper {{ Auth::check() ? 'menu-layout-static' : 'menu-layout-overlay' }} ">
             
             <!-- Topbar -->
             <div class="topbar clearfix">
@@ -123,7 +123,7 @@
                 </div>                                
             </div>            
             
-            @if (Auth::check())
+            
             <div class="layout-menu-container">
                 <div class="nano">
                     <div class="nano-content menu-scroll-content">
@@ -131,36 +131,39 @@
                             <!--<input type="text" placeholder="Search" />
                             <i class="fa fa-search"></i>-->
                         </div>
-                        <ul id="pm" class="layout-menu clearfix">
-                            <li role="menuitem">
-                                <a href="/poseidon/dashboard.xhtml" class="ripplelink">
-                                    <i class="fa fa-fw fa-home"></i>
-                                    <span>Administración</span>
-                                    <span class="ink animate"></span>
-                                    <i class="fa fa-fw fa-angle-down"></i>
-                                </a>
-                                <ul role="menu">
+                        
+                            <ul id="pm" class="layout-menu clearfix">
+                                @if (Auth::check())
                                     <li role="menuitem">
-                                        <a href="{{ route('list_users') }}" >
-                                            <i class="fa fa-fw fa-users"></i>
-                                            <span>Usuarios</span>
-                                        </a>                                            
-                                    </li>
-                                    <li role="menuitem">
-                                        <a href="{{ route('list_roles') }}" >
-                                            <i class="fa fa-fw fa-tree"></i>
-                                            <span>Roles</span>
+                                        <a href="/poseidon/dashboard.xhtml" class="ripplelink">
+                                            <i class="fa fa-fw fa-home"></i>
+                                            <span>Administración</span>
+                                            <span class="ink animate"></span>
+                                            <i class="fa fa-fw fa-angle-down"></i>
                                         </a>
+                                        <ul role="menu">
+                                            <li role="menuitem">
+                                                <a href="{{ route('index_users') }}" >
+                                                    <i class="fa fa-fw fa-users"></i>
+                                                    <span>Usuarios</span>
+                                                </a>                                            
+                                            </li>
+                                            <li role="menuitem">
+                                                <a href="{{ route('list_roles') }}" >
+                                                    <i class="fa fa-fw fa-tree"></i>
+                                                    <span>Roles</span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
-                                </ul>
-                            </li>                                
-                        </ul>                            
-                        <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>
+                                @endif                                
+                            </ul>                            
+                            <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>
+                        
                         <div class="layout-menu-footer"></div>                                                                                                                
                     </div>
                 </div>
-            </div>
-            @endif
+            </div>            
             
             <div class="layout-main">
                 <div class="layout-main-content">

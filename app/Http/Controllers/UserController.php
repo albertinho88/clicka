@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $viewsDir;
+    
     public function __construct() {
         $this->middleware('auth');
+        $this->viewsDir = "application.management.users.";
     }
     
     /**
@@ -16,12 +19,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-        return view('application.management.users.listUsers');
+    {        
+        return view($this->viewsDir.'indexUsers');
     }
     
-    public function getUsersJsonList() {
+    public function listUsers() {
+        return view($this->viewsDir.'partial.listUsers');
+    }
+    
+    public function listUsersJson() {
         $users = \App\User::all();        
         return response()->json($users);
     }
@@ -34,7 +40,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('application.management.users.createUser');
+        return view($this->viewsDir.'partial.createUser');
     }
 
     /**
@@ -58,7 +64,7 @@ class UserController extends Controller
     {
         //
         $user = \App\User::find($id);
-        return view('application.management.users.showUser', compact('user'));
+        return view($this->viewsDir.'partial.showUser', compact('user'));
     }
 
     /**
@@ -70,6 +76,8 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $user = \App\User::find($id);
+        return view($this->viewsDir.'partial.editUser', compact('user'));
     }
 
     /**

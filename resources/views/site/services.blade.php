@@ -11,8 +11,10 @@
     <div class="ui-g dashboard">
         <div class="ui-g-12"> 
             <div class="card card-w-title seccionSite text-center">
-                <p><i class="fa fa-laptop" style="font-size: 40px; font-weight: bold;"></i></p>
-                <p><h1 class="coolvetica-rg" style="font-size: 28px;" >Nuestros Servicios.</h1></p>
+                <div class="titulo">
+                    <p><i class="fa fa-laptop" ></i></p>
+                    <p><h1 class="coolvetica-rg" >Nuestros Servicios.</h1></p>
+                </div>
                 <p>"Nuestros servicios están directamente relacionados, para brindar una solución 360º a nuestros clientes."</p>
                 
                                 
