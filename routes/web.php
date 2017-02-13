@@ -28,10 +28,11 @@ Route::get('logout', 'SessionController@destroy');
 Route::get('application','ApplicationController@principal');
 
 Route::get('application/management/users','UserController@index')->name('index_users');
-Route::get('application/management/users/list_users','UserController@listUsers')->name('list_users');
 Route::get('application/management/users/list_users_json','UserController@listUsersJson')->name('list_users_json');
 Route::get('application/management/users/create','UserController@create')->name('create_user');
+Route::post('application/management/users/create','UserController@store')->name('store_user');
 Route::get('application/management/users/edit/{user_id}','UserController@edit')->name('edit_user');
+Route::post('application/management/users/update','UserController@update')->name('update_user');
 Route::get('application/management/users/show/{user_id}','UserController@show')->name('show_user');
 
 Route::get('application/management/roles','RoleController@index')->name('list_roles');

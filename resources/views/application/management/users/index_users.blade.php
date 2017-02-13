@@ -1,18 +1,42 @@
-<div class="ui-grid-row">
-    <div class="ui-grid-col-12">
-        <ul class="menubar">                                
-            <li>
-                <a href="{{ route('list_users') }}" data-icon="fa-users" class="ajaxLink">Usuarios</a>
-            </li>
-            <li>
-                <a href="{{ route('create_user') }}" data-icon="fa-plus" class="ajaxLink">Nuevo Usuario</a>
-            </li>
-        </ul>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="ui-g">
+    <div class="ui-g-12"> 
+        <div class="card card-w-title">                                                                                                 
+            <div class="ui-grid ui-grid-responsive">
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        @include('application.management.users.partial.menu_user')
+                    </div>
+                </div>
+                
+                <div class="EmptyBox10" ></div>
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <div class="text-center titulo">
+                            <p>
+                                <i class="fa fa-users" ></i>
+                                <h1 class="coolvetica-rg" >Usuarios.</h1>
+                            </p>                
+                        </div>
+                    </div>
+                </div>
+
+                <div class="EmptyBox10" ></div>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <div id="tblUsers"></div> 
+                    </div>
+                </div>                
+            </div>
+        </div>
     </div>
-</div> 
-
-
-<div id="tblUsers"></div>                           
+</div>
 
 <input id="show_url" type="hidden" value="{{ route('show_user',['user_id' => '']) }}" />
 <input id="edit_url" type="hidden" value="{{ route('edit_user',['user_id' => '']) }}" />
@@ -30,14 +54,14 @@
                 {field: 'state', headerText: 'Estado'},
                 {                     
                     content: function(rowData) {
-                        return '<a href="' +$('#show_url').val() + '/' + rowData.user_id + '" class="ajaxLink"><i class="fa fa-search" /></a>';
+                        return '<a href="' +$('#show_url').val() + '/' + rowData.user_id + '" class=""><i class="fa fa-search" /></a>';
                     },                    
                     bodyStyle: 'width:18px',
                     headerStyle: 'width:18px'
                 },
                 {                     
                     content: function(rowData) {
-                        return '<a href="' +$('#edit_url').val() + '/' + rowData.user_id + '" class="ajaxLink"><i class="fa fa-pencil" /></a>';
+                        return '<a href="' +$('#edit_url').val() + '/' + rowData.user_id + '" class=""><i class="fa fa-pencil" /></a>';
                     },                    
                     bodyStyle: 'width:18px',
                     headerStyle: 'width:18px'
@@ -58,6 +82,7 @@
                 });
             }
         });                  
-    });
-    
+    });    
 </script>
+
+@endsection

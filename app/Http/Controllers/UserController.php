@@ -20,12 +20,8 @@ class UserController extends Controller
      */
     public function index()
     {        
-        return view($this->viewsDir.'indexUsers');
-    }
-    
-    public function listUsers() {
-        return view($this->viewsDir.'partial.listUsers');
-    }
+        return view($this->viewsDir.'index_users');
+    }   
     
     public function listUsersJson() {
         $users = \App\User::all();        
@@ -40,7 +36,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view($this->viewsDir.'partial.createUser');
+        return view($this->viewsDir.'create_user');
     }
 
     /**
@@ -52,6 +48,21 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(request(),[
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'state' => 'required'
+        ]);
+        
+        $user = new \App\User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);        
+        $user->state = $request->state;
+        $user->save();
+        
+        return view($this->viewsDir.'partial.view_user', compact('user'));
     }
 
     /**
@@ -64,7 +75,7 @@ class UserController extends Controller
     {
         //
         $user = \App\User::find($id);
-        return view($this->viewsDir.'partial.showUser', compact('user'));
+        return view($this->viewsDir.'show_user', compact('user'));
     }
 
     /**
@@ -77,7 +88,7 @@ class UserController extends Controller
     {
         //
         $user = \App\User::find($id);
-        return view($this->viewsDir.'partial.editUser', compact('user'));
+        return view($this->viewsDir.'edit_user', compact('user'));
     }
 
     /**

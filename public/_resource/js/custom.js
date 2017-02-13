@@ -19,10 +19,10 @@ initComponents = function() {
     $('fieldset').puifieldset({
         toggleable: true,
         collapsed: false
-    });
+    });    
     
     $("input").addClass( "ui-inputfield" );
-    $("textarea").addClass("ui-inputfield ui-inputtextarea");
+    $("textarea").addClass("ui-inputfield ui-inputtextarea");    
     
     $('#growlel').puigrowl({sticky: true});
     
@@ -79,6 +79,7 @@ initSubmitAjaxForms = function() {
           .done(function(htmlResponse){         
               setHtmlContent('formAjax',htmlResponse);
               addMessage([{ severity: 'info', summary: '', detail: 'Información enviada y almacenada exitosamente.' }]);                                  
+              initComponents();
           })            
           .always(function() {
               // always executed..                 
@@ -101,6 +102,9 @@ initAjaxLinks = function() {
                 setHtmlContent('formAjax',htmlResponse);            
                 initComponents();            
                 clearMessage();
+            })
+            .fail(function() {
+                addMessage([{severity: 'error', summary: '', detail: 'Ha ocurrido un error. Por favor intente más tarde.'}]);
             });
         
         e.preventDefault();

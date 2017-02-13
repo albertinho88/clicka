@@ -82,7 +82,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
+    'unique'               => 'El :attribute ingresado ya está siendo utilizado.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
@@ -118,7 +118,8 @@ return [
         'name' => 'nombre',
         'email' => 'email',
         'phone' => 'teléfono',
-        'message' => 'mensaje'
+        'message' => 'mensaje',
+        'state' => 'estado'
     ],
 
 ];

@@ -371,6 +371,13 @@
   .titulo h1 {
       font-size: 28px !important;
   }
+  p-selectbutton.ui-state-error {
+      border: none !important;
+  }
+  
+  label {
+      font-weight: bold;
+  }
   
   
   
