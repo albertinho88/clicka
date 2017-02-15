@@ -26,8 +26,12 @@ initComponents = function() {
     
     $("input").addClass( "ui-inputfield" );
     $("textarea").addClass("ui-inputfield ui-inputtextarea");    
-    $('.ui-dropdown').addClass("ui-selectonemenu");
-    
+        
+    /*$('.ui-dropdown').addClass("ui-selectonemenu");
+    $('.ui-dropdown-item').addClass("ui-selectonemenu-item ui-selectonemenu-list-item");
+    $('.ui-dropdown-item').hover(function(){
+        $(this).addClass('ui-state-hover');
+    });*/
     
     $('#growlel').puigrowl({sticky: true});
     

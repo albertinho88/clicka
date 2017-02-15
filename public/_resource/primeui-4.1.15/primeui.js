@@ -4582,7 +4582,7 @@
                     }
                 }
                 
-                this._render();
+                this._render();                
             }
             else {
                 this.choices = this.element.children('option');
