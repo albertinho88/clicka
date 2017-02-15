@@ -94,10 +94,11 @@
                                 <label for="state" class="col-md-4 control-label">Estado:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <p-selectbutton id="state" name="state">
+                                <select id="state" name="state">
+                                    <option >Seleccionar</option>
                                     <option value="A">Activo</option>
-                                    <option value="I">Inactivo</option>                                    
-                                </p-selectbutton>
+                                    <option value="I">Inactivo</option> 
+                                </select>  
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">

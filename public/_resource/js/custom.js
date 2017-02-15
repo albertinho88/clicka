@@ -14,15 +14,20 @@ initComponents = function() {
     $("textarea").puiinputtextarea();
     $('p-datepicker').children('input').puiinputtext();
     $(':checkbox').puicheckbox();
+    $(':radio').puiradiobutton();
     $('.breadcrumb').puibreadcrumb();    
     $('.menubar').puimenubar();
     $('fieldset').puifieldset({
         toggleable: true,
         collapsed: false
     });    
+        
+    $('select').puidropdown();
     
     $("input").addClass( "ui-inputfield" );
     $("textarea").addClass("ui-inputfield ui-inputtextarea");    
+    $('.ui-dropdown').addClass("ui-selectonemenu");
+    
     
     $('#growlel').puigrowl({sticky: true});
     

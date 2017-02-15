@@ -64,28 +64,7 @@
                                     @endif
                                 </span>
                             </div>
-                        </div>
-                        
-                        <div class="EmptyBox10"></div>
-                        
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2">                                            
-                                <label for="password" class="col-md-4 control-label">Password:</label>
-                            </div>
-                            <div class="ui-grid-col-10">
-                                <input id="password" name="password" type="password" autocomplete="off" style="width: 95%;" class="form-control" />
-                            </div>                                                                                                                
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2"></div>
-                            <div class="ui-grid-col-10">
-                                <span id="password_help_block" class="help-block">
-                                    @if ($errors->has('password'))                                                    
-                                        <strong>{{ $errors->first('password') }}</strong>                                                    
-                                    @endif
-                                </span>
-                            </div>
-                        </div>
+                        </div>                                                
                         
                         <div class="EmptyBox10"></div>
                         
@@ -93,11 +72,12 @@
                             <div class="ui-grid-col-2">                                            
                                 <label for="state" class="col-md-4 control-label">Estado:</label>
                             </div>
-                            <div class="ui-grid-col-10">
-                                <p-selectbutton id="state" name="state" >
-                                    <option value="A" selected="selected">Activo</option>
-                                    <option value="I">Inactivo</option>                                    
-                                </p-selectbutton>
+                            <div class="ui-grid-col-10">                                
+                                <select id="state" name="state">
+                                    <option >Seleccionar</option>
+                                    <option value="A" <?php echo $user->state=='A'?'selected':''; ?> >Activo</option>
+                                    <option value="I" <?php echo $user->state=='I'?'selected':''; ?>>Inactivo</option> 
+                                </select>   
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -127,5 +107,4 @@
         </div>
     </div>
 </div>
-
 @endsection
