@@ -26,7 +26,7 @@
         <link href="{{ asset('_resource/css/layout-green.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/responsive_slide/responsiveslides.css') }}" type="text/css" rel="stylesheet">
         
-        <link href="{{ asset('_resource/primeui-4.1.15/primeui.css') }}" type="text/css" rel="stylesheet">        
+        <!--<link href="{{ asset('_resource/primeui-4.1.15/primeui.css') }}" type="text/css" rel="stylesheet">-->
         <link href="{{ asset('_resource/css/custom_styles.css') }}" type="text/css" rel="stylesheet">            
             
         <script src="{{ asset('_resource/js/nanoscroller.js') }}" type="text/javascript"></script>
@@ -35,9 +35,9 @@
         <script src="{{ asset('_resource/responsive_slide/responsiveslides.min.js') }}" type="text/javascript"></script>
         
         <script src="{{ asset('_resource/primeui-4.1.15/x-tag-core.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('_resource/primeui-4.1.15/primeui.js') }}" type="text/javascript"></script>
+        <!--<script src="{{ asset('_resource/primeui-4.1.15/primeui.js') }}" type="text/javascript"></script>
         <script src="{{ asset('_resource/primeui-4.1.15/primeelements.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('_resource/js/custom.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('_resource/js/custom.js') }}" type="text/javascript"></script>-->
                 
         
     </head>
@@ -161,8 +161,7 @@
                                     </li>
                                 @endif                                
                             </ul>                            
-                            <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>
-                        
+                            <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>                                                    
                         <div class="layout-menu-footer"></div>                                                                                                                
                     </div>
                 </div>

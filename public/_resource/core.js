@@ -61,6 +61,7 @@
             return(c)
         },
         skinInput: function (c) {
+            //c.addClass("ui-inputfield");
             c.hover(
                     function () {
                         $(this).addClass("ui-state-hover")
@@ -220,7 +221,7 @@
             this.createWidget(d, e, c)
         }, createWidget: function (d, f, c) {
             c.widgetVar = f;
-            if (this.widget[d]) {
+            if (this.widget[d]) {                
                 var e = this.widgets[f];
                 if (e && (e.constructor === this.widget[d])) {
                     e.refresh(c)
@@ -230,7 +231,7 @@
                         a[f] = this.widgets[f]
                     }
                 }
-            } else {
+            } else {                
                 b.error("Widget not available: " + d)
             }
         }, getFacesResource: function (f, e, c) {

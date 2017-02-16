@@ -9,7 +9,10 @@ $( document ).ready(function() {
 });
 
 initComponents = function() {
-    $("input:text").puiinputtext();
+    
+    PrimeFaces.cw("Poseidon", "me", {id: "pm"});    
+    
+    //$("input:text").puiinputtext();
     $("input:password").puipassword();    
     $("textarea").puiinputtextarea();
     $('p-datepicker').children('input').puiinputtext();

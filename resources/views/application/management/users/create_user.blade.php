@@ -98,7 +98,8 @@
                                     <option >Seleccionar</option>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option> 
-                                </select>  
+                                </select>
+                                <script type="text/javascript">PrimeFaces.cw("SelectOneMenu", "state", {id: "state"});</script>
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -115,7 +116,9 @@
                         <div class="EmptyBox10"></div>
 
                         <div class="ui-grid-row text-center">
-                            <div class="ui-grid-col-12" >                                                                                         
+                            <div class="ui-grid-col-12" >
+                                <input type="text" id="iptName" name="iptName" />
+                                <script type="text/javascript">PrimeFaces.cw("InputText", "iptName", {id: "iptName"});</script>
                                 <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" >
                                     Guardar
                                 </button>
