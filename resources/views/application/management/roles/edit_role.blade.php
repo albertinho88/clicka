@@ -9,7 +9,7 @@
                 <div class="ui-grid ui-grid-responsive">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
-                            @include('application.management.users.partial.menu_user')
+                            @include('application.management.roles.partial.menu_role')
                         </div>
                     </div>
                     
@@ -19,20 +19,20 @@
                         <div class="ui-grid-col-12">
                             <div class="text-center titulo">
                                 <p><i class="fa fa-pencil" ></i></p>
-                                <p><h1 class="coolvetica-rg" >Editar Usuario.</h1></p>                
+                                <p><h1 class="coolvetica-rg" >Editar Rol.</h1></p>                
                             </div>
                         </div>
                     </div>
                 
-                    <form id="editUserForm" name="editUserForm" method="POST" action="{{ route('update_user') }}" class="ajaxJsonForm form-horizontal">
+                    <form id="editRoleForm" name="editRoleForm" method="POST" action="{{ route('update_role') }}" class="ajaxJsonForm form-horizontal">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" id="user_id" name="user_id" value="{{ $user->user_id }}">
+                        <input type="hidden" id="role_id" name="role_id" value="{{ $role->role_id }}">
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">                                            
                                 <label for="name" class="col-md-4 control-label">Nombre:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="name" name="name" type="text" autocomplete="off" style="width: 95%;" class="form-control" value="{{ $user->name }}" />
+                                <input id="name" name="name" type="text" autocomplete="off" style="width: 95%;" class="form-control" value="{{ $role->name }}" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -44,18 +44,7 @@
                                     @endif
                                 </span>
                             </div>
-                        </div>
-                        
-                        <div class="EmptyBox10"></div>
-
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2">                                            
-                                <label for="email" class="col-md-4 control-label">Email:</label>
-                            </div>
-                            <div class="ui-grid-col-10">
-                                {{ $user->email }}
-                            </div>                                                                                                                
-                        </div>                                              
+                        </div>                                                                            
                         
                         <div class="EmptyBox10"></div>
                         
@@ -66,8 +55,8 @@
                             <div class="ui-grid-col-10">                                
                                 <select id="state" name="state" class="selectOneMenu">
                                     <option value="">Seleccionar</option>
-                                    <option value="A" <?php echo $user->state=='A'?'selected':''; ?> >Activo</option>
-                                    <option value="I" <?php echo $user->state=='I'?'selected':''; ?>>Inactivo</option> 
+                                    <option value="A" <?php echo $role->state=='A'?'selected':''; ?> >Activo</option>
+                                    <option value="I" <?php echo $role->state=='I'?'selected':''; ?>>Inactivo</option> 
                                 </select>   
                             </div>                                                                                                                
                         </div>
@@ -89,7 +78,7 @@
                                 <label for="created_at" class="col-md-4 control-label">Fecha creación:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                {{ $user->created_at }}
+                                {{ $role->created_at }}
                             </div>                                                                                                                
                         </div>
 
@@ -100,7 +89,7 @@
                                 <label for="updated_at" class="col-md-4 control-label">Fecha actualización:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                {{ $user->updated_at }}
+                                {{ $role->updated_at }}
                             </div>                                                                                                                
                         </div>
                         

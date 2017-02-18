@@ -130,7 +130,8 @@ PrimeFaces.dialog.DialogHandler = {
         }
         return a
     }};
-PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({
+        init: function (a) {
         this._super(a);
         this.stateHolder = $(this.jqId + "_active");
         this.headers = this.jq.children(".ui-accordion-header");
@@ -143,7 +144,8 @@ PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: fu
         if (this.cfg.dynamic && this.cfg.cache) {
             this.markLoadedPanels()
         }
-    }, initActive: function () {
+    }, 
+        initActive: function () {
         if (this.cfg.multiple) {
             var a = this.stateHolder.val().split(",");
             for (var b = 0; b < a.length; b++) {
@@ -153,7 +155,8 @@ PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: fu
         } else {
             this.cfg.active = parseInt(this.stateHolder.val())
         }
-    }, bindEvents: function () {
+    }, 
+        bindEvents: function () {
         var a = this;
         this.headers.mouseover(function () {
             var b = $(this);
@@ -179,7 +182,8 @@ PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: fu
             d.preventDefault()
         });
         this.bindKeyEvents()
-    }, bindKeyEvents: function () {
+    }, 
+        bindKeyEvents: function () {
         this.headers.on("focus.accordion", function () {
             $(this).addClass("ui-tabs-outline")
         }).on("blur.accordion", function () {
@@ -191,7 +195,8 @@ PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: fu
                 c.preventDefault()
             }
         })
-    }, markLoadedPanels: function () {
+    }, 
+        markLoadedPanels: function () {
         if (this.cfg.multiple) {
             for (var a = 0; a < this.cfg.active.length; a++) {
                 if (this.cfg.active[a] >= 0) {
@@ -203,7 +208,8 @@ PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: fu
                 this.markAsLoaded(this.panels.eq(this.cfg.active))
             }
         }
-    }, select: function (c) {
+    }, 
+        select: function (c) {
         var b = this.panels.eq(c);
         if (this.cfg.onTabChange) {
             var a = this.cfg.onTabChange.call(this, b);
@@ -233,18 +239,20 @@ PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: fu
             }
         }
         return true
-    }, unselect: function (a) {
-        if (this.cfg.controlled) {
-            if (this.hasBehavior("tabClose")) {
-                this.fireTabCloseEvent(a)
+    }, 
+        unselect: function (a) {
+            if (this.cfg.controlled) {
+                if (this.hasBehavior("tabClose")) {
+                    this.fireTabCloseEvent(a)
+                }
+            } else {
+                this.hide(a);
+                if (this.hasBehavior("tabClose")) {
+                    this.fireTabCloseEvent(a)
+                }
             }
-        } else {
-            this.hide(a);
-            if (this.hasBehavior("tabClose")) {
-                this.fireTabCloseEvent(a)
-            }
-        }
-    }, show: function (c) {
+        }, 
+        show: function (c) {
         var b = this;
         if (!this.cfg.multiple) {
             var d = this.headers.filter(".ui-state-active");
@@ -341,7 +349,8 @@ PrimeFaces.widget.AccordionPanel = PrimeFaces.widget.BaseWidget.extend({init: fu
         }
         PrimeFaces.invokeDeferredRenders(this.id)
     }});
-PrimeFaces.widget.AutoComplete = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.AutoComplete = PrimeFaces.widget.BaseWidget.extend({
+        init: function (a) {
         this._super(a);
         this.panelId = this.jqId + "_panel";
         this.input = $(this.jqId + "_input");
@@ -396,13 +405,15 @@ PrimeFaces.widget.AutoComplete = PrimeFaces.widget.BaseWidget.extend({init: func
         this.jq.attr("role", "application");
         this.jq.append('<span role="status" aria-live="polite" class="ui-autocomplete-status ui-helper-hidden-accessible"></span>');
         this.status = this.jq.children(".ui-autocomplete-status")
-    }, appendPanel: function () {
+    }, 
+        appendPanel: function () {
         var a = this.cfg.appendTo ? PrimeFaces.expressions.SearchExpressionFacade.resolveComponentsAsSelector(this.cfg.appendTo) : $(document.body);
         if (!a.is(this.jq)) {
             a.children(this.panelId).remove();
             this.panel.appendTo(a)
         }
-    }, initCache: function () {
+    }, 
+        initCache: function () {
         this.cache = {};
         var a = this;
         this.cacheTimeout = setInterval(function () {
@@ -960,7 +971,8 @@ PrimeFaces.widget.AutoComplete = PrimeFaces.widget.BaseWidget.extend({init: func
         clearTimeout(this.timeout);
         this.timeout = null
     }});
-PrimeFaces.widget.BlockUI = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.BlockUI = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this.cfg = a;
         this.id = this.cfg.id;
         this.jqId = PrimeFaces.escapeClientId(this.id);
@@ -976,12 +988,14 @@ PrimeFaces.widget.BlockUI = PrimeFaces.widget.BaseWidget.extend({init: function 
             this.show()
         }
         this.removeScriptElement(this.id)
-    }, refresh: function (a) {
+    }, 
+    refresh: function (a) {
         this.blocker.remove();
         this.block.children(".ui-blockui-content").remove();
         $(document).off("pfAjaxSend." + this.id + " pfAjaxComplete." + this.id);
         this._super(a)
-    }, bindTriggers: function () {
+    }, 
+    bindTriggers: function () {
         var b = this, a = PrimeFaces.expressions.SearchExpressionFacade.resolveComponents(this.cfg.triggers);
         $(document).on("pfAjaxSend." + this.id, function (f, g, c) {
             var d = $.type(c.source) === "string" ? c.source : c.source.name;
@@ -1047,7 +1061,8 @@ PrimeFaces.widget.BlockUI = PrimeFaces.widget.BaseWidget.extend({init: function 
     }, hasContent: function () {
         return this.content.contents().length > 0
     }});
-PrimeFaces.widget.Calendar = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.Calendar = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         this.input = $(this.jqId + "_input");
         this.jqEl = this.cfg.popup ? this.input : $(this.jqId + "_inline");
@@ -1129,12 +1144,14 @@ PrimeFaces.widget.Calendar = PrimeFaces.widget.BaseWidget.extend({init: function
             var c = {placeholder: this.cfg.maskSlotChar || "_", autoclear: this.cfg.maskAutoClear};
             this.input.mask(this.cfg.mask, c)
         }
-    }, refresh: function (a) {
+    }, 
+    refresh: function (a) {
         if (a.popup && $.datepicker._lastInput && (a.id + "_input") === $.datepicker._lastInput.id) {
             $.datepicker._hideDatepicker()
         }
         this.init(a)
-    }, configureLocale: function () {
+    }, 
+    configureLocale: function () {
         var a = PrimeFaces.locales[this.cfg.locale];
         if (a) {
             for (var b in a) {
@@ -1221,7 +1238,8 @@ PrimeFaces.widget.Calendar = PrimeFaces.widget.BaseWidget.extend({init: function
         }
         return false
     }});
-PrimeFaces.widget.Carousel = PrimeFaces.widget.DeferredWidget.extend({init: function (a) {
+PrimeFaces.widget.Carousel = PrimeFaces.widget.DeferredWidget.extend({
+    init: function (a) {
         this._super(a);
         this.viewport = this.jq.children(".ui-carousel-viewport");
         this.itemsContainer = this.viewport.children(".ui-carousel-items");
@@ -1386,7 +1404,8 @@ PrimeFaces.widget.Carousel = PrimeFaces.widget.DeferredWidget.extend({init: func
     }, stopAutoplay: function () {
         clearInterval(this.interval)
     }});
-PrimeFaces.widget.ColumnToggler = PrimeFaces.widget.DeferredWidget.extend({init: function (a) {
+PrimeFaces.widget.ColumnToggler = PrimeFaces.widget.DeferredWidget.extend({
+    init: function (a) {
         this._super(a);
         this.table = PrimeFaces.expressions.SearchExpressionFacade.resolveComponentsAsSelector(this.cfg.datasource);
         this.trigger = PrimeFaces.expressions.SearchExpressionFacade.resolveComponentsAsSelector(this.cfg.trigger);
@@ -1622,7 +1641,8 @@ PrimeFaces.widget.ColumnToggler = PrimeFaces.widget.DeferredWidget.extend({init:
             }
         }
     }});
-PrimeFaces.widget.Dashboard = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.Dashboard = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         this.cfg.connectWith = this.jqId + " .ui-dashboard-column";
         this.cfg.placeholder = "ui-state-hover";
@@ -1647,7 +1667,8 @@ PrimeFaces.widget.Dashboard = PrimeFaces.widget.BaseWidget.extend({init: functio
         }
         $(this.jqId + " .ui-dashboard-column").sortable(this.cfg)
     }});
-PrimeFaces.widget.DataGrid = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.DataGrid = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.cfg.formId = $(this.jqId).closest("form").attr("id");
         this.content = $(this.jqId + "_content");
@@ -1684,7 +1705,8 @@ PrimeFaces.widget.DataGrid = PrimeFaces.widget.BaseWidget.extend({init: function
     }, getPaginator: function () {
         return this.paginator
     }});
-PrimeFaces.widget.DataList = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.DataList = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.cfg.formId = $(this.jqId).parents("form:first").attr("id");
         this.content = $(this.jqId + "_content");
@@ -1721,7 +1743,8 @@ PrimeFaces.widget.DataList = PrimeFaces.widget.BaseWidget.extend({init: function
         }
         return false
     }});
-PrimeFaces.widget.DataScroller = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.DataScroller = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.content = this.jq.children("div.ui-datascroller-content");
         this.list = this.content.children("ul");
@@ -1785,7 +1808,8 @@ PrimeFaces.widget.DataScroller = PrimeFaces.widget.BaseWidget.extend({init: func
     }, shouldLoad: function () {
         return(!this.loading && !this.allLoaded)
     }});
-PrimeFaces.widget.DataTable = PrimeFaces.widget.DeferredWidget.extend({SORT_ORDER: {ASCENDING: 1, DESCENDING: -1, UNSORTED: 0}, init: function (a) {
+PrimeFaces.widget.DataTable = PrimeFaces.widget.DeferredWidget.extend({
+    SORT_ORDER: {ASCENDING: 1, DESCENDING: -1, UNSORTED: 0}, init: function (a) {
         this._super(a);
         this.thead = this.getThead();
         this.tbody = this.getTbody();
@@ -3600,7 +3624,8 @@ PrimeFaces.widget.DataTable = PrimeFaces.widget.DeferredWidget.extend({SORT_ORDE
             }};
         PrimeFaces.ajax.Request.handle(a)
     }});
-PrimeFaces.widget.FrozenDataTable = PrimeFaces.widget.DataTable.extend({setupScrolling: function () {
+PrimeFaces.widget.FrozenDataTable = PrimeFaces.widget.DataTable.extend({
+    setupScrolling: function () {
         this.scrollLayout = this.jq.find("> table > tbody > tr > td.ui-datatable-frozenlayout-right");
         this.frozenLayout = this.jq.find("> table > tbody > tr > td.ui-datatable-frozenlayout-left");
         this.scrollContainer = this.jq.find("> table > tbody > tr > td.ui-datatable-frozenlayout-right > .ui-datatable-scrollable-container");
@@ -3941,7 +3966,8 @@ PrimeFaces.widget.FrozenDataTable = PrimeFaces.widget.DataTable.extend({setupScr
             this.frozenTbody.trigger("focus")
         }
     }});
-PrimeFaces.widget.Dialog = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Dialog = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.content = this.jq.children(".ui-dialog-content");
         this.titlebar = this.jq.children(".ui-dialog-titlebar");
@@ -4320,7 +4346,8 @@ PrimeFaces.widget.Dialog = PrimeFaces.widget.BaseWidget.extend({init: function (
             }
         }
     }});
-PrimeFaces.widget.ConfirmDialog = PrimeFaces.widget.Dialog.extend({init: function (a) {
+PrimeFaces.widget.ConfirmDialog = PrimeFaces.widget.Dialog.extend({
+    init: function (a) {
         a.draggable = false;
         a.resizable = false;
         a.modal = true;
@@ -4361,7 +4388,8 @@ PrimeFaces.widget.ConfirmDialog = PrimeFaces.widget.Dialog.extend({init: functio
         }
         this.show()
     }});
-PrimeFaces.widget.DynamicDialog = PrimeFaces.widget.Dialog.extend({show: function () {
+PrimeFaces.widget.DynamicDialog = PrimeFaces.widget.Dialog.extend({
+    show: function () {
         if (this.jq.hasClass("ui-overlay-visible")) {
             return
         }
@@ -4378,7 +4406,8 @@ PrimeFaces.widget.DynamicDialog = PrimeFaces.widget.Dialog.extend({show: functio
             this.enableModality()
         }
     }});
-PrimeFaces.widget.Draggable = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Draggable = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this.cfg = a;
         this.id = this.cfg.id;
         this.jqId = PrimeFaces.escapeClientId(this.id);
@@ -4389,7 +4418,8 @@ PrimeFaces.widget.Draggable = PrimeFaces.widget.BaseWidget.extend({init: functio
         this.jq.draggable(this.cfg);
         this.removeScriptElement(this.id)
     }});
-PrimeFaces.widget.Droppable = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Droppable = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this.cfg = a;
         this.id = this.cfg.id;
         this.jqId = PrimeFaces.escapeClientId(this.id);
@@ -4412,7 +4442,8 @@ PrimeFaces.widget.Droppable = PrimeFaces.widget.BaseWidget.extend({init: functio
             }
         }
     }});
-PrimeFaces.widget.Effect = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.Effect = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this.cfg = b;
         this.id = this.cfg.id;
         this.jqId = PrimeFaces.escapeClientId(this.id);
@@ -4431,7 +4462,8 @@ PrimeFaces.widget.Effect = PrimeFaces.widget.BaseWidget.extend({init: function (
         }
         this.removeScriptElement(this.id)
     }});
-PrimeFaces.widget.Fieldset = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Fieldset = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.legend = this.jq.children(".ui-fieldset-legend");
         var b = this;
@@ -4482,9 +4514,7 @@ PrimeFaces.widget.Fieldset = PrimeFaces.widget.BaseWidget.extend({init: function
         this.cfg.collapsed = !a;
         this.stateHolder.val(!a)
     }});
-
-PrimeFaces.widget.InputText = PrimeFaces.widget.BaseWidget.extend(
-        {
+PrimeFaces.widget.InputText = PrimeFaces.widget.BaseWidget.extend({
             init: function (a) {
                 this._super(a);                
                 PrimeFaces.skinInput(this.jq)
@@ -4495,10 +4525,9 @@ PrimeFaces.widget.InputText = PrimeFaces.widget.BaseWidget.extend(
             enable: function () {
                 this.jq.prop("disabled", false).removeClass("ui-state-disabled")
             }
-        }
-);
-
-PrimeFaces.widget.InputTextarea = PrimeFaces.widget.DeferredWidget.extend({init: function (a) {
+        });
+PrimeFaces.widget.InputTextarea = PrimeFaces.widget.DeferredWidget.extend({
+    init: function (a) {
         this._super(a);
         if (this.cfg.autoResize) {
             this.renderDeferred()
@@ -4736,7 +4765,8 @@ PrimeFaces.widget.InputTextarea = PrimeFaces.widget.DeferredWidget.extend({init:
             this.panel.css("position", "fixed")
         }
     }});
-PrimeFaces.widget.SelectOneMenu = PrimeFaces.widget.DeferredWidget.extend({init: function (a) {
+PrimeFaces.widget.SelectOneMenu = PrimeFaces.widget.DeferredWidget.extend({
+    init: function (a) {        
         this._super(a);
         this.panelId = this.jqId + "_panel";
         this.input = $(this.jqId + "_input");
@@ -5333,7 +5363,8 @@ PrimeFaces.widget.SelectOneMenu = PrimeFaces.widget.DeferredWidget.extend({init:
         this.focusInput.attr("aria-activedescendant", b).attr("aria-describedby", b);
         this.itemsContainer.attr("aria-activedescendant", b)
     }});
-PrimeFaces.widget.SelectOneRadio = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.SelectOneRadio = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         if (this.cfg.custom) {
             this.originalInputs = this.jq.find(":radio");
@@ -5469,7 +5500,8 @@ PrimeFaces.widget.SelectOneRadio = PrimeFaces.widget.BaseWidget.extend({init: fu
         }
         this.bindEvents()
     }});
-PrimeFaces.widget.SelectBooleanCheckbox = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.SelectBooleanCheckbox = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.input = $(this.jqId + "_input");
         this.box = this.jq.find(".ui-chkbox-box");
@@ -5532,7 +5564,8 @@ PrimeFaces.widget.SelectBooleanCheckbox = PrimeFaces.widget.BaseWidget.extend({i
             this.box.removeClass("ui-state-active").children(".ui-chkbox-icon").addClass("ui-icon-blank").removeClass("ui-icon-check")
         }
     }});
-PrimeFaces.widget.SelectManyCheckbox = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.SelectManyCheckbox = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         if (this.cfg.custom) {
             this.originalInputs = this.jq.find(":checkbox");
@@ -5591,7 +5624,8 @@ PrimeFaces.widget.SelectManyCheckbox = PrimeFaces.widget.BaseWidget.extend({init
             }
         })
     }});
-PrimeFaces.widget.SelectListbox = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.SelectListbox = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.input = $(this.jqId + "_input"), this.listContainer = this.jq.children(".ui-selectlistbox-listcontainer");
         this.listElement = this.listContainer.children(".ui-selectlistbox-list");
@@ -5665,7 +5699,8 @@ PrimeFaces.widget.SelectListbox = PrimeFaces.widget.BaseWidget.extend({init: fun
             }
         }
     }});
-PrimeFaces.widget.SelectOneListbox = PrimeFaces.widget.SelectListbox.extend({bindEvents: function () {
+PrimeFaces.widget.SelectOneListbox = PrimeFaces.widget.SelectListbox.extend({
+    bindEvents: function () {
         this._super();
         var a = this;
         if (!this.cfg.disabled) {
@@ -5684,7 +5719,8 @@ PrimeFaces.widget.SelectOneListbox = PrimeFaces.widget.SelectListbox.extend({bin
             })
         }
     }});
-PrimeFaces.widget.SelectManyMenu = PrimeFaces.widget.SelectListbox.extend({bindEvents: function () {
+PrimeFaces.widget.SelectManyMenu = PrimeFaces.widget.SelectListbox.extend({
+    bindEvents: function () {
         this._super();
         var a = this;
         if (!this.cfg.disabled) {
@@ -5766,7 +5802,8 @@ PrimeFaces.widget.SelectManyMenu = PrimeFaces.widget.SelectListbox.extend({bindE
     }, unselectCheckbox: function (a) {
         a.removeClass("ui-state-active").children("span.ui-chkbox-icon").addClass("ui-icon-blank").removeClass("ui-icon-check")
     }});
-PrimeFaces.widget.CommandButton = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.CommandButton = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         PrimeFaces.skinButton(this.jq)
     }, disable: function () {
@@ -5774,7 +5811,8 @@ PrimeFaces.widget.CommandButton = PrimeFaces.widget.BaseWidget.extend({init: fun
     }, enable: function () {
         this.jq.removeClass("ui-state-disabled").removeAttr("disabled")
     }});
-PrimeFaces.widget.Button = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Button = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         PrimeFaces.skinButton(this.jq)
     }, disable: function () {
@@ -5782,7 +5820,8 @@ PrimeFaces.widget.Button = PrimeFaces.widget.BaseWidget.extend({init: function (
     }, enable: function () {
         this.jq.removeClass("ui-state-disabled").removeAttr("disabled")
     }});
-PrimeFaces.widget.SelectManyButton = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.SelectManyButton = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.buttons = this.jq.children("div:not(.ui-state-disabled)");
         this.inputs = this.jq.find(":checkbox:not(:disabled)");
@@ -5836,7 +5875,8 @@ PrimeFaces.widget.SelectManyButton = PrimeFaces.widget.BaseWidget.extend({init: 
     }, unselect: function (a) {
         a.children(":checkbox").prop("checked", false).change()
     }});
-PrimeFaces.widget.SelectOneButton = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.SelectOneButton = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.buttons = this.jq.children("div:not(.ui-state-disabled)");
         this.inputs = this.jq.find(":radio:not(:disabled)");
@@ -5905,7 +5945,8 @@ PrimeFaces.widget.SelectOneButton = PrimeFaces.widget.BaseWidget.extend({init: f
         }
         return false
     }});
-PrimeFaces.widget.SelectBooleanButton = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.SelectBooleanButton = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.input = $(this.jqId + "_input");
         this.disabled = this.input.is(":disabled");
@@ -5967,7 +6008,8 @@ PrimeFaces.widget.SelectBooleanButton = PrimeFaces.widget.BaseWidget.extend({ini
             this.input.trigger("change")
         }
     }});
-PrimeFaces.widget.SelectCheckboxMenu = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.SelectCheckboxMenu = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.labelContainer = this.jq.find(".ui-selectcheckboxmenu-label-container");
         this.label = this.jq.find(".ui-selectcheckboxmenu-label");
@@ -6407,7 +6449,8 @@ PrimeFaces.widget.SelectCheckboxMenu = PrimeFaces.widget.BaseWidget.extend({init
         this.label.text(c);
         this.labelContainer.attr("title", c)
     }});
-PrimeFaces.widget.InputMask = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.InputMask = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         if (this.cfg.mask) {
             this.jq.mask(this.cfg.mask, this.cfg)
@@ -6419,7 +6462,8 @@ PrimeFaces.widget.InputMask = PrimeFaces.widget.BaseWidget.extend({init: functio
     }, getValue: function () {
         return this.jq.val()
     }});
-PrimeFaces.widget.Password = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Password = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         if (!this.jq.is(":disabled")) {
             if (this.cfg.feedback) {
@@ -6521,7 +6565,8 @@ PrimeFaces.widget.Password = PrimeFaces.widget.BaseWidget.extend({init: function
             this.panel.fadeOut()
         }
     }});
-PrimeFaces.widget.DefaultCommand = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.DefaultCommand = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this.cfg = a;
         this.id = this.cfg.id;
         this.jqId = PrimeFaces.escapeClientId(this.id);
@@ -6543,7 +6588,8 @@ PrimeFaces.widget.DefaultCommand = PrimeFaces.widget.BaseWidget.extend({init: fu
         });
         this.removeScriptElement(this.id)
     }});
-PrimeFaces.widget.SplitButton = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.SplitButton = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.button = $(this.jqId + "_button");
         this.menuButton = $(this.jqId + "_menuButton");
@@ -6662,14 +6708,16 @@ PrimeFaces.widget.SplitButton = PrimeFaces.widget.BaseWidget.extend({init: funct
             this.menu.position({my: "left top", at: "left bottom", of: this.button})
         }
     }});
-PrimeFaces.widget.ThemeSwitcher = PrimeFaces.widget.SelectOneMenu.extend({init: function (a) {
+PrimeFaces.widget.ThemeSwitcher = PrimeFaces.widget.SelectOneMenu.extend({
+    init: function (a) {
         this._super(a);
         var b = this;
         this.input.on("change", function () {
             PrimeFaces.changeTheme(b.getSelectedValue())
         })
     }});
-PrimeFaces.widget.MultiSelectListbox = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.MultiSelectListbox = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.root = this.jq.children("div.ui-multiselectlistbox-listcontainer");
         this.items = this.jq.find("li.ui-multiselectlistbox-item");
@@ -6763,7 +6811,8 @@ PrimeFaces.widget.MultiSelectListbox = PrimeFaces.widget.BaseWidget.extend({init
         }
         d.jq.children("div.ui-multiselectlistbox-listcontainer:hidden").show()
     }});
-PrimeFaces.widget.Growl = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Growl = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this.cfg = a;
         this.id = this.cfg.id;
         this.jqId = PrimeFaces.escapeClientId(this.id);
@@ -6837,7 +6886,8 @@ PrimeFaces.widget.Growl = PrimeFaces.widget.BaseWidget.extend({init: function (a
         }, this.cfg.life);
         b.data("timeout", c)
     }});
-PrimeFaces.widget.Inplace = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Inplace = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.display = $(this.jqId + "_display");
         this.content = $(this.jqId + "_content");
@@ -6930,7 +6980,8 @@ PrimeFaces.widget.Inplace = PrimeFaces.widget.BaseWidget.extend({init: function 
         }
         return false
     }});
-PrimeFaces.widget.LightBox = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.LightBox = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.links = this.jq.children(":not(.ui-lightbox-inline)");
         this.createPanel();
@@ -7166,7 +7217,8 @@ PrimeFaces.widget.LightBox = PrimeFaces.widget.BaseWidget.extend({init: function
         this.caption.slideDown();
         this.show()
     }});
-PrimeFaces.widget.Menu = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Menu = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         if (this.cfg.overlay) {
             this.initOverlay()
@@ -7237,7 +7289,8 @@ PrimeFaces.widget.Menu = PrimeFaces.widget.BaseWidget.extend({init: function (a)
         this.cfg.pos.offset = a;
         this.jq.css({left: "", top: ""}).position(this.cfg.pos)
     }});
-PrimeFaces.widget.TieredMenu = PrimeFaces.widget.Menu.extend({init: function (a) {
+PrimeFaces.widget.TieredMenu = PrimeFaces.widget.Menu.extend({
+    init: function (a) {
         this._super(a);
         this.cfg.toggleEvent = this.cfg.toggleEvent || "hover";
         this.links = this.jq.find("a.ui-menuitem-link:not(.ui-state-disabled)");
@@ -7378,7 +7431,8 @@ PrimeFaces.widget.TieredMenu = PrimeFaces.widget.Menu.extend({init: function (a)
             a.deactivate($(this), true)
         })
     }});
-PrimeFaces.widget.Menubar = PrimeFaces.widget.TieredMenu.extend({showSubmenu: function (b, a) {
+PrimeFaces.widget.Menubar = PrimeFaces.widget.TieredMenu.extend({
+    showSubmenu: function (b, a) {
         var c = null;
         if (b.parent().hasClass("ui-menu-child")) {
             c = {my: "left top", at: "right top", of: b, collision: "flipfit"}
@@ -7479,7 +7533,8 @@ PrimeFaces.widget.Menubar = PrimeFaces.widget.TieredMenu.extend({showSubmenu: fu
                 }
         })
     }});
-PrimeFaces.widget.SlideMenu = PrimeFaces.widget.Menu.extend({init: function (c) {
+PrimeFaces.widget.SlideMenu = PrimeFaces.widget.Menu.extend({
+    init: function (c) {
         this._super(c);
         this.submenus = this.jq.find("ul.ui-menu-list");
         this.wrapper = this.jq.children("div.ui-slidemenu-wrapper");
@@ -7565,7 +7620,8 @@ PrimeFaces.widget.SlideMenu = PrimeFaces.widget.Menu.extend({init: function (c) 
             this.render()
         }
     }});
-PrimeFaces.widget.PlainMenu = PrimeFaces.widget.Menu.extend({init: function (a) {
+PrimeFaces.widget.PlainMenu = PrimeFaces.widget.Menu.extend({
+    init: function (a) {
         this._super(a);
         this.menuitemLinks = this.jq.find(".ui-menuitem-link:not(.ui-state-disabled)");
         this.bindEvents();
@@ -7672,7 +7728,8 @@ PrimeFaces.widget.PlainMenu = PrimeFaces.widget.Menu.extend({init: function (a) 
     }, clearState: function () {
         PrimeFaces.setCookie(this.stateKey, null)
     }});
-PrimeFaces.widget.MenuButton = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.MenuButton = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.menuId = this.jqId + "_menu";
         this.button = this.jq.children("button");
@@ -7763,7 +7820,8 @@ PrimeFaces.widget.MenuButton = PrimeFaces.widget.BaseWidget.extend({init: functi
             this.menu.position({my: "left top", at: "left bottom", of: this.button})
         }
     }});
-PrimeFaces.widget.ContextMenu = PrimeFaces.widget.TieredMenu.extend({init: function (b) {
+PrimeFaces.widget.ContextMenu = PrimeFaces.widget.TieredMenu.extend({
+    init: function (b) {
         b.autoDisplay = true;
         this._super(b);
         this.cfg.selectionMode = this.cfg.selectionMode || "multiple";
@@ -7855,7 +7913,8 @@ PrimeFaces.widget.ContextMenu = PrimeFaces.widget.TieredMenu.extend({init: funct
     }, getTarget: function () {
         return this.jqTarget
     }});
-PrimeFaces.widget.MegaMenu = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.MegaMenu = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.cfg.vertical = this.jq.hasClass("ui-megamenu-vertical");
         this.rootList = this.jq.children("ul.ui-menu-list");
@@ -8111,7 +8170,8 @@ PrimeFaces.widget.MegaMenu = PrimeFaces.widget.BaseWidget.extend({init: function
         }
         a.css("z-index", ++PrimeFaces.zindex).show().position(c)
     }});
-PrimeFaces.widget.PanelMenu = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.PanelMenu = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.headers = this.jq.find("> .ui-panelmenu-panel > h3.ui-panelmenu-header:not(.ui-state-disabled)");
         this.menuContent = this.jq.find("> .ui-panelmenu-panel > .ui-panelmenu-content");
@@ -8403,7 +8463,8 @@ PrimeFaces.widget.PanelMenu = PrimeFaces.widget.BaseWidget.extend({init: functio
             $(this).addClass("ui-helper-hidden").prev().children(".ui-panelmenu-icon").removeClass("ui-icon-triangle-1-s").addClass("ui-icon-triangle-1-e")
         })
     }});
-PrimeFaces.widget.TabMenu = PrimeFaces.widget.Menu.extend({init: function (a) {
+PrimeFaces.widget.TabMenu = PrimeFaces.widget.Menu.extend({
+    init: function (a) {
         this._super(a);
         this.items = this.jq.find("> .ui-tabmenu-nav > li:not(.ui-state-disabled)");
         this.bindEvents();
@@ -8436,14 +8497,16 @@ PrimeFaces.widget.TabMenu = PrimeFaces.widget.Menu.extend({init: function (a) {
             }
         })
     }});
-PrimeFaces.widget.Message = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Message = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         var b = this.jq.children(".ui-message-error-detail").text();
         if (b) {
             $(PrimeFaces.escapeClientId(this.cfg.target)).data("tooltip", b)
         }
     }});
-PrimeFaces.widget.NotificationBar = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.NotificationBar = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         var a = this;
         this.jq.css(this.cfg.position, "0").appendTo($("body"));
@@ -8486,7 +8549,8 @@ PrimeFaces.widget.NotificationBar = PrimeFaces.widget.BaseWidget.extend({init: f
             this.show()
         }
     }});
-PrimeFaces.widget.Panel = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Panel = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.header = this.jq.children("div.ui-panel-titlebar");
         this.title = this.header.children("span.ui-panel-title");
@@ -8606,7 +8670,8 @@ PrimeFaces.widget.Panel = PrimeFaces.widget.BaseWidget.extend({init: function (a
             b.preventDefault()
         })
     }});
-PrimeFaces.widget.OrderList = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.OrderList = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.list = this.jq.find(".ui-orderlist-list"), this.items = this.list.children(".ui-orderlist-item");
         this.input = $(this.jqId + "_values");
@@ -8782,7 +8847,8 @@ PrimeFaces.widget.OrderList = PrimeFaces.widget.BaseWidget.extend({init: functio
             this.cfg.behaviors.reorder.call(this)
         }
     }});
-PrimeFaces.widget.OutputPanel = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.OutputPanel = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.cfg.global = this.cfg.global || false;
         if (this.cfg.deferred) {
@@ -8830,7 +8896,8 @@ PrimeFaces.widget.OutputPanel = PrimeFaces.widget.BaseWidget.extend({init: funct
     }, unbindScrollMonitor: function () {
         $(window).off("scroll." + this.id)
     }});
-PrimeFaces.widget.OverlayPanel = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.OverlayPanel = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.content = this.jq.children("div.ui-overlaypanel-content");
         this.cfg.my = this.cfg.my || "left top";
@@ -9077,7 +9144,8 @@ PrimeFaces.widget.OverlayPanel = PrimeFaces.widget.BaseWidget.extend({init: func
         }
         return this.jq.find(":tabbable").add(a)
     }});
-PrimeFaces.widget.Paginator = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.Paginator = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this.cfg = b;
         this.jq = $();
         var a = this;
@@ -9301,7 +9369,8 @@ PrimeFaces.widget.Paginator = PrimeFaces.widget.BaseWidget.extend({init: functio
     }, prev: function () {
         this.setPage(this.cfg.page - 1)
     }});
-PrimeFaces.widget.PickList = PrimeFaces.widget.BaseWidget.extend({init: function (c) {
+PrimeFaces.widget.PickList = PrimeFaces.widget.BaseWidget.extend({
+    init: function (c) {
         this._super(c);
         this.sourceList = this.jq.find("ul.ui-picklist-source");
         this.targetList = this.jq.find("ul.ui-picklist-target");
@@ -9816,7 +9885,8 @@ PrimeFaces.widget.PickList = PrimeFaces.widget.BaseWidget.extend({init: function
     }, isAnimated: function () {
         return(this.cfg.effect && this.cfg.effect != "none")
     }});
-PrimeFaces.widget.ProgressBar = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.ProgressBar = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.jqValue = this.jq.children(".ui-progressbar-value");
         this.jqLabel = this.jq.children(".ui-progressbar-label");
@@ -9871,7 +9941,8 @@ PrimeFaces.widget.ProgressBar = PrimeFaces.widget.BaseWidget.extend({init: funct
     }, enableARIA: function () {
         this.jq.attr("role", "progressbar").attr("aria-valuemin", 0).attr("aria-valuenow", this.value).attr("aria-valuemax", 100)
     }});
-PrimeFaces.widget.Rating = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Rating = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.jqInput = $(this.jqId + "_input");
         this.value = this.getValue();
@@ -9933,7 +10004,8 @@ PrimeFaces.widget.Rating = PrimeFaces.widget.BaseWidget.extend({init: function (
             }
         }
     }});
-PrimeFaces.widget.Resizable = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.Resizable = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this.cfg = b;
         this.id = this.cfg.id;
         this.jqId = PrimeFaces.escapeClientId(this.id);
@@ -9972,7 +10044,8 @@ PrimeFaces.widget.Resizable = PrimeFaces.widget.BaseWidget.extend({init: functio
             }
         }
     }});
-PrimeFaces.widget.Slider = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.Slider = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         this.cfg.displayTemplate = this.cfg.displayTemplate || (this.cfg.range ? "{min} - {max}" : "{value}");
         if (this.cfg.range) {
@@ -10065,7 +10138,8 @@ PrimeFaces.widget.Slider = PrimeFaces.widget.BaseWidget.extend({init: function (
     }, disable: function () {
         this.jq.slider("disable")
     }});
-PrimeFaces.widget.Spinner = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Spinner = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.input = this.jq.children(".ui-spinner-input");
         this.upButton = this.jq.children("a.ui-spinner-up");
@@ -10232,7 +10306,8 @@ PrimeFaces.widget.Spinner = PrimeFaces.widget.BaseWidget.extend({init: function 
             this.input.attr("aria-readonly", true)
         }
     }});
-PrimeFaces.widget.Spotlight = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Spotlight = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.target = PrimeFaces.expressions.SearchExpressionFacade.resolveComponentsAsSelector(this.cfg.target);
         this.eventsToBlock = "focus." + this.id + " mousedown." + this.id + " mouseup." + this.id;
@@ -10302,7 +10377,8 @@ PrimeFaces.widget.Spotlight = PrimeFaces.widget.BaseWidget.extend({init: functio
         this.unbindEvents();
         this.target.css("z-index", this.target.zIndex())
     }});
-PrimeFaces.widget.Sticky = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Sticky = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this.cfg = a;
         this.id = this.cfg.id;
         this.target = $(PrimeFaces.escapeClientId(this.cfg.target));
@@ -10342,7 +10418,8 @@ PrimeFaces.widget.Sticky = PrimeFaces.widget.BaseWidget.extend({init: function (
             this.fixed = false
         }
     }});
-PrimeFaces.widget.TabView = PrimeFaces.widget.DeferredWidget.extend({init: function (a) {
+PrimeFaces.widget.TabView = PrimeFaces.widget.DeferredWidget.extend({
+    init: function (a) {
         this._super(a);
         this.panelContainer = this.jq.children(".ui-tabs-panels");
         this.stateHolder = $(this.jqId + "_activeIndex");
@@ -10659,7 +10736,8 @@ PrimeFaces.widget.TabView = PrimeFaces.widget.DeferredWidget.extend({init: funct
         }
         PrimeFaces.invokeDeferredRenders(this.id)
     }});
-PrimeFaces.widget.TagCloud = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.TagCloud = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         var a = this;
         this.jq.find("a").mouseover(function () {
@@ -10682,7 +10760,8 @@ PrimeFaces.widget.TagCloud = PrimeFaces.widget.BaseWidget.extend({init: function
             }
         }
     }});
-PrimeFaces.widget.Tooltip = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.Tooltip = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this.cfg = a;
         this.id = this.cfg.id;
         this.cfg.showEvent = this.cfg.showEvent ? this.cfg.showEvent + ".tooltip" : "mouseover.tooltip";
@@ -10871,7 +10950,8 @@ PrimeFaces.widget.Tooltip = PrimeFaces.widget.BaseWidget.extend({init: function 
     }, isVisible: function () {
         return this.jq.is(":visible")
     }});
-PrimeFaces.widget.BaseTree = PrimeFaces.widget.BaseWidget.extend({init: function (a) {
+PrimeFaces.widget.BaseTree = PrimeFaces.widget.BaseWidget.extend({
+    init: function (a) {
         this._super(a);
         this.cfg.highlight = (this.cfg.highlight === false) ? false : true;
         this.focusedNode = null;
@@ -11104,7 +11184,8 @@ PrimeFaces.widget.BaseTree = PrimeFaces.widget.BaseWidget.extend({init: function
     }, focusNode: function () {
         throw"Unsupported Operation"
     }});
-PrimeFaces.widget.VerticalTree = PrimeFaces.widget.BaseTree.extend({init: function (a) {
+PrimeFaces.widget.VerticalTree = PrimeFaces.widget.BaseTree.extend({
+    init: function (a) {
         this._super(a);
         this.container = this.jq.children(".ui-tree-container");
         this.cfg.rtl = this.jq.hasClass("ui-tree-rtl");
@@ -11657,7 +11738,8 @@ PrimeFaces.widget.VerticalTree = PrimeFaces.widget.BaseTree.extend({init: functi
         this.getNodeLabel(a).addClass("ui-treenode-outline").focus();
         this.focusedNode = a
     }});
-PrimeFaces.widget.HorizontalTree = PrimeFaces.widget.BaseTree.extend({init: function (a) {
+PrimeFaces.widget.HorizontalTree = PrimeFaces.widget.BaseTree.extend({
+    init: function (a) {
         this._super(a);
         if (PrimeFaces.isIE()) {
             this.drawConnectors()
@@ -11806,7 +11888,8 @@ PrimeFaces.widget.HorizontalTree = PrimeFaces.widget.BaseTree.extend({init: func
         c.removeClass("ui-treenode-selected ui-treenode-unselected").addClass("ui-treenode-hasselected").attr("aria-checked", false).attr("aria-selected", false);
         this.removeFromSelection(e)
     }});
-PrimeFaces.widget.TreeTable = PrimeFaces.widget.DeferredWidget.extend({init: function (a) {
+PrimeFaces.widget.TreeTable = PrimeFaces.widget.DeferredWidget.extend({
+    init: function (a) {
         this._super(a);
         this.thead = $(this.jqId + "_head");
         this.tbody = $(this.jqId + "_data");
@@ -12647,7 +12730,8 @@ PrimeFaces.widget.TreeTable = PrimeFaces.widget.DeferredWidget.extend({init: fun
             PrimeFaces.ajax.Request.handle(b)
         }
     }});
-PrimeFaces.widget.Wizard = PrimeFaces.widget.BaseWidget.extend({init: function (b) {
+PrimeFaces.widget.Wizard = PrimeFaces.widget.BaseWidget.extend({
+    init: function (b) {
         this._super(b);
         this.content = $(this.jqId + "_content");
         this.backNav = $(this.jqId + "_back");

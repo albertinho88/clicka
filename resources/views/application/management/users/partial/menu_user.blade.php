@@ -1,6 +1,6 @@
 <ul class="menubar">                                
     <li>
-        <a href="{{ route('index_users') }}" data-icon="fa-users" class="">Usuarios</a>
+        <a href="{{ route('index_users') }}" data-icon="fa-th-list" class="">Usuarios</a>
     </li>
     <li>
         <a href="{{ route('create_user') }}" data-icon="fa-plus" class="">Nuevo Usuario</a>

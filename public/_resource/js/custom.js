@@ -9,10 +9,8 @@ $( document ).ready(function() {
 });
 
 initComponents = function() {
-    
-    PrimeFaces.cw("Poseidon", "me", {id: "pm"});    
-    
-    //$("input:text").puiinputtext();
+
+    $("input:text").puiinputtext();
     $("input:password").puipassword();    
     $("textarea").puiinputtextarea();
     $('p-datepicker').children('input').puiinputtext();
@@ -23,18 +21,23 @@ initComponents = function() {
     $('fieldset').puifieldset({
         toggleable: true,
         collapsed: false
-    });    
-        
-    $('select').puidropdown();
+    });  
     
+
     $("input").addClass( "ui-inputfield" );
     $("textarea").addClass("ui-inputfield ui-inputtextarea");    
-        
-    /*$('.ui-dropdown').addClass("ui-selectonemenu");
+    
+    //SelectOneMenu
+    $('.selectOneMenu').puidropdown();
+    $('.ui-dropdown').addClass("ui-selectonemenu");
+    $('.ui-dropdown-trigger').addClass("ui-selectonemenu-trigger");
+    $('.ui-dropdown-panel').addClass("ui-selectonemenu-panel");
+    $('.ui-dropdown-items-wrapper').addClass("ui-selectonemenu-items-wrapper");
+    $('.ui-dropdown-items').addClass("ui-selectonemenu-items");
+    $('.ui-dropdown-list').addClass("ui-selectonemenu-list");
     $('.ui-dropdown-item').addClass("ui-selectonemenu-item ui-selectonemenu-list-item");
-    $('.ui-dropdown-item').hover(function(){
-        $(this).addClass('ui-state-hover');
-    });*/
+          
+    $('.selectManyMenu').puilistbox();
     
     $('#growlel').puigrowl({sticky: true});
     

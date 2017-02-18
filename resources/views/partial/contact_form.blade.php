@@ -76,8 +76,8 @@
         <div class="EmptyBox10"></div>
 
         <div class="ui-grid-row">
-            <div class="ui-grid-col-2">
-                <p class="etiqueta">Mensaje:</p>
+            <div class="ui-grid-col-2">                
+                <label for="message" class="col-md-4 control-label">Mensaje:</label>
             </div>
             <div class="ui-grid-col-10">
                 <textarea id="message" name="message" style="width: 90%;"  ></textarea>                                                            

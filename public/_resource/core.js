@@ -221,6 +221,7 @@
             this.createWidget(d, e, c)
         }, createWidget: function (d, f, c) {
             c.widgetVar = f;
+            
             if (this.widget[d]) {                
                 var e = this.widgets[f];
                 if (e && (e.constructor === this.widget[d])) {

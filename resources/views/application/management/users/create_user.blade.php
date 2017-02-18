@@ -94,12 +94,11 @@
                                 <label for="state" class="col-md-4 control-label">Estado:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <select id="state" name="state">
-                                    <option >Seleccionar</option>
+                                <select id="state" name="state" class="selectOneMenu">
+                                    <option value="">Seleccionar</option>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option> 
-                                </select>
-                                <script type="text/javascript">PrimeFaces.cw("SelectOneMenu", "state", {id: "state"});</script>
+                                </select>                                
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -114,11 +113,43 @@
                         </div>
                         
                         <div class="EmptyBox10"></div>
+                        
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="roles" class="col-md-4 control-label">Roles:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <div class="ui-grid ui-grid-responsive">
+                                    <div class="ui-grid-row">
+                                        <div class="ui-grid-col-12">
+                                            <div id="j_idt89" class="ui-selectmanymenu ui-inputfield ui-widget ui-widget-content ui-corner-all" style="width:200px;">
+                                                <div class="ui-selectlistbox-listcontainer" style="height:auto">
+                                                    <ul class="ui-selectlistbox-list">
+                                                        <li class="ui-selectlistbox-item ui-corner-all">
+                                                            <input type="checkbox" name="cb1" id="cb1_1" value="1"/>
+                                                            Option 1
+                                                        </li>
+                                                        <li class="ui-selectlistbox-item ui-corner-all">
+                                                            <input type="checkbox" name="cb1" id="cb1_1" value="1"/>
+                                                            Option 1
+                                                        </li>
+                                                        <li class="ui-selectlistbox-item ui-corner-all">
+                                                            <input type="checkbox" name="cb1" id="cb1_1" value="1"/>
+                                                            Option 1
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                                                                                
+                        </div>
+                        
+                        <div class="EmptyBox10"></div>
 
                         <div class="ui-grid-row text-center">
-                            <div class="ui-grid-col-12" >
-                                <input type="text" id="iptName" name="iptName" />
-                                <script type="text/javascript">PrimeFaces.cw("InputText", "iptName", {id: "iptName"});</script>
+                            <div class="ui-grid-col-12" >                                
                                 <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" >
                                     Guardar
                                 </button>

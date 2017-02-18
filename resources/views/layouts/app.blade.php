@@ -7,7 +7,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         
         <title>Clicka - Servicios TI</title>
-        
+                
+        <link href="{{ asset('_resource/primeui-4.1.15/primeui.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/theme.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/fa/font-awesome.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/components.css') }}" type="text/css" rel="stylesheet">
@@ -26,7 +27,7 @@
         <link href="{{ asset('_resource/css/layout-green.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/responsive_slide/responsiveslides.css') }}" type="text/css" rel="stylesheet">
         
-        <!--<link href="{{ asset('_resource/primeui-4.1.15/primeui.css') }}" type="text/css" rel="stylesheet">-->
+        
         <link href="{{ asset('_resource/css/custom_styles.css') }}" type="text/css" rel="stylesheet">            
             
         <script src="{{ asset('_resource/js/nanoscroller.js') }}" type="text/javascript"></script>
@@ -35,9 +36,9 @@
         <script src="{{ asset('_resource/responsive_slide/responsiveslides.min.js') }}" type="text/javascript"></script>
         
         <script src="{{ asset('_resource/primeui-4.1.15/x-tag-core.min.js') }}" type="text/javascript"></script>
-        <!--<script src="{{ asset('_resource/primeui-4.1.15/primeui.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('_resource/primeui-4.1.15/primeui.js') }}" type="text/javascript"></script>
         <script src="{{ asset('_resource/primeui-4.1.15/primeelements.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('_resource/js/custom.js') }}" type="text/javascript"></script>-->
+        <script src="{{ asset('_resource/js/custom.js') }}" type="text/javascript"></script>
                 
         
     </head>
@@ -137,14 +138,14 @@
                         
                             <ul id="pm" class="layout-menu clearfix">
                                 @if (Auth::check())
-                                    <li role="menuitem">
-                                        <a href="/poseidon/dashboard.xhtml" class="ripplelink">
+                                    <li class="active-menuitem" role="menuitem">
+                                        <a class="ripplelink">
                                             <i class="fa fa-fw fa-home"></i>
                                             <span>Administración</span>
                                             <span class="ink animate"></span>
                                             <i class="fa fa-fw fa-angle-down"></i>
                                         </a>
-                                        <ul role="menu">
+                                        <ul role="menu" style="display: block;">
                                             <li role="menuitem">
                                                 <a href="{{ route('index_users') }}" >
                                                     <i class="fa fa-fw fa-users"></i>
@@ -152,7 +153,7 @@
                                                 </a>                                            
                                             </li>
                                             <li role="menuitem">
-                                                <a href="{{ route('list_roles') }}" >
+                                                <a href="{{ route('index_roles') }}" >
                                                     <i class="fa fa-fw fa-tree"></i>
                                                     <span>Roles</span>
                                                 </a>

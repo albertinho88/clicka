@@ -35,6 +35,12 @@ Route::get('application/management/users/edit/{user_id}','UserController@edit')-
 Route::post('application/management/users/update','UserController@update')->name('update_user');
 Route::get('application/management/users/show/{user_id}','UserController@show')->name('show_user');
 
-Route::get('application/management/roles','RoleController@index')->name('list_roles');
+Route::get('application/management/roles','RoleController@index')->name('index_roles');
 Route::get('application/management/roles/list_roles_json','RoleController@listRolesJson')->name('list_roles_json');
 Route::get('application/management/roles/create','RoleController@create')->name('create_role');
+Route::post('application/management/roles/create','RoleController@store')->name('store_role');
+Route::get('application/management/roles/edit/{role_id}','RoleController@edit')->name('edit_role');
+Route::post('application/management/roles/update','RoleController@update')->name('update_role');
+Route::get('application/management/roles/show/{role_id}','RoleController@show')->name('show_role');
+
+

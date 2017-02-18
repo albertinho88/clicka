@@ -55,16 +55,14 @@
                 {                     
                     content: function(rowData) {
                         return '<a href="' +$('#show_url').val() + '/' + rowData.user_id + '" class=""><i class="fa fa-search" /></a>';
-                    },                    
-                    bodyStyle: 'width:18px',
-                    headerStyle: 'width:18px'
+                    },                                        
+                    headerStyle: 'width:34px'
                 },
                 {                     
                     content: function(rowData) {
                         return '<a href="' +$('#edit_url').val() + '/' + rowData.user_id + '" class=""><i class="fa fa-pencil" /></a>';
-                    },                    
-                    bodyStyle: 'width:18px',
-                    headerStyle: 'width:18px'
+                    },                                        
+                    headerStyle: 'width:34px'
                 }
             ],
             emptyMessage: 'No hay información.',

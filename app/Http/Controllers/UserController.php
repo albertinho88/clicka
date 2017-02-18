@@ -98,9 +98,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $this->validate(request(),[
+            'name' => 'required',
+            'state' => 'required'
+        ]);
+        
+        $user = \App\User::find($request->user_id);
+        $user->name = $request->name;                
+        $user->state = $request->state;
+        $user->save();
+        
+        return view($this->viewsDir.'partial.view_user', compact('user'));
     }
 
     /**
