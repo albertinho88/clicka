@@ -34,9 +34,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-        return view($this->viewsDir.'create_user');
+    {        
+        $active_roles = \App\Role::where('state','A')->get();
+        return view($this->viewsDir.'create_user', ['active_roles' => $active_roles]);
     }
 
     /**
@@ -46,8 +46,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {            
         $this->validate(request(),[
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -62,6 +61,15 @@ class UserController extends Controller
         $user->state = $request->state;
         $user->save();
         
+        if ($request->user_roles) {
+            foreach ($request->user_roles as $userole) {
+                $user_per_role = new \App\UserRole();
+                $user_per_role->role_id = $userole;
+                $user_per_role->state = 'A';                
+                $user->users_roles()->save($user_per_role);
+            }
+        }
+        
         return view($this->viewsDir.'partial.view_user', compact('user'));
     }
 
@@ -72,8 +80,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {        
         $user = \App\User::find($id);
         return view($this->viewsDir.'show_user', compact('user'));
     }
@@ -86,9 +93,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $active_roles = \App\Role::where('state','A')->get();
         $user = \App\User::find($id);
-        return view($this->viewsDir.'edit_user', compact('user'));
+        return view($this->viewsDir.'edit_user', ['user' => $user, 'active_roles' => $active_roles]);
     }
 
     /**

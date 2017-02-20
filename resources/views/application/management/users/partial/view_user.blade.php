@@ -51,6 +51,23 @@
                         {{ $user->state }}
                     </div>                                                                                                                
                 </div>
+                
+                <div class="EmptyBox10"></div>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="state" class="col-md-4 control-label">Roles:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        @if($user->users_roles())                             
+                            <ul>
+                                @foreach($user->users_roles as $userole)                                
+                                    <li>{{ $userole->role }}</li>
+                                @endforeach
+                            </ul>
+                        @endif                                                
+                    </div>                                                                                                                
+                </div>
 
                 <div class="EmptyBox10"></div>
 
