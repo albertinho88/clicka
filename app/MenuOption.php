@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class MenuOption extends Model
 {
-    protected $table = 'roles';
-    protected $primaryKey = 'role_id';
+    protected $table = 'menu_options';
+    protected $primaryKey = 'menu_id';
     public $selected = ''; //a default value
-    
 }

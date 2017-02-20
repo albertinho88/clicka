@@ -127,7 +127,7 @@
                                                     <ul class="ui-selectlistbox-list">                                                        
                                                         @foreach($active_roles as $actrole)
                                                         <li class="ui-selectlistbox-item ui-corner-all">
-                                                            <input type="checkbox" name="user_roles[]" id="{{ $actrole->role_id }}" value="{{ $actrole->role_id }}"/>
+                                                            <input type="checkbox" name="user_roles[]" id="{{ $actrole->role_id }}" value="{{ $actrole->role_id }}" />
                                                             {{ $actrole->name }}
                                                         </li>
                                                         @endforeach                                                        

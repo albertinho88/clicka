@@ -43,4 +43,12 @@ Route::get('application/management/roles/edit/{role_id}','RoleController@edit')-
 Route::post('application/management/roles/update','RoleController@update')->name('update_role');
 Route::get('application/management/roles/show/{role_id}','RoleController@show')->name('show_role');
 
+Route::get('application/management/menu_options','MenuOptionController@index')->name('index_menu_options');
+Route::get('application/management/menu_options/list_menu_options_json','MenuOptionController@listMenuOptionsJson')->name('list_menu_options_json');
+Route::get('application/management/menu_options/create','MenuOptionController@create')->name('create_menu_option');
+Route::post('application/management/menu_options/create','MenuOptionController@store')->name('store_menu_option');
+Route::get('application/management/menu_options/edit/{menu_option_id}','MenuOptionController@edit')->name('edit_menu_option');
+Route::post('application/management/menu_options/update','MenuOptionController@update')->name('update_menu_option');
+Route::get('application/management/menu_options/show/{menu_option_id}','MenuOptionController@show')->name('show_menu_option');
+
 

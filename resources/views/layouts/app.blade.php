@@ -158,6 +158,12 @@
                                                     <span>Roles</span>
                                                 </a>
                                             </li>
+                                            <li role="menuitem">
+                                                <a href="{{ route('index_menu_options') }}" >
+                                                    <i class="fa fa-fw fa-list"></i>
+                                                    <span>Opciones Menú</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
                                 @endif                                

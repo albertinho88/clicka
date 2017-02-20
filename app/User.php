@@ -37,4 +37,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('\App\UserRole', 'user_id');
     }
+    
+    /**
+     * Get all of the user_role for the user.
+     */
+    public function active_users_roles()
+    {
+        return $this->hasMany('\App\UserRole')->where('state','A');
+    }
 }

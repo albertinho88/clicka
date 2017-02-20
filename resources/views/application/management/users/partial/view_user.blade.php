@@ -59,10 +59,10 @@
                         <label for="state" class="col-md-4 control-label">Roles:</label>
                     </div>
                     <div class="ui-grid-col-10">
-                        @if($user->users_roles())                             
+                        @if($user->active_users_roles)                         
                             <ul>
-                                @foreach($user->users_roles as $userole)                                
-                                    <li>{{ $userole->role }}</li>
+                                @foreach($user->active_users_roles as $userole)                                
+                                    <li>{{ $userole->role->name }}</li>
                                 @endforeach
                             </ul>
                         @endif                                                
