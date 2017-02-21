@@ -18,20 +18,33 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
                             <div class="text-center titulo">
-                                <p><i class="fa fa-plus" ></i></p>
-                                <p><h1 class="coolvetica-rg" >Nueva Opción Menú.</h1></p>                
+                                <p><i class="fa fa-pencil" ></i></p>
+                                <p><h1 class="coolvetica-rg" >Editar Rol.</h1></p>                
                             </div>
                         </div>
                     </div>
                 
-                    <form id="createMenuOptionForm" name="createMenuOptionForm" method="POST" action="{{ route('store_menu_option') }}" class="ajaxJsonForm form-horizontal">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <form id="editMenuOptionForm" name="editMenuOptionForm" method="POST" action="{{ route('update_menu_option') }}" class="ajaxJsonForm form-horizontal">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">                        
+                        
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="menu_id" class="col-md-4 control-label">Código:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                {{ $menu_option->menu_id }}
+                                <input type="hidden" id="menu_id" name="menu_id" value="{{ $menu_option->menu_id }}">
+                            </div>                                                                                                                
+                        </div>
+                        
+                        <div class="EmptyBox20"></div>
+                        
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">                                            
                                 <label for="label" class="col-md-4 control-label">Etiqueta:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="label" name="label" type="text" autocomplete="off" style="width: 95%;" class="form-control" />
+                                <input id="label" name="label" type="text" autocomplete="off" style="width: 95%;" class="form-control" value="{{ $menu_option->label }}"/>
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -52,7 +65,7 @@
                                 <label for="url" class="col-md-4 control-label">Url:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="url" name="url" type="text" autocomplete="off" style="width: 95%;" class="form-control" />
+                                <input id="url" name="url" type="text" autocomplete="off" style="width: 95%;" class="form-control" value="{{ $menu_option->url }}" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -73,7 +86,7 @@
                                 <label for="order" class="col-md-4 control-label">Orden:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="order" name="order" type="text" autocomplete="off" style="width: 95%;" class="form-control" />
+                                <input id="order" name="order" type="text" autocomplete="off" style="width: 95%;" class="form-control" value="{{ $menu_option->order }}" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -96,8 +109,8 @@
                             <div class="ui-grid-col-10">
                                 <select id="type" name="type" class="selectOneMenu">
                                     <option value="">Seleccionar</option>
-                                    <option value="INT">Interna</option>
-                                    <option value="EXT">Externa</option> 
+                                    <option value="INT" <?php echo $menu_option->type=='INT'?'selected':''; ?> >Interna</option>                                    
+                                    <option value="EXT" <?php echo $menu_option->type=='EXT'?'selected':''; ?> >Externa</option> 
                                 </select>                                
                             </div>                                                                                                                
                         </div>
@@ -118,12 +131,12 @@
                             <div class="ui-grid-col-2">                                            
                                 <label for="state" class="col-md-4 control-label">Estado:</label>
                             </div>
-                            <div class="ui-grid-col-10">
+                            <div class="ui-grid-col-10">                                
                                 <select id="state" name="state" class="selectOneMenu">
                                     <option value="">Seleccionar</option>
-                                    <option value="A">Activo</option>
-                                    <option value="I">Inactivo</option> 
-                                </select>                                
+                                    <option value="A" <?php echo $menu_option->state=='A'?'selected':''; ?> >Activo</option>
+                                    <option value="I" <?php echo $menu_option->state=='I'?'selected':''; ?>>Inactivo</option> 
+                                </select>
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -145,9 +158,11 @@
                             </div>
                             <div class="ui-grid-col-10">
                                 <select id="menu_parent_id" name="menu_parent_id" class="selectList" >
-                                    <option value="">Raíz</option>
-                                    @foreach($menu_options_list as $menuop) :
-                                        <option value="{{ $menuop->menu_id }}">{{ $menuop->label }}</option>
+                                    <option value="" >Raíz</option>
+                                    @foreach($menu_options_list as $menop) :
+                                    <option value="{{ $menop->menu_id }}" <?php echo 'selected="'.$menop->selected.'"'; ?> >
+                                            {{ $menop->label }}
+                                        </option>
                                     @endforeach;                                    
                                 </select>                                
                             </div>                                                                                                                
@@ -165,9 +180,30 @@
                         
                         <div class="EmptyBox10"></div>
 
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="created_at" class="col-md-4 control-label">Fecha creación:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                {{ $menu_option->created_at }}
+                            </div>                                                                                                                
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="updated_at" class="col-md-4 control-label">Fecha actualización:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                {{ $menu_option->updated_at }}
+                            </div>                                                                                                                
+                        </div>
+                        
+                        <div class="EmptyBox10"></div>
 
                         <div class="ui-grid-row text-center">
-                            <div class="ui-grid-col-12" >                                
+                            <div class="ui-grid-col-12" >                                                                                         
                                 <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" >
                                     Guardar
                                 </button>
@@ -180,5 +216,4 @@
         </div>
     </div>
 </div>
-
 @endsection

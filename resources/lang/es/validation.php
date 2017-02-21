@@ -45,7 +45,7 @@ return [
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',
-    'integer'              => 'The :attribute must be an integer.',
+    'integer'              => 'El campo :attribute debe ser un entero.',
     'ip'                   => 'The :attribute must be a valid IP address.',
     'json'                 => 'The :attribute must be a valid JSON string.',
     'max'                  => [
@@ -63,7 +63,7 @@ return [
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
-    'numeric'              => 'The :attribute must be a number.',
+    'numeric'              => 'El campo :attribute debe ser un número.',
     'present'              => 'The :attribute field must be present.',
     'regex'                => 'The :attribute format is invalid.',
     'required'             => 'El campo :attribute es obligatorio.',
@@ -119,7 +119,10 @@ return [
         'email' => 'email',
         'phone' => 'teléfono',
         'message' => 'mensaje',
-        'state' => 'estado'
+        'state' => 'estado',
+        'label' => 'etiqueta',
+        'type' => 'tipo',
+        'order' => 'orden',
     ],
 
 ];

@@ -36,8 +36,13 @@ initComponents = function() {
     $('.ui-dropdown-items').addClass("ui-selectonemenu-items");
     $('.ui-dropdown-list').addClass("ui-selectonemenu-list");
     $('.ui-dropdown-item').addClass("ui-selectonemenu-item ui-selectonemenu-list-item");
-          
-    $('.selectManyMenu').puilistbox();
+    
+    $.each($('.selectList'),function(index){
+        alert($(this).attr('id'));
+        $(this).puilistbox();
+    });
+    
+    //$('.selectList').puilistbox();
     
     $('#growlel').puigrowl({sticky: true});
     
@@ -78,7 +83,7 @@ initSubmitAjaxForms = function() {
                 addLoadingMessage();
             }
           })
-          .fail(function (errorResponse){
+          .fail(function (errorResponse){              
                 var errors = JSON.parse(errorResponse.responseText);                                                                        
                 if (errors) {                    
                     $.each(errors, function(index, value) {                            

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MenuOptionController extends Controller
 {
@@ -38,6 +39,8 @@ class MenuOptionController extends Controller
     public function create()
     {
         //
+        $menu_options_list = \App\MenuOption::whereIn('state',array('A','I'))->get();            
+        return view($this->viewsDir.'create_menu_option',['menu_options_list'=>$menu_options_list]);
     }
 
     /**
@@ -49,6 +52,25 @@ class MenuOptionController extends Controller
     public function store(Request $request)
     {
         //
+        
+        $this->validate(request(),[
+            'label' => 'required|max:100',
+            'url' => 'required|max:500',
+            'type' => 'required|max:10',
+            'state' => 'required|max:1',
+            'order' => 'required|numeric|integer'
+        ]);
+        
+        $menu_option = new \App\MenuOption();
+        $menu_option->label = $request->label;
+        $menu_option->url = $request->url;
+        $menu_option->type = $request->type;
+        $menu_option->state = $request->state;
+        $menu_option->order = $request->order;
+        $menu_option->menu_parent_id = $request->menu_parent_id;
+        $menu_option->save();
+        
+        return view($this->viewsDir.'partial.view_menu_option', compact('menu_option'));
     }
 
     /**
@@ -60,6 +82,8 @@ class MenuOptionController extends Controller
     public function show($id)
     {
         //
+        $menu_option = \App\MenuOption::find($id);
+        return view($this->viewsDir.'show_menu_option', compact('menu_option'));
     }
 
     /**
@@ -71,6 +95,18 @@ class MenuOptionController extends Controller
     public function edit($id)
     {
         //
+        $menu_option = \App\MenuOption::find($id);
+                
+        $menu_options_list = \App\MenuOption::whereIn('state',array('A','I'))->get();      
+        
+        if (isset($menu_option->parent_menu_option)) {
+            foreach ($menu_options_list as $menop) :                
+                if ($menu_option->parent_menu_option->menu_id == $menop->menu_id) :
+                    $menop->selected = 'selected';
+                endif;
+            endforeach;
+        }
+        return view($this->viewsDir.'edit_menu_option', ['menu_option'=>$menu_option, 'menu_options_list'=>$menu_options_list]);
     }
 
     /**
@@ -80,9 +116,27 @@ class MenuOptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $this->validate(request(),[
+            'label' => 'required|max:100',
+            'url' => 'required|max:500',
+            'type' => 'required|max:10',
+            'state' => 'required|max:1',
+            'order' => 'required|numeric|integer'
+        ]);
+        
+        $menu_option = \App\MenuOption::find($request->menu_id);
+        $menu_option->label = $request->label;
+        $menu_option->url = $request->url;
+        $menu_option->type = $request->type;
+        $menu_option->state = $request->state;
+        $menu_option->order = $request->order;
+        $menu_option->menu_parent_id = $request->menu_parent_id;
+        $menu_option->update();
+        
+        return view($this->viewsDir.'partial.view_menu_option', compact('menu_option'));
     }
 
     /**

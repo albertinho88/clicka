@@ -38,8 +38,8 @@
     </div>
 </div>
 
-<input id="show_url" type="hidden" value="{{ route('show_menu_option',['menu_option_id' => '']) }}" />
-<input id="edit_url" type="hidden" value="{{ route('edit_menu_option',['menu_option_id' => '']) }}" />
+<input id="show_url" type="hidden" value="{{ route('show_menu_option',['menu_id' => '']) }}" />
+<input id="edit_url" type="hidden" value="{{ route('edit_menu_option',['menu_id' => '']) }}" />
 
 <script type="text/javascript">
     $(function() {                          

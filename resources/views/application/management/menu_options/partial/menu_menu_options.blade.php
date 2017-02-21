@@ -7,12 +7,12 @@
     </li>
     @if(isset($menu_option))
     <li>
-        <a href="{{ route('edit_menu_option',['menu_option_id' => $menu_option->menu_option_id]) }}" data-icon="fa-pencil" class="">Editar Opción Menú</a>
+        <a href="{{ route('edit_menu_option',['menu_id' => $menu_option->menu_id]) }}" data-icon="fa-pencil" class="">Editar Opción Menú</a>
     </li>    
     @endif
     @if(isset($menu_option))
     <li>
-        <a href="{{ route('show_menu_option',['menu_option_id' => $menu_option->menu_option_id]) }}" data-icon="fa-search" class="">Ver Opción Menú</a>
+        <a href="{{ route('show_menu_option',['menu_id' => $menu_option->menu_id]) }}" data-icon="fa-search" class="">Ver Opción Menú</a>
     </li>    
     @endif
 </ul>
