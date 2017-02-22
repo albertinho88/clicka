@@ -102,7 +102,7 @@ class MenuOptionController extends Controller
         if (isset($menu_option->parent_menu_option)) {
             foreach ($menu_options_list as $menop) :                
                 if ($menu_option->parent_menu_option->menu_id == $menop->menu_id) :
-                    $menop->selected = 'selected';
+                    $menop->selected = 'selected="selected"';
                 endif;
             endforeach;
         }
@@ -133,7 +133,11 @@ class MenuOptionController extends Controller
         $menu_option->type = $request->type;
         $menu_option->state = $request->state;
         $menu_option->order = $request->order;
-        $menu_option->menu_parent_id = $request->menu_parent_id;
+        if($request->menu_parent_id != '0') {
+            $menu_option->menu_parent_id = $request->menu_parent_id;
+        } else {
+            $menu_option->menu_parent_id = NULL;
+        }
         $menu_option->update();
         
         return view($this->viewsDir.'partial.view_menu_option', compact('menu_option'));

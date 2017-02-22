@@ -37,9 +37,14 @@ initComponents = function() {
     $('.ui-dropdown-list').addClass("ui-selectonemenu-list");
     $('.ui-dropdown-item').addClass("ui-selectonemenu-item ui-selectonemenu-list-item");
     
-    $.each($('.selectList'),function(index){
-        alert($(this).attr('id'));
+    $.each($('.selectList'),function(index){                        
         $(this).puilistbox();
+        
+        if ($(this)[0].selectedIndex) {            
+            $(this).puilistbox('selectItem',$(this)[0].selectedIndex);            
+        } else {
+            $(this).puilistbox('selectItem',0);
+        }
     });
     
     //$('.selectList').puilistbox();

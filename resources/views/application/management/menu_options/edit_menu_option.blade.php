@@ -19,7 +19,7 @@
                         <div class="ui-grid-col-12">
                             <div class="text-center titulo">
                                 <p><i class="fa fa-pencil" ></i></p>
-                                <p><h1 class="coolvetica-rg" >Editar Rol.</h1></p>                
+                                <p><h1 class="coolvetica-rg" >Editar Menú Opción.</h1></p>                
                             </div>
                         </div>
                     </div>
@@ -158,9 +158,9 @@
                             </div>
                             <div class="ui-grid-col-10">
                                 <select id="menu_parent_id" name="menu_parent_id" class="selectList" >
-                                    <option value="" >Raíz</option>
+                                    <option value="0" >Ninguno</option>
                                     @foreach($menu_options_list as $menop) :
-                                    <option value="{{ $menop->menu_id }}" <?php echo 'selected="'.$menop->selected.'"'; ?> >
+                                    <option value="{{ $menop->menu_id }}" <?php echo $menop->selected; ?> >
                                             {{ $menop->label }}
                                         </option>
                                     @endforeach;                                    
