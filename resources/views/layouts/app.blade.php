@@ -11,7 +11,7 @@
         <link href="{{ asset('_resource/primeui-4.1.15/primeui.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/theme.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/fa/font-awesome.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('_resource/components.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('_resource/components.css') }}" type="text/css" rel="stylesheet">        
         
         <script src="{{ asset('_resource/jquery/jquery.js') }}" type="text/javascript"></script>
         <script src="{{ asset('_resource/core.js') }}" type="text/javascript"></script>

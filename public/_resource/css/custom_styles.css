@@ -381,6 +381,19 @@
   label {
       font-weight: bold;
   }
+  .ui-fluid .ui-selectonemenu {
+      width: 95%;
+  }
+  .ui-fluid .ui-selectonelistbox, .ui-fluid .ui-selectmanymenu {
+      width: 95%;
+  }
   
-  
-  
+  .width_auto {
+      width: auto !important;
+  }
+  .menu_index_tree {
+      border: none;
+  }
+  .menu_index_tree tr td {
+      border: none;
+  }

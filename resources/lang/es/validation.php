@@ -33,7 +33,7 @@ return [
     'confirmed'            => 'The :attribute confirmation does not match.',
     'date'                 => 'The :attribute is not a valid date.',
     'date_format'          => 'The :attribute does not match the format :format.',
-    'different'            => 'The :attribute and :other must be different.',
+    'different'            => 'El :attribute y :other deben ser diferentes.',
     'digits'               => 'The :attribute must be :digits digits.',
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
@@ -123,6 +123,8 @@ return [
         'label' => 'etiqueta',
         'type' => 'tipo',
         'order' => 'orden',
+        'menu_parent_id' => 'Menú Padre',
+        'menu_id' => 'Menú',
     ],
 
 ];

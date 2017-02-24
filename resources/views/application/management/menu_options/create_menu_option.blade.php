@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="formAjax">
+<div id="formAjax" class="ui-fluid">
     <div class="ui-g" >
         <div class="ui-g-12"> 
             <div class="card card-w-title">                                                                                                 
@@ -145,10 +145,8 @@
                             </div>
                             <div class="ui-grid-col-10">
                                 <select id="menu_parent_id" name="menu_parent_id" class="selectList" >
-                                    <option value="">Raíz</option>
-                                    @foreach($menu_options_list as $menuop) :
-                                        <option value="{{ $menuop->menu_id }}">{{ $menuop->label }}</option>
-                                    @endforeach;                                    
+                                    <option value="0">> Raíz</option>
+                                    <?php echo $menu_options_list ?>
                                 </select>                                
                             </div>                                                                                                                
                         </div>
@@ -163,12 +161,12 @@
                             </div>
                         </div>
                         
-                        <div class="EmptyBox10"></div>
+                        <div class="EmptyBox20"></div>
 
 
                         <div class="ui-grid-row text-center">
                             <div class="ui-grid-col-12" >                                
-                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" >
+                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" class="width_auto" >
                                     Guardar
                                 </button>
                             </div>

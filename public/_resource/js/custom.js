@@ -37,7 +37,7 @@ initComponents = function() {
     $('.ui-dropdown-list').addClass("ui-selectonemenu-list");
     $('.ui-dropdown-item').addClass("ui-selectonemenu-item ui-selectonemenu-list-item");
     
-    $.each($('.selectList'),function(index){                        
+    $.each($('.selectList'),function(){                        
         $(this).puilistbox();
         
         if ($(this)[0].selectedIndex) {            
@@ -47,7 +47,7 @@ initComponents = function() {
         }
     });
     
-    //$('.selectList').puilistbox();
+    $('.ui-listbox').addClass('ui-selectonelistbox');
     
     $('#growlel').puigrowl({sticky: true});
     

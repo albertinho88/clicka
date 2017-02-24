@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="formAjax">
+<div id="formAjax" class="ui-fluid">
     <div class="ui-g" >
         <div class="ui-g-12"> 
             <div class="card card-w-title">                                                                                                 
@@ -154,16 +154,12 @@
                         
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">                                            
-                                <label for="menu_parent_id" class="col-md-4 control-label">Menu Padre:</label>
+                                <label for="menu_parent_id" class="col-md-4 control-label">Menú Padre:</label>
                             </div>
                             <div class="ui-grid-col-10">
                                 <select id="menu_parent_id" name="menu_parent_id" class="selectList" >
-                                    <option value="0" >Ninguno</option>
-                                    @foreach($menu_options_list as $menop) :
-                                    <option value="{{ $menop->menu_id }}" <?php echo $menop->selected; ?> >
-                                            {{ $menop->label }}
-                                        </option>
-                                    @endforeach;                                    
+                                    <option value="0">> Raíz</option>
+                                    <?php echo $menu_options_list ?>
                                 </select>                                
                             </div>                                                                                                                
                         </div>
@@ -199,12 +195,23 @@
                                 {{ $menu_option->updated_at }}
                             </div>                                                                                                                
                         </div>
+                        <div class="EmptyBox20"></div>
+                                
+                        <div class="ui-grid-row form-group">
+                            <div class="ui-grid-col-12 text-left">                                                                                
+                                @if ($errors->has('general_message'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('general_message') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div> 
                         
                         <div class="EmptyBox10"></div>
 
                         <div class="ui-grid-row text-center">
                             <div class="ui-grid-col-12" >                                                                                         
-                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" >
+                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" class="width_auto">
                                     Guardar
                                 </button>
                             </div>

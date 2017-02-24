@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="formAjax">
+<div id="formAjax" class="ui-fluid">
     <div class="ui-g" >
         <div class="ui-g-12"> 
             <div class="card card-w-title">                                                                                                 
@@ -138,7 +138,7 @@
 
                         <div class="ui-grid-row text-center">
                             <div class="ui-grid-col-12" >                                                                                         
-                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" >
+                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" class="width_auto" >
                                     Guardar
                                 </button>
                             </div>

@@ -35,8 +35,42 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
-        return view($this->viewsDir.'create_role');
+        $active_menu_options = $this->getActiveMenuOptionsTree(null, collect(), 1);
+        return view($this->viewsDir.'create_role',['active_menu_options'=>$active_menu_options]);
+    }
+    
+    public function getActiveMenuOptionsTree($idMenuParent, $menu_tree, $nivel) {                
+        if ($idMenuParent == NULL) {
+            $menus = \App\MenuOption::whereNull('menu_parent_id')
+                    ->whereIn('state',array('A'))
+                    ->orderBy('order','asc')
+                    ->get();
+        } else {
+            $menus = \App\MenuOption::where('menu_parent_id','=',$idMenuParent)
+                    ->whereIn('state',array('A'))
+                    ->orderBy('order','asc')
+                    ->get();
+        }
+        
+        if (!$menus->isEmpty()) { 
+            foreach ($menus as $menu) :
+                $etiqueta = "";
+                
+                for ($i=1; $i<$nivel;$i++) :
+                    $etiqueta .= str_repeat('&nbsp;', 10).' ';
+                endfor;
+                
+                $etiqueta .= $menu->children_menu_option->count()>0 ? '> ' : ' ';
+                
+                //$etiqueta = $menu->children_menu_option->count()>0 ? $etiqueta."> " : $etiqueta;
+                $etiqueta .= $menu->label;                
+                $menu->label = $etiqueta;                
+                $menu_tree->push($menu);                
+                $menu_tree = $this->getActiveMenuOptionsTree($menu->menu_id, $menu_tree, $nivel+1);
+            endforeach;
+        }
+        
+        return $menu_tree;
     }
 
     /**

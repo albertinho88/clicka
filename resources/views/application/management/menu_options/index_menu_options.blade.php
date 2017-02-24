@@ -44,14 +44,27 @@
 <script type="text/javascript">
     $(function() {                          
         
-        $('#tblMenuOptions').puidatatable({            
-            paginator: {
-                rows: 10
-            },
-            columns: [                
-                {field: 'menu_id', headerText: 'Id'},
-                {field: 'label', headerText: 'Etiqueta'},
-                {field: 'state', headerText: 'Estado'},
+        $('#tblMenuOptions').puidatatable({                        
+            columns: [
+                {
+                  content: function(rowData) {
+                      var iconState = "";
+                      if (rowData.state === "A") {
+                          iconState = "<i class='fa fa-toggle-on' />";
+                      } else if (rowData.state === "I") {
+                          iconState = "<i class='fa fa-toggle-off' />";
+                      }
+                      
+                      return iconState;
+                  },
+                    headerStyle: 'width:34px'
+                },
+                {
+                  content: function(rowData) {                      
+                      return rowData.label;
+                  },
+                  headerText: 'Menú'
+                },                
                 {                     
                     content: function(rowData) {
                         return '<a href="' +$('#show_url').val() + '/' + rowData.menu_id + '" class=""><i class="fa fa-search" /></a>';
