@@ -40,6 +40,23 @@
                         {{ $role->state }}
                     </div>                                                                                                                
                 </div>
+                
+                <div class="EmptyBox10"></div>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="state" class="col-md-4 control-label">Menú Opciones:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        @if($active_menu_options)                         
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                @foreach($active_menu_options as $act_menop)                                
+                                    <li style="display: none;" class="{{ $act_menop->selected }}">{{ $act_menop->label }}</li>
+                                @endforeach
+                            </ul>
+                        @endif                                                
+                    </div>                                                                                                                
+                </div>
 
                 <div class="EmptyBox10"></div>
 

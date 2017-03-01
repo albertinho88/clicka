@@ -72,6 +72,34 @@
                         </div>
                         
                         <div class="EmptyBox10"></div>
+                        
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="roles" class="col-md-4 control-label">Menú Opciones:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <div class="ui-grid ui-grid-responsive">
+                                    <div class="ui-grid-row">
+                                        <div class="ui-grid-col-12">                                            
+                                            <div id="j_idt89" class="ui-selectmanymenu ui-inputfield ui-widget ui-widget-content ui-corner-all" style="width:95%;">
+                                                <div class="ui-selectlistbox-listcontainer" style="height:auto">
+                                                    <ul class="ui-selectlistbox-list">                                                        
+                                                        @foreach($active_menu_options as $actmenop)
+                                                        <li class="ui-selectlistbox-item ui-corner-all">
+                                                            <input type="checkbox" name="role_menu_options[]" id="{{ $actmenop->menu_id }}" value="{{ $actmenop->menu_id }}" <?php echo $actmenop->selected; ?> />
+                                                            {{ $actmenop->label }}
+                                                        </li>
+                                                        @endforeach                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                                                                                                
+                        </div>
+                        
+                        <div class="EmptyBox10"></div>
 
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">                                            

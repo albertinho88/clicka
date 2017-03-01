@@ -397,3 +397,9 @@
   .menu_index_tree tr td {
       border: none;
   }
+  .bolded {
+      font-weight: bold;
+  }
+  .visible {
+      display: block !important;
+  }

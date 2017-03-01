@@ -92,7 +92,23 @@ class RoleController extends Controller
         $role->state = $request->state;
         $role->save();
         
-        return view($this->viewsDir.'partial.view_role', compact('role'));
+        if ($request->role_menu_options) :                    
+            foreach ($request->role_menu_options as $menuop) :                        
+                $role_per_menop = new \App\RoleMenuOption();
+                $role_per_menop->menu_id = $menuop;
+                $role_per_menop->state = 'A';                
+                $role->role_menu_options()->save($role_per_menop);
+            endforeach;
+        endif;
+        
+        $active_menu_options = $this->getActiveMenuOptionsTree(null, collect(), 1);
+        foreach($active_menu_options as $menop) :            
+            if ($role->active_role_menu_options->contains('menu_id',$menop->menu_id)) :
+                $menop->selected = 'visible';
+            endif;               
+        endforeach;
+        
+        return view($this->viewsDir.'partial.view_role', ['role'=>$role,'active_menu_options'=>$active_menu_options]);
     }
 
     /**
@@ -102,10 +118,17 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {        
+        $active_menu_options = $this->getActiveMenuOptionsTree(null, collect(), 1);
         $role = \App\Role::find($id);
-        return view($this->viewsDir.'show_role', compact('role'));
+        
+        foreach($active_menu_options as $menop) :            
+            if ($role->active_role_menu_options->contains('menu_id',$menop->menu_id)) :
+                $menop->selected = 'visible';
+            endif;               
+        endforeach;
+        
+        return view($this->viewsDir.'show_role', ['role'=>$role,'active_menu_options'=>$active_menu_options]);
     }
 
     /**
@@ -116,9 +139,16 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $active_menu_options = $this->getActiveMenuOptionsTree(null, collect(), 1);
         $role = \App\Role::find($id);
-        return view($this->viewsDir.'edit_role', compact('role'));
+        
+        foreach($active_menu_options as $menop) :            
+            if ($role->active_role_menu_options->contains('menu_id',$menop->menu_id)) :
+                $menop->selected = 'checked';
+            endif;               
+        endforeach;
+        
+        return view($this->viewsDir.'edit_role', ['role'=>$role,'active_menu_options'=>$active_menu_options]);
     }
 
     /**
@@ -141,7 +171,46 @@ class RoleController extends Controller
         $role->state = $request->state;
         $role->save();
         
-        return view($this->viewsDir.'partial.view_role', compact('role'));
+        if (!$role->role_menu_options->isEmpty()) :
+            if ($request->role_menu_options) :
+                // Save-Update Menu Options
+                foreach($role->role_menu_options as $role_menop):
+                    if (in_array($role_menop->menu_id, $request->role_menu_options) && $role_menop->state = 'I'):                        
+                        $role_menop->state = 'A';                
+                        $role->role_menu_options()->save($role_menop); 
+                        $request->role_menu_options = array_diff($request->role_menu_options, [$role_menop->menu_id]);
+                    elseif (!in_array($role_menop->menu_id, $request->role_menu_options) && $role_menop->state = 'A') :
+                        $role_menop->state = 'I';                
+                        $role->role_menu_options()->save($role_menop); 
+                    endif;
+                endforeach;                                
+            else:
+                // Inactivar todos los menú opciones activos
+                foreach ($role->role_menu_options as $role_menop) :                    
+                    $role_menop->state = 'I';                
+                    $role->role_menu_options()->save($role_menop);                    
+                endforeach;
+            endif;
+        endif;
+        
+        if ($request->role_menu_options) :                    
+            foreach ($request->role_menu_options as $menuop) :                        
+                $role_per_menop = new \App\RoleMenuOption();
+                $role_per_menop->menu_id = $menuop;
+                $role_per_menop->state = 'A';                
+                $role->role_menu_options()->save($role_per_menop);
+            endforeach;
+        endif;
+        
+        $role = \App\Role::find($request->role_id);
+        $active_menu_options = $this->getActiveMenuOptionsTree(null, collect(), 1);
+        foreach($active_menu_options as $menop) :            
+            if ($role->active_role_menu_options->contains('menu_id',$menop->menu_id)) :
+                $menop->selected = 'visible';
+            endif;               
+        endforeach;
+        
+        return view($this->viewsDir.'partial.view_role', ['role'=>$role,'active_menu_options'=>$active_menu_options]);                
     }
 
     /**
