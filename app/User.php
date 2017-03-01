@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -48,50 +49,77 @@ class User extends Authenticatable
     
     public function active_menu_options_per_role()
     {
-        return $this->getMenuTree(null,1);
+        return $this->getMenuTree(null,1);       
     }
     
     public function getMenuTree($idMenuParent, $nivel) {                
         if ($idMenuParent == null) {
-            $menus = \App\MenuOption::whereNull('menu_parent_id')
-                    ->whereIn('state',array('A'))
-                    ->where('type','EXT')
-                    ->orderBy('order','asc')
-                    ->get();
+            $menus = DB::table('menu_options')
+                ->join('roles_menu_options','menu_options.menu_id','=','roles_menu_options.menu_id')
+                ->join('roles','roles.role_id','=','roles_menu_options.role_id')
+                ->join('users_per_roles','users_per_roles.role_id','=','roles.role_id')
+                ->join('users','users_per_roles.user_id','=','users.user_id')
+                ->where('roles.state','A')
+                ->where('roles_menu_options.state','A')
+                ->where('menu_options.state','A')
+                ->where('users_per_roles.state','A')
+                ->where('users.user_id',$this->user_id)
+                ->where('menu_options.type','EXT')
+                ->whereNull('menu_parent_id')
+                ->orderBy('menu_options.order','asc')
+                ->select('menu_options.*')
+                ->distinct()
+                ->get();
         } else {
-            $menus = \App\MenuOption::where('menu_parent_id','=',$idMenuParent)
-                    ->whereIn('state',array('A'))
-                    ->where('type','EXT')
-                    ->orderBy('order','asc')
-                    ->get();
-        }
+            
+            $menus = DB::table('menu_options')
+                ->join('roles_menu_options','menu_options.menu_id','=','roles_menu_options.menu_id')
+                ->join('roles','roles.role_id','=','roles_menu_options.role_id')
+                ->join('users_per_roles','users_per_roles.role_id','=','roles.role_id')
+                ->join('users','users_per_roles.user_id','=','users.user_id')
+                ->where('roles.state','A')
+                ->where('roles_menu_options.state','A')
+                ->where('menu_options.state','A')
+                ->where('users_per_roles.state','A')
+                ->where('users.user_id',$this->user_id)
+                ->where('menu_options.type','EXT')
+                ->where('menu_parent_id',$idMenuParent)
+                ->orderBy('menu_options.order','asc')
+                ->select('menu_options.*')
+                ->distinct()
+                ->get();            
+        }                
         
-        $menu_tree = '';
+        if (!$menus->isEmpty()) :            
+            $menu_tree = '';
         
-        if (!$menus->isEmpty()) {            
             foreach ($menus as $menu) :
-                                
-                if ($menu->children_menu_option->count()>0):
+                
+                $children_menu_option = $this->getMenuTree($menu->menu_id, $nivel+1);
+                
+                if ($children_menu_option != null):
                     $menu_tree .= '<li class="active-menuitem" role="menuitem">';
                     $menu_tree .= '<a class="ripplelink">
-                                    <i class="fa fa-fw fa-home"></i>
+                                    <i class="fa fa-fw fa-'.$menu->icon.'"></i>
                                     <span>'.$menu->label.'</span>
                                     <span class="ink animate"></span>
                                     <i class="fa fa-fw fa-angle-down"></i>
                                 </a>';
-                    $menu_tree .= '<ul>'.$this->getMenuTree($menu->menu_id, $nivel+1).'</ul></li>';                    
+                    $menu_tree .= '<ul role="menu" style="display: block;">'.$children_menu_option.'</ul></li>';                    
                 else:
                     $menu_tree .= '<li role="menuitem">';
                     $menu_tree .= '<a href="'.url($menu->url).'" >
-                                    <i class="fa fa-fw fa-home"></i>
+                                    <i class="fa fa-fw fa-'.$menu->icon.'"></i>
                                     <span>'.$menu->label.'</span>
                                 </a>';
                     $menu_tree .= '</li>';
                 endif;                                    
                                 
-            endforeach;            
-        }
-        
-        return $menu_tree;
+            endforeach;  
+            
+            return $menu_tree;
+        else :
+            return null;
+        endif;
     }        
 }

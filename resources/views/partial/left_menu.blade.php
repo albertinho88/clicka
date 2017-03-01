@@ -1,12 +1,12 @@
 
-@if ($menu_left_per_user)
+@if ($menu_left_per_user != null)
     
-    <ul id="pm2" class="layout-menu clearfix">
-        <?php  echo $menu_left_per_user ?>
-    </ul>
-    <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm2"});</script> 
-
     <ul id="pm" class="layout-menu clearfix">        
+        <?php  echo $menu_left_per_user; ?>
+    </ul>
+    <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>
+
+    <!--<ul id="pm" class="layout-menu clearfix">        
         <li class="active-menuitem" role="menuitem">
             <a class="ripplelink">
                 <i class="fa fa-fw fa-home"></i>
@@ -36,7 +36,7 @@
             </ul>
         </li>
     </ul>
-    <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script> 
+    <script type="text/javascript">PrimeFaces.cw("Poseidon", "me", {id: "pm"});</script>--> 
 @endif                                
 
 

@@ -56,7 +56,28 @@
                                     @endif
                                 </span>
                             </div>
-                        </div>                                                                                                
+                        </div>
+                        
+                        <div class="EmptyBox10"></div>
+                        
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="icon" class="col-md-4 control-label">Icono:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <input id="icon" name="icon" type="text" autocomplete="off" style="width: 95%;" class="form-control" value="{{ $menu_option->icon }}" />
+                            </div>                                                                                                                
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2"></div>
+                            <div class="ui-grid-col-10">
+                                <span id="label_help_block" class="help-block">
+                                    @if ($errors->has('icon'))                                                    
+                                        <strong>{{ $errors->first('icon') }}</strong>                                                    
+                                    @endif
+                                </span>
+                            </div>
+                        </div> 
                         
                         <div class="EmptyBox10"></div>
                         

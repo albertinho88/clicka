@@ -15,6 +15,7 @@ class CreateMenuOptionsTable extends Migration
     {
         Schema::create('menu_options', function (Blueprint $table) {
             $table->increments('menu_id');
+            $table->string('icon',20)->nullable();
             $table->string('label',100);
             $table->string('url',500);                        
             $table->string('type',10);

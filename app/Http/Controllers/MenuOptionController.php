@@ -128,6 +128,7 @@ class MenuOptionController extends Controller
         
         $this->validate(request(),[
             'label' => 'required|max:100',
+            'icon' => 'max:20',
             'url' => 'required|max:500',
             'type' => 'required|max:10',
             'state' => 'required|max:1',
@@ -136,6 +137,7 @@ class MenuOptionController extends Controller
         
         $menu_option = new \App\MenuOption();
         $menu_option->label = $request->label;
+        $menu_option->icon = $request->icon;
         $menu_option->url = $request->url;
         $menu_option->type = $request->type;
         $menu_option->state = $request->state;
@@ -191,6 +193,7 @@ class MenuOptionController extends Controller
         
         $this->validate(request(),[
             'label' => 'required|max:100',
+            'icon' => 'max:20',
             'url' => 'required|max:500',
             'type' => 'required|max:10',
             'state' => 'required|max:1',
@@ -200,6 +203,7 @@ class MenuOptionController extends Controller
         
         $menu_option = \App\MenuOption::find($request->menu_id);
         $menu_option->label = $request->label;
+        $menu_option->icon = $request->icon;
         $menu_option->url = $request->url;
         $menu_option->type = $request->type;
         $menu_option->state = $request->state;
