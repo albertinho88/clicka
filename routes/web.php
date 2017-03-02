@@ -51,4 +51,12 @@ Route::get('application/management/menu_options/edit/{menu_id}','MenuOptionContr
 Route::post('application/management/menu_options/update','MenuOptionController@update')->name('update_menu_option');
 Route::get('application/management/menu_options/show/{menu_id}','MenuOptionController@show')->name('show_menu_option');
 
+Route::get('application/management/services','ServiceController@index')->name('index_services');
+Route::get('application/management/services/list_services_json','ServiceController@listServicesJson')->name('list_services_json');
+Route::get('application/management/services/create','ServiceController@create')->name('create_service');
+Route::post('application/management/services/create','ServiceController@store')->name('store_service');
+Route::get('application/management/services/edit/{service_id}','ServiceController@edit')->name('edit_service');
+Route::post('application/management/services/update','ServiceController@update')->name('update_service');
+Route::get('application/management/services/show/{service_id}','ServiceController@show')->name('show_service');
+
 

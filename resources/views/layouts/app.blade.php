@@ -38,6 +38,7 @@
         <script src="{{ asset('_resource/primeui-4.1.15/x-tag-core.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('_resource/primeui-4.1.15/primeui.js') }}" type="text/javascript"></script>
         <script src="{{ asset('_resource/primeui-4.1.15/primeelements.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('_resource/tinymce/tinymce.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('_resource/js/custom.js') }}" type="text/javascript"></script>
                 
         

@@ -32,7 +32,7 @@
                                 <label for="name" class="col-md-4 control-label">Nombre:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="name" name="name" type="text" autocomplete="off" style="width: 95%;" class="form-control" value="{{ $user->name }}" />
+                                <input id="name" name="name" type="text" autocomplete="off"  class="form-control" value="{{ $user->name }}" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -92,7 +92,7 @@
                                 <div class="ui-grid ui-grid-responsive">
                                     <div class="ui-grid-row">
                                         <div class="ui-grid-col-12">                                            
-                                            <div id="j_idt89" class="ui-selectmanymenu ui-inputfield ui-widget ui-widget-content ui-corner-all" style="width:95%;">
+                                            <div id="j_idt89" class="ui-selectmanymenu ui-inputfield ui-widget ui-widget-content ui-corner-all" >
                                                 <div class="ui-selectlistbox-listcontainer" style="height:auto">
                                                     <ul class="ui-selectlistbox-list">                                                        
                                                         @foreach($active_roles as $actrole)

@@ -71,7 +71,7 @@
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2"></div>
                             <div class="ui-grid-col-10">
-                                <span id="label_help_block" class="help-block">
+                                <span id="icon_help_block" class="help-block">
                                     @if ($errors->has('icon'))                                                    
                                         <strong>{{ $errors->first('icon') }}</strong>                                                    
                                     @endif

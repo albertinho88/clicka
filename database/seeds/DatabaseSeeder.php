@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
         
         $menuop2 = new \App\MenuOption();
         $menuop2->label = 'Usuarios';
+        $menuop2->icon = 'user';
         $menuop2->url = 'application/management/users';        
         $menuop2->type = 'EXT';
         $menuop2->state = 'A';
@@ -52,6 +53,7 @@ class DatabaseSeeder extends Seeder
         
         $menuop3 = new \App\MenuOption();
         $menuop3->label = 'Roles';
+        $menuop3->icon = 'users';
         $menuop3->url = 'application/management/roles';        
         $menuop3->type = 'EXT';
         $menuop3->state = 'A';
@@ -61,12 +63,43 @@ class DatabaseSeeder extends Seeder
         
         $menuop4 = new \App\MenuOption();
         $menuop4->label = 'Opciones Menú';
+        $menuop4->icon = 'bars';
         $menuop4->url = 'application/management/menu_options';        
         $menuop4->type = 'EXT';
         $menuop4->state = 'A';
         $menuop4->order = 3;
         $menuop4->menu_parent_id = $menuop1->menu_id;
         $menuop4->save();
+        
+        $menuop7 = new \App\MenuOption();
+        $menuop7->label = 'Servicios';
+        $menuop7->icon = 'cubes';
+        $menuop7->url = 'application/management/services';        
+        $menuop7->type = 'EXT';
+        $menuop7->state = 'A';
+        $menuop7->order = 4;
+        $menuop7->menu_parent_id = $menuop1->menu_id;
+        $menuop7->save();
+        
+        
+        $menuop5 = new \App\MenuOption();
+        $menuop5->label = 'Procesos';
+        $menuop5->icon = 'code-fork';
+        $menuop5->url = '#';        
+        $menuop5->type = 'EXT';
+        $menuop5->state = 'A';
+        $menuop5->order = 2;
+        $menuop5->save();
+        
+        $menuop6 = new \App\MenuOption();
+        $menuop6->label = 'Cotizar';
+        $menuop6->icon = 'calculator';
+        $menuop6->url = '#';        
+        $menuop6->type = 'EXT';
+        $menuop6->state = 'A';
+        $menuop6->order = 1;
+        $menuop6->menu_parent_id = $menuop5->menu_id;
+        $menuop6->save();
         
         $all_menu_options = \App\MenuOption::all();
         

@@ -382,10 +382,10 @@
       font-weight: bold;
   }
   .ui-fluid .ui-selectonemenu {
-      width: 95%;
+      /*width: 95%;*/
   }
   .ui-fluid .ui-selectonelistbox, .ui-fluid .ui-selectmanymenu {
-      width: 95%;
+      /*width: 95%;*/
   }
   
   .width_auto {
