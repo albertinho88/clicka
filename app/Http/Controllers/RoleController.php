@@ -8,10 +8,9 @@ class RoleController extends Controller
 {
     protected $viewsDir;
     
-    public function __construct() {
-        $this->middleware('auth');
+    public function __construct() {        
         $this->viewsDir = "application.management.roles.";
-    }
+    }        
     
     /**
      * Display a listing of the resource.

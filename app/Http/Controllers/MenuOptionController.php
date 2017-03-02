@@ -9,8 +9,7 @@ class MenuOptionController extends Controller
     
     protected $viewsDir;
     
-    public function __construct() {
-        $this->middleware('auth');
+    public function __construct() {        
         $this->viewsDir = "application.management.menu_options.";
     }
     
