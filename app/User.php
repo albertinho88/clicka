@@ -47,12 +47,12 @@ class User extends Authenticatable
         return $this->hasMany('\App\UserRole')->where('state','A');
     }
     
-    public function active_menu_options_per_role()
+    public function active_menu_options_per_role($selectedMenuPath)
     {
-        return $this->getMenuTree(null,1);       
+        return $this->getMenuTree(null,1,$selectedMenuPath);       
     }
     
-    public function getMenuTree($idMenuParent, $nivel) {                
+    public function getMenuTree($idMenuParent, $nivel, $selectedMenuPath) {                
         if ($idMenuParent == null) {
             $menus = DB::table('menu_options')
                 ->join('roles_menu_options','menu_options.menu_id','=','roles_menu_options.menu_id')
@@ -95,10 +95,12 @@ class User extends Authenticatable
         
             foreach ($menus as $menu) :
                 
-                $children_menu_option = $this->getMenuTree($menu->menu_id, $nivel+1);
+                $children_menu_option = $this->getMenuTree($menu->menu_id, $nivel+1, $selectedMenuPath);
                 
                 if ($children_menu_option != null):
-                    $menu_tree .= '<li class="active-menuitem" role="menuitem">';
+                    $menu_tree .= '<li';
+                    $menu_tree .= ' class="active-menuitem" ';
+                    $menu_tree .= 'role="menuitem">';
                     $menu_tree .= '<a class="ripplelink">
                                     <i class="fa fa-fw fa-'.$menu->icon.'"></i>
                                     <span>'.$menu->label.'</span>
@@ -107,7 +109,9 @@ class User extends Authenticatable
                                 </a>';
                     $menu_tree .= '<ul role="menu" style="display: block;">'.$children_menu_option.'</ul></li>';                    
                 else:
-                    $menu_tree .= '<li role="menuitem">';
+                    $menu_tree .= '<li role="menuitem"';
+                    $menu_tree .= $menu->url == $selectedMenuPath ? ' class="active-menuitem" ' : '';
+                    $menu_tree .= '>';
                     $menu_tree .= '<a href="'.url($menu->url).'" >
                                     <i class="fa fa-fw fa-'.$menu->icon.'"></i>
                                     <span>'.$menu->label.'</span>
