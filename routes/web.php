@@ -16,14 +16,20 @@ Route::get('about_us', 'SiteController@viewAboutUsPage');
 Route::get('services', 'SiteController@viewServicesPage')->name('services');
 Route::get('service/{service_id}', 'SiteController@viewService');
 
-Route::get('contact_us', 'SiteController@viewContactUsPage')->middleware('hasAccess');
+Route::get('contact_us', 'SiteController@viewContactUsPage');
 Route::post('contact_ajax', 'SiteController@contactAjax')->name('contact_ajax');
 Route::get('contact_form_ajax', 'SiteController@getContactFormAjax')->name('contact_form_ajax');
 
-//Auth::routes();
 Route::get('login', 'SessionController@create')->name('login');
 Route::post('login', 'SessionController@store');
 Route::get('logout', 'SessionController@destroy');
+
+Route::get('errors/no_menu_access',function(){
+    return view('errors.no_menu_access');
+});
+
+Route::get('application/management/menu_options/list_menu_options_json','MenuOptionController@listMenuOptionsJson')->name('list_menu_options_json');
+Route::get('application/management/roles/list_roles_json','RoleController@listRolesJson')->name('list_roles_json');
 
 Route::group(['middleware' => ['auth','hasAccess']], function () {
     
@@ -38,7 +44,7 @@ Route::group(['middleware' => ['auth','hasAccess']], function () {
     Route::get('application/management/users/show/{user_id}','UserController@show')->name('show_user');
 
     Route::get('application/management/roles','RoleController@index')->name('index_roles');
-    Route::get('application/management/roles/list_roles_json','RoleController@listRolesJson')->name('list_roles_json');
+    
     Route::get('application/management/roles/create','RoleController@create')->name('create_role');
     Route::post('application/management/roles/create','RoleController@store')->name('store_role');
     Route::get('application/management/roles/edit/{role_id}','RoleController@edit')->name('edit_role');
@@ -46,7 +52,7 @@ Route::group(['middleware' => ['auth','hasAccess']], function () {
     Route::get('application/management/roles/show/{role_id}','RoleController@show')->name('show_role');
     
     Route::get('application/management/menu_options','MenuOptionController@index')->name('index_menu_options');
-    Route::get('application/management/menu_options/list_menu_options_json','MenuOptionController@listMenuOptionsJson')->name('list_menu_options_json');
+    
     Route::get('application/management/menu_options/create','MenuOptionController@create')->name('create_menu_option');
     Route::post('application/management/menu_options/create','MenuOptionController@store')->name('store_menu_option');
     Route::get('application/management/menu_options/edit/{menu_id}','MenuOptionController@edit')->name('edit_menu_option');

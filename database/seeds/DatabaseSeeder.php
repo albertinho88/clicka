@@ -71,6 +71,16 @@ class DatabaseSeeder extends Seeder
         $menuop4->menu_parent_id = $menuop1->menu_id;
         $menuop4->save();
         
+            $menuop41 = new \App\MenuOption();
+            $menuop41->label = 'Crear Opcion Menú';
+            $menuop41->icon = '';
+            $menuop41->url = 'application/management/menu_options/create';        
+            $menuop41->type = 'INT';
+            $menuop41->state = 'A';
+            $menuop41->order = 1;
+            $menuop41->menu_parent_id = $menuop4->menu_id;
+            $menuop41->save();
+        
         $menuop7 = new \App\MenuOption();
         $menuop7->label = 'Servicios';
         $menuop7->icon = 'cubes';
