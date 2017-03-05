@@ -96,22 +96,22 @@ class User extends Authenticatable
             foreach ($menus as $menu) :
                 
                 $children_menu_option = $this->getMenuTree($menu->menu_id, $nivel+1, $selectedMenuPath);
+                $has_children_menu_selected = $this->hasChildrenMenuSelected($menu->menu_id, $selectedMenuPath);
+                
+                $menu_tree .= '<li role="menuitem"';
+                $menu_tree .= $has_children_menu_selected || $menu->url == $selectedMenuPath ? ' class="active-menuitem " ':' ';
+                $menu_tree .= ' >';
                 
                 if ($children_menu_option != null):
-                    $menu_tree .= '<li';
-                    $menu_tree .= ' class="active-menuitem" ';
-                    $menu_tree .= 'role="menuitem">';
                     $menu_tree .= '<a class="ripplelink">
                                     <i class="fa fa-fw fa-'.$menu->icon.'"></i>
                                     <span>'.$menu->label.'</span>
-                                    <span class="ink animate"></span>
-                                    <i class="fa fa-fw fa-angle-down"></i>
+                                    <span class="ink animate"></span><i class="fa fa-fw fa-angle-down"></i>
                                 </a>';
-                    $menu_tree .= '<ul role="menu" style="display: block;">'.$children_menu_option.'</ul></li>';                    
-                else:
-                    $menu_tree .= '<li role="menuitem"';
-                    $menu_tree .= $menu->url == $selectedMenuPath ? ' class="active-menuitem" ' : '';
-                    $menu_tree .= '>';
+                    $menu_tree .= '<ul role="menu" ';
+                    $menu_tree .= $has_children_menu_selected?'style="display: block;" ':' ';
+                    $menu_tree .= '>'.$children_menu_option.'</ul></li>';                    
+                else:                                        
                     $menu_tree .= '<a href="'.url($menu->url).'" >
                                     <i class="fa fa-fw fa-'.$menu->icon.'"></i>
                                     <span>'.$menu->label.'</span>
@@ -125,6 +125,35 @@ class User extends Authenticatable
         else :
             return null;
         endif;
+    }
+    
+    public function hasChildrenMenuSelected($idMenu, $selectedPath) {
+        
+        $children = DB::table('menu_options')
+                ->join('roles_menu_options','menu_options.menu_id','=','roles_menu_options.menu_id')
+                ->join('roles','roles.role_id','=','roles_menu_options.role_id')
+                ->join('users_per_roles','users_per_roles.role_id','=','roles.role_id')
+                ->join('users','users_per_roles.user_id','=','users.user_id')
+                ->where('roles.state','A')
+                ->where('roles_menu_options.state','A')
+                ->where('menu_options.state','A')
+                ->where('users_per_roles.state','A')                
+                //->where('menu_options.type','EXT')
+                ->where('menu_options.menu_parent_id',$idMenu)
+                ->orderBy('menu_options.order','asc')
+                ->select('menu_options.*')
+                ->distinct()
+                ->get();
+        
+        if (!$children->isEmpty()) : 
+            foreach($children as $men):
+                if ($men->url == $selectedPath || $this->hasChildrenMenuSelected($men->menu_id, $selectedPath)) :
+                    return true;                                    
+                endif;
+            endforeach;
+        endif;
+        
+        return false;
     }
         
 }
