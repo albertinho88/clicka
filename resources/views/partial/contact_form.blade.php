@@ -97,10 +97,15 @@
         <div class="EmptyBox10"></div>
 
         <div class="ui-grid-row text-center">
-            <div class="ui-grid-col-12" >                                                                                         
-                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-send" >
-                    Enviar
-                </button>
+            <div class="ui-grid-col-12" >
+                <button id="btn-show" type="button" onclick="document.getElementById('dlgelement').show()" is="p-button" icon="fa-send">Enviar</button>
+                <p-dialog id="dlgelement" title="Confirmación" modal showeffect="fade" hideeffect="fade" renderdelay="10">
+                    <p>Esta seguro de la información ingresada?</p>
+                     <script type="x-facet-buttons">
+                        <button type="submit" is="p-button" icon="fa-check" onclick="document.getElementById('dlgelement').hide()">Si</button>
+                        <button type="button" is="p-button" icon="fa-close" onclick="document.getElementById('dlgelement').hide()">No</button>
+                    </script>   
+                </p-dialog>
             </div>
         </div>                                                                                                                                                                    
     </form>

@@ -18,7 +18,9 @@ class SiteController extends Controller
     }
     
     public function viewServicesPage() {
-        return view('site.services');
+        $services = \App\Service::where('state','A')->get();
+        
+        return view('site.services',compact('services'));
     }
     
     public function viewService($service_id) {

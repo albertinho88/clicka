@@ -17,7 +17,20 @@
                 </div>
                 <p>"Nuestros servicios están directamente relacionados, para brindar una solución 360º a nuestros clientes."</p>
                 
-                                
+                @foreach ($services as $service) 
+                    <div class="ui-g-12 ui-md-6 ui-lg-4">
+                        <a href="<?php echo url('service',['service_id' => 'software']); ?>" class="changePageWithLink" >
+                            <div class="ui-g card overview-box overview-box-1 " style="background-color: #{{ $service->website_bg_color }};">                        
+                                <div class="ui-g-12 text-center">
+                                    <i class="fa fa-industry"></i>
+                                    <h2 style="color: #ffffff; margin-bottom: 0;margin-top:8px;">{{ $service->name }}</h2>
+                                    <small style="color: #ffffff;">"{{ $service->slogan }}"</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+                
                 <div class="ui-g-12 ui-md-6 ui-lg-4">
                     <a href="<?php echo url('service',['service_id' => 'software']); ?>" class="changePageWithLink" >
                         <div class="ui-g card overview-box overview-box-1 " style="background-color: #0288d1;">                        

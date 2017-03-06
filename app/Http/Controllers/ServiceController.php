@@ -75,7 +75,8 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $service = \App\Service::find($id);
+        return view($this->viewsDir.'show_service', compact('service'));
     }
 
     /**
@@ -86,7 +87,8 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = \App\Service::find($id);
+        return view($this->viewsDir.'edit_service', compact('service'));
     }
 
     /**
@@ -96,9 +98,27 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request)
+    {                        
+        $this->validate(request(),[
+            'name' => 'required|max:50',
+            'slogan' => 'required|max:500',
+            'icon' => 'max:20',
+            'website_bg_color' => 'max:6',            
+            //'featured' => 'boolean',
+            'state' => 'required|max:1'
+        ]);
+        $service = \App\Service::find($request->service_id);
+        $service->name = $request->name;
+        $service->slogan = $request->slogan;
+        $service->icon = $request->icon;
+        $service->website_bg_color = $request->website_bg_color;
+        $service->website_html_content = $request->website_html_content;
+        $service->featured = isset($request->featured) ? true : false;
+        $service->state = $request->state;
+        $service->update();
+        
+        return view($this->viewsDir.'partial.view_service', compact('service'));
     }
 
     /**

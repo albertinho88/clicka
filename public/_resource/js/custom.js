@@ -59,7 +59,12 @@ initComponents = function() {
             "searchreplace visualblocks code fullscreen",
             "insertdatetime media table contextmenu paste imagetools"
         ],
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save();
+            });
+        }
     });
     
     initSubmitAjaxForms();
@@ -88,8 +93,8 @@ initSubmitAjaxForms = function() {
     $('.ajaxJsonForm').submit(function(e){                        
         var a = $(this).attr("action");        
         $(".ui-state-error").removeClass('ui-state-error');
-        $(".help-block").html("").animate({ height: 'hide' });
-
+        $(".help-block").html("").animate({ height: 'hide' });        
+        //alert($(this).serialize());
         $.ajax({
             url: a,
             method: "POST",
@@ -119,7 +124,7 @@ initSubmitAjaxForms = function() {
           })            
           .always(function() {
               // always executed..                 
-          });
+          });                 
 
         e.preventDefault();  
     });
@@ -146,3 +151,4 @@ initAjaxLinks = function() {
         e.preventDefault();
     });
 };
+
