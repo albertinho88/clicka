@@ -132,7 +132,7 @@ class DatabaseSeeder extends Seeder
             $menuop4->save();
 
                 $menuop41 = new \App\MenuOption();
-                $menuop41->label = 'Crear Opcion Menú';
+                $menuop41->label = 'Crear Opción Menú';
                 $menuop41->icon = '';
                 $menuop41->url = 'application/management/menu_options/create';        
                 $menuop41->type = 'INT';
@@ -142,7 +142,7 @@ class DatabaseSeeder extends Seeder
                 $menuop41->save();
 
                 $menuop42 = new \App\MenuOption();
-                $menuop42->label = 'Editar Opcion Menú';
+                $menuop42->label = 'Editar Opción Menú';
                 $menuop42->icon = '';
                 $menuop42->url = 'application/management/menu_options/edit/{menu_id}';        
                 $menuop42->type = 'INT';
@@ -152,7 +152,7 @@ class DatabaseSeeder extends Seeder
                 $menuop42->save();
 
                 $menuop43 = new \App\MenuOption();
-                $menuop43->label = 'Ver Opcion Menú';
+                $menuop43->label = 'Ver Opción Menú';
                 $menuop43->icon = '';
                 $menuop43->url = 'application/management/menu_options/show/{menu_id}';        
                 $menuop43->type = 'INT';
@@ -160,6 +160,46 @@ class DatabaseSeeder extends Seeder
                 $menuop43->order = 3;
                 $menuop43->menu_parent_id = $menuop4->menu_id;
                 $menuop43->save();
+            
+                $menuop9 = new \App\MenuOption();
+                $menuop9->label = 'Catálogos';
+                $menuop9->icon = 'bars';
+                $menuop9->url = 'application/management/catalogs';        
+                $menuop9->type = 'EXT';
+                $menuop9->state = 'A';
+                $menuop9->order = 4;
+                $menuop9->menu_parent_id = $menuop1->menu_id;
+                $menuop9->save();
+
+                        $menuop91 = new \App\MenuOption();
+                        $menuop91->label = 'Crear Catálogo';
+                        $menuop91->icon = '';
+                        $menuop91->url = 'application/management/catalogs/create';        
+                        $menuop91->type = 'INT';
+                        $menuop91->state = 'A';
+                        $menuop91->order = 1;
+                        $menuop91->menu_parent_id = $menuop9->menu_id;
+                        $menuop91->save();
+
+                        $menuop92 = new \App\MenuOption();
+                        $menuop92->label = 'Editar Catálogo';
+                        $menuop92->icon = '';
+                        $menuop92->url = 'application/management/catalogs/edit/{catalog_id}';        
+                        $menuop92->type = 'INT';
+                        $menuop92->state = 'A';
+                        $menuop92->order = 2;
+                        $menuop92->menu_parent_id = $menuop9->menu_id;
+                        $menuop92->save();
+
+                        $menuop93 = new \App\MenuOption();
+                        $menuop93->label = 'Ver Catálogo';
+                        $menuop93->icon = '';
+                        $menuop93->url = 'application/management/catalogs/show/{catalog_id}';        
+                        $menuop93->type = 'INT';
+                        $menuop93->state = 'A';
+                        $menuop93->order = 3;
+                        $menuop93->menu_parent_id = $menuop9->menu_id;
+                        $menuop93->save();
                 
             $menuop8 = new \App\MenuOption();
             $menuop8->label = 'Archivos Multimedia';
@@ -167,7 +207,7 @@ class DatabaseSeeder extends Seeder
             $menuop8->url = 'application/management/media_files';        
             $menuop8->type = 'EXT';
             $menuop8->state = 'A';
-            $menuop8->order = 4;
+            $menuop8->order = 5;
             $menuop8->menu_parent_id = $menuop1->menu_id;
             $menuop8->save();
 
@@ -177,7 +217,7 @@ class DatabaseSeeder extends Seeder
             $menuop7->url = 'application/management/services';        
             $menuop7->type = 'EXT';
             $menuop7->state = 'A';
-            $menuop7->order = 5;
+            $menuop7->order = 6;
             $menuop7->menu_parent_id = $menuop1->menu_id;
             $menuop7->save();
             

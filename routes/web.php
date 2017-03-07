@@ -56,6 +56,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('application/management/services/create','ServiceController@store')->name('store_service');
         Route::get('application/management/services/edit/{service_id}','ServiceController@edit')->name('edit_service');        
         Route::get('application/management/services/show/{service_id}','ServiceController@show')->name('show_service');
+        
+        Route::get('application/management/catalogs','CatalogController@index')->name('index_catalogs');            
+        Route::get('application/management/catalogs/create','CatalogController@create')->name('create_catalog');
+        Route::post('application/management/catalogs/create','CatalogController@store')->name('store_catalog');
+        Route::get('application/management/catalogs/edit/{catalog_id}','CatalogController@edit')->name('edit_catalog');        
+        Route::get('application/management/catalogs/show/{catalog_id}','CatalogController@show')->name('show_catalog');
+        
+        Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');
     });
             
     
@@ -78,6 +86,16 @@ Route::group(['middleware' => ['auth']], function () {
             ->middleware('hasAccessOptional:application/management/services');
     Route::post('application/management/services/update','ServiceController@update')->name('update_service')
             ->middleware('hasAccessOptional:application/management/services/edit/{service_id}');
+    
+    Route::get('application/management/catalogs/list_catalogs_json','CatalogController@listCatalogsJson')->name('list_catalogs_json')
+		->middleware('hasAccessOptional:application/management/catalogs');
+    Route::post('application/management/catalogs/update','CatalogController@update')->name('update_catalog')
+                    ->middleware('hasAccessOptional:application/management/catalogs/edit/{catalog_id}');
+    
+    Route::get('application/management/catalogs/manage_detail/{catalog_id}','CatalogController@manageDetail')->name('manage_catalog_detail')
+                    ->middleware('hasAccessOptional:application/management/catalogs');    
+    Route::post('application/management/catalogs/store_catalog_details','CatalogController@storeCatalogDetails')->name('store_catalog_details')
+                    ->middleware('hasAccessOptional:application/management/catalogs');    
     
 });
 
