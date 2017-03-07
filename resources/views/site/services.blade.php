@@ -19,10 +19,10 @@
                 
                 @foreach ($services as $service) 
                     <div class="ui-g-12 ui-md-6 ui-lg-4">
-                        <a href="<?php echo url('service',['service_id' => 'software']); ?>" class="changePageWithLink" >
+                        <a href="<?php echo url('service',['service_id' => $service->service_id]); ?>" class="changePageWithLink" >
                             <div class="ui-g card overview-box overview-box-1 " style="background-color: #{{ $service->website_bg_color }};">                        
                                 <div class="ui-g-12 text-center">
-                                    <i class="fa fa-industry"></i>
+                                    <i class="fa fa-{{ $service->icon }}"></i>
                                     <h2 style="color: #ffffff; margin-bottom: 0;margin-top:8px;">{{ $service->name }}</h2>
                                     <small style="color: #ffffff;">"{{ $service->slogan }}"</small>
                                 </div>
@@ -30,29 +30,7 @@
                         </a>
                     </div>
                 @endforeach
-                
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <a href="<?php echo url('service',['service_id' => 'software']); ?>" class="changePageWithLink" >
-                        <div class="ui-g card overview-box overview-box-1 " style="background-color: #0288d1;">                        
-                            <div class="ui-g-12 text-center">
-                                <i class="fa fa-industry"></i>
-                                <h2 style="color: #ffffff; margin-bottom: 0;margin-top:8px;">Software a la Medida</h2>
-                                <small style="color: #ffffff;">"El activo más importante de tu empresa."</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <a href="<?php echo url('service',['service_id' => 'emarketing']); ?>" class="changePageWithLink" >
-                    <div class="ui-g card overview-box overview-box-1 " style="background-color: #fb8c00;">                        
-                        <div class="ui-g-12 text-center">
-                            <i class="fa fa-cloud"></i>
-                            <h2 style="color: #ffffff; margin-bottom: 0;margin-top:8px;">E-Marketing</h2>
-                            <small style="color: #ffffff;">"Si tu negocio no está en internet, tu negocio no existe."</small>
-                        </div>
-                    </div>
-                    </a>
-                </div>
+                                
                 <div class="ui-g-12 ui-md-6 ui-lg-4">
                     <a href="<?php echo url('service',['service_id' => 'ecommerce']); ?>" class="changePageWithLink" >
                     <div class="ui-g card overview-box overview-box-1 " style="background-color: #43a047;">                        

@@ -31,7 +31,42 @@
                 </div>
                 
                 <div class="EmptyBox10"></div>
-
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="name" class="col-md-4 control-label">Slogan:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        {{ $service->slogan }}
+                    </div>                                                                                                                
+                </div>
+                
+                <div class="EmptyBox10"></div>
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="name" class="col-md-4 control-label">Icono:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        {{ $service->icon }}
+                    </div>                                                                                                                
+                </div>
+                
+                <div class="EmptyBox10"></div>
+                
+                
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="name" class="col-md-4 control-label">Destacado:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <input type="checkbox" id="featured" name="featured" <?php echo $service->featured?'checked':''; ?> disabled="disabled"/>
+                    </div>                                                                                                                
+                </div>
+                
+                <div class="EmptyBox10"></div>
+                
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">                                            
                         <label for="state" class="col-md-4 control-label">Estado:</label>

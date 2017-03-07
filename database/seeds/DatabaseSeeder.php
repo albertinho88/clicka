@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //$this->call(UsersTableSeeder::class);
-        //$this->call(RolesTableSeeder::class);
+        $this->call(ServicesTableSeeder::class);
         
         $user = new \App\User();
         $user->name = 'Julio Larraga';
@@ -160,6 +160,16 @@ class DatabaseSeeder extends Seeder
                 $menuop43->order = 3;
                 $menuop43->menu_parent_id = $menuop4->menu_id;
                 $menuop43->save();
+                
+            $menuop8 = new \App\MenuOption();
+            $menuop8->label = 'Archivos Multimedia';
+            $menuop8->icon = 'file-image-o';
+            $menuop8->url = 'application/management/media_files';        
+            $menuop8->type = 'EXT';
+            $menuop8->state = 'A';
+            $menuop8->order = 4;
+            $menuop8->menu_parent_id = $menuop1->menu_id;
+            $menuop8->save();
 
             $menuop7 = new \App\MenuOption();
             $menuop7->label = 'Servicios';
@@ -167,7 +177,7 @@ class DatabaseSeeder extends Seeder
             $menuop7->url = 'application/management/services';        
             $menuop7->type = 'EXT';
             $menuop7->state = 'A';
-            $menuop7->order = 4;
+            $menuop7->order = 5;
             $menuop7->menu_parent_id = $menuop1->menu_id;
             $menuop7->save();
             
