@@ -124,16 +124,27 @@ class CatalogController extends Controller
     
     public function storeCatalogDetails(Request $request) {
         $catalog_details = $request->catalog_details;
+        $catalog = \App\Catalog::findOrFail($request->catalog_id);
+        
+        if (!$catalog->catalog_details->isEmpty()) :
+            if ($catalog_details) :
+                
+            else :
+                // Eliminar todos los roles
+                foreach($catalog->catalog_details as $catdet) :
+                    $catdet->state = 'E';
+                    $catdet->update();
+                endforeach;
+            endif;
+        endif;
+        
         if (isset($catalog_details)) :
             foreach ($request->catalog_details as $catdet) :
                 $newDetail = new \App\CatalogDetail();
                 $newDetail->catalog_id = $request->catalog_id;
                 $newDetail->catalog_detail_id = $catdet['catalog_detail_id'];
                 $newDetail->value = $catdet['value'];
-                $newDetail->state = 'A';
-                
-                die ('error');
-                
+                $newDetail->state = 'A';                                                
                 $newDetail->save();
             endforeach;
         endif;

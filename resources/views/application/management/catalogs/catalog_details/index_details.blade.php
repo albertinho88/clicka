@@ -103,7 +103,7 @@
                                                 <label>{{ $actdet->catalog_detail_id }}</label>
                                             </div>
                                             <div class="ui-grid-col-10">                                            
-                                                <input type="hidden" name="catalog_details[{{ $actdet->catalog_detail_id }}][catalog_detail_id]" value="{{ $actdet->catalog_detail_id }}" />
+                                                <input type="hidden" class="catalog_detail_id" name="catalog_details[{{ $actdet->catalog_detail_id }}][catalog_detail_id]" value="{{ $actdet->catalog_detail_id }}" />
                                                 <input type="text" name="catalog_details[{{ $actdet->catalog_detail_id }}][value]" value="{{ $actdet->value }}" >
                                             </div>
                                             <div class="ui-grid-col-1 text-center">
@@ -139,35 +139,65 @@
 <script type="text/javascript">
     $(function() {
         
+        initCustomComponents();
+        
         $('#btnAddDetail').click(function(){
             
-            var newDetailHtml = '';
+            $(".ui-state-error").removeClass('ui-state-error');
+            var iptDetailId = $('#iptDetailId').val();
+            var iptDetailValue = $('#iptDetailValue').val();
             
-            newDetailHtml += '<div id="div_'+ $('#iptDetailId').val() +'">';
-            newDetailHtml += '  <div class="ui-grid-row">';
-            newDetailHtml += '      <div class="ui-grid-col-1 text-center">';
-            newDetailHtml += '          <label>'+ $('#iptDetailId').val() +'</label>';            
-            newDetailHtml += '      </div>';
-            newDetailHtml += '      <div class="ui-grid-col-10">';
-            newDetailHtml += '          <input type="hidden" name="catalog_details['+ $('#iptDetailId').val() +'][catalog_detail_id]" value="'+$('#iptDetailId').val()+'" />';
-            newDetailHtml += '          <input type="text" name="catalog_details['+ $('#iptDetailId').val() +'][value]" value="'+$('#iptDetailValue').val()+'" />';
-            newDetailHtml += '      </div>';
-            newDetailHtml += '      <div class="ui-grid-col-1 text-center">';
-            newDetailHtml += '          <button type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash" class="width_auto ui-button-icon-only delete-cat-detail" delete_div="div_'+ $('#iptDetailId').val() +'" ></button>';
-            newDetailHtml += '      </div>';
-            newDetailHtml += '  </div>';            
-            newDetailHtml += '  <div class="EmptyBox10" ></div>';
-            newDetailHtml += '</div>'; 
+            if (iptDetailId.trim().length == 0) {
+                addMessage([{severity: 'error', summary: '', detail: 'El campo Código es obligatorio.'}]);
+                $('#iptDetailId').addClass('ui-state-error');
+            } else if(iptDetailValue.trim().length == 0) {
+                addMessage([{severity: 'error', summary: '', detail: 'El campo Valor es obligatorio.'}]);
+                $('#iptDetailValue').addClass('ui-state-error');
+            } else {
+                
+                var codeAlreadyExists = false;
+                
+                $("#frmCatalogDetails .catalog_detail_id").each(function() {
+                    if( iptDetailId == this.value ) {
+                        codeAlreadyExists = true;
+                    }
+                });
+                
+                if (codeAlreadyExists) {
+                    addMessage([{severity: 'error', summary: '', detail: 'El Código ingresado ya existe.'}]);
+                    $('#iptDetailId').addClass('ui-state-error');
+                } else {
+                    var newDetailHtml = '';
+
+                    newDetailHtml += '<div id="div_'+ $('#iptDetailId').val() +'">';
+                    newDetailHtml += '  <div class="ui-grid-row">';
+                    newDetailHtml += '      <div class="ui-grid-col-1 text-center">';
+                    newDetailHtml += '          <label>'+ $('#iptDetailId').val() +'</label>';            
+                    newDetailHtml += '      </div>';
+                    newDetailHtml += '      <div class="ui-grid-col-10">';
+                    newDetailHtml += '          <input type="hidden" class="catalog_detail_id" name="catalog_details['+ $('#iptDetailId').val() +'][catalog_detail_id]" value="'+$('#iptDetailId').val()+'" />';
+                    newDetailHtml += '          <input type="text" name="catalog_details['+ $('#iptDetailId').val() +'][value]" value="'+$('#iptDetailValue').val()+'" />';
+                    newDetailHtml += '      </div>';
+                    newDetailHtml += '      <div class="ui-grid-col-1 text-center">';
+                    newDetailHtml += '          <button type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash" class="width_auto ui-button-icon-only delete-cat-detail" delete_div="div_'+ $('#iptDetailId').val() +'" ></button>';
+                    newDetailHtml += '      </div>';
+                    newDetailHtml += '  </div>';            
+                    newDetailHtml += '  <div class="EmptyBox10" ></div>';
+                    newDetailHtml += '</div>'; 
+
+                    $('#div_details').append(newDetailHtml);
+                    initComponents();
+                    initCustomComponents();
+                    
+                    $('#iptDetailId').val("");
+                    $('#iptDetailValue').val("");
+                    $('#iptDetailId').focus();
+                    
+                }                                
+            }
             
-            $('#div_details').append(newDetailHtml);
-            initComponents();
-        });
-        
-        $('.delete-cat-detail').click(function(){
-            alert('presiono delete');
-            var div_delete = $(this).attr('delete_div');
-            $('div').remove('#'+div_delete);
-        });
+            
+        });                
         
         $('#frmCatalogDetails').submit(function(e){ 
             //alert($(this).serialize());
@@ -207,6 +237,13 @@
             e.preventDefault();
         });
     });
+    
+    initCustomComponents = function() {
+        $('.delete-cat-detail').click(function(){            
+            var div_delete = $(this).attr('delete_div');
+            $('div').remove('#'+div_delete);
+        });
+    };
 </script>
 
 @endsection
