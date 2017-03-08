@@ -131,6 +131,9 @@ class CatalogController extends Controller
                 $newDetail->catalog_detail_id = $catdet['catalog_detail_id'];
                 $newDetail->value = $catdet['value'];
                 $newDetail->state = 'A';
+                
+                die ('error');
+                
                 $newDetail->save();
             endforeach;
         endif;

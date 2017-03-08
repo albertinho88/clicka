@@ -34,6 +34,17 @@
                 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">                                            
+                        <label for="label" class="col-md-4 control-label">Icono:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        {{ $menu_option->icon }}
+                    </div>                                                                                                                
+                </div>
+                
+                <div class="EmptyBox10"></div>
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
                         <label for="url" class="col-md-4 control-label">Url:</label>
                     </div>
                     <div class="ui-grid-col-10">

@@ -80,7 +80,7 @@ class UserController extends Controller
      */
     public function show($id)
     {        
-        $user = \App\User::find($id);
+        $user = \App\User::findOrFail($id);
         return view($this->viewsDir.'show_user', compact('user'));
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $active_roles = \App\Role::where('state','A')->get();
-        $user = \App\User::find($id);
+        $user = \App\User::findOrFail($id);
         
         foreach($active_roles as $ar) :            
             if ($user->active_users_roles->contains('role_id',$ar->role_id)) :

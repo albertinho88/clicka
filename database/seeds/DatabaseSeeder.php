@@ -163,7 +163,7 @@ class DatabaseSeeder extends Seeder
             
                 $menuop9 = new \App\MenuOption();
                 $menuop9->label = 'Catálogos';
-                $menuop9->icon = 'bars';
+                $menuop9->icon = 'puzzle-piece';
                 $menuop9->url = 'application/management/catalogs';        
                 $menuop9->type = 'EXT';
                 $menuop9->state = 'A';

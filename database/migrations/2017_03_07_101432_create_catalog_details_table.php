@@ -21,7 +21,7 @@ class CreateCatalogDetailsTable extends Migration
             $table->string('state',1);
             $table->timestamps();
             
-            $table->primary('catalog_detail_id');
+            $table->primary(['catalog_detail_id', 'catalog_id']);
         });
     }
 
