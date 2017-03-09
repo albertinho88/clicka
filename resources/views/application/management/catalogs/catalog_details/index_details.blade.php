@@ -169,17 +169,17 @@
                 } else {
                     var newDetailHtml = '';
 
-                    newDetailHtml += '<div id="div_'+ $('#iptDetailId').val() +'">';
+                    newDetailHtml += '<div id="div_'+ iptDetailId +'">';
                     newDetailHtml += '  <div class="ui-grid-row">';
                     newDetailHtml += '      <div class="ui-grid-col-1 text-center">';
-                    newDetailHtml += '          <label>'+ $('#iptDetailId').val() +'</label>';            
+                    newDetailHtml += '          <label>'+ iptDetailId +'</label>';            
                     newDetailHtml += '      </div>';
                     newDetailHtml += '      <div class="ui-grid-col-10">';
-                    newDetailHtml += '          <input type="hidden" class="catalog_detail_id" name="catalog_details['+ $('#iptDetailId').val() +'][catalog_detail_id]" value="'+$('#iptDetailId').val()+'" />';
-                    newDetailHtml += '          <input type="text" name="catalog_details['+ $('#iptDetailId').val() +'][value]" value="'+$('#iptDetailValue').val()+'" />';
+                    newDetailHtml += '          <input type="hidden" class="catalog_detail_id" name="catalog_details['+ iptDetailId +'][catalog_detail_id]" value="'+iptDetailId+'" />';
+                    newDetailHtml += '          <input type="text" name="catalog_details['+ iptDetailId +'][value]" value="'+iptDetailValue+'" />';
                     newDetailHtml += '      </div>';
                     newDetailHtml += '      <div class="ui-grid-col-1 text-center">';
-                    newDetailHtml += '          <button type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash" class="width_auto ui-button-icon-only delete-cat-detail" delete_div="div_'+ $('#iptDetailId').val() +'" ></button>';
+                    newDetailHtml += '          <button type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash" class="width_auto ui-button-icon-only delete-cat-detail" delete_div="div_'+ iptDetailId +'" ></button>';
                     newDetailHtml += '      </div>';
                     newDetailHtml += '  </div>';            
                     newDetailHtml += '  <div class="EmptyBox10" ></div>';

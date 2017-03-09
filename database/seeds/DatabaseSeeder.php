@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(UsersTableSeeder::class);
+        $this->call(CatalogsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
         
         $user = new \App\User();

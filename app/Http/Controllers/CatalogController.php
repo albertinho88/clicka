@@ -122,23 +122,30 @@ class CatalogController extends Controller
         return view($this->viewsDir.'catalog_details.index_details',compact('catalog'));
     }
     
-    public function storeCatalogDetails(Request $request) {
-        $catalog_details = $request->catalog_details;
+    public function storeCatalogDetails(Request $request) {        
         $catalog = \App\Catalog::findOrFail($request->catalog_id);
         
         if (!$catalog->catalog_details->isEmpty()) :
             if ($catalog_details) :
-                
+                // Save-Update Roles
+                foreach($catalog->catalog_details as $catdet):
+                    if (in_array($catdet->catalog_detail_id, $request->catalog_details)):                                                
+                        $request->catalog_details = array_diff($request->catalog_details, [$catdet->catalog_detail_id]);
+                    elseif (!in_array($catdet->catalog_detail_id, $request->catalog_details) && $catdet->state = 'A') :
+                        $catdet->state = 'E';                
+                        $catalog->catalog_details()->save($catdet); 
+                    endif;
+                endforeach; 
             else :
                 // Eliminar todos los roles
                 foreach($catalog->catalog_details as $catdet) :
                     $catdet->state = 'E';
-                    $catdet->update();
+                    $catalog->catalog_details()->save($catdet); 
                 endforeach;
             endif;
         endif;
         
-        if (isset($catalog_details)) :
+        if (isset($request->catalog_details)) :
             foreach ($request->catalog_details as $catdet) :
                 $newDetail = new \App\CatalogDetail();
                 $newDetail->catalog_id = $request->catalog_id;
