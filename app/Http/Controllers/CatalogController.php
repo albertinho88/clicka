@@ -126,7 +126,7 @@ class CatalogController extends Controller
         $catalog = \App\Catalog::findOrFail($request->catalog_id);
         
         if (!$catalog->catalog_details->isEmpty()) :
-            if ($catalog_details) :
+            if (isset($request->catalog_details)) :
                 // Save-Update Roles
                 foreach($catalog->catalog_details as $catdet):
                     if (in_array($catdet->catalog_detail_id, $request->catalog_details)):                                                

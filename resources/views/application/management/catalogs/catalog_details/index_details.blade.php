@@ -200,7 +200,7 @@
         });                
         
         $('#frmCatalogDetails').submit(function(e){ 
-            //alert($(this).serialize());
+            console.log($(this).serialize());
             
             $.ajax({
                 url: $(this).attr('action'),
@@ -211,7 +211,8 @@
                     addLoadingMessage();
                 }
               })
-              .fail(function (errorResponse){              
+              .fail(function (errorResponse){
+                  console.log(errorResponse.responseText);
                     var errors = JSON.parse(errorResponse.responseText);                                                                        
                     if (errors) {                    
                         $.each(errors, function(index, value) {                            
