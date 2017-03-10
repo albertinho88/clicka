@@ -41,7 +41,9 @@
                             <div class="EmptyBox20"></div>                                                                                            
                         </div>
                         
-                        <div id="formAjax" style="display: none;" ></div>
+                        <div id="formAjax" >
+                            @include('partial.contact_form')
+                        </div>
                         
                     </div>
                     <div class="ui-grid-col-1"></div>
@@ -52,26 +54,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    
-    $( document ).ready(function() {        
-        $.ajax({
-            url: '{{ route('contact_form_ajax') }}',
-            method: "GET",            
-            dataType: "html",
-            beforeSend: function (xhr) {                
-                addLoadingMessage();
-            }
-        })
-        .done(function( htmlResponse ) {
-            setHtmlContent('formAjax',htmlResponse);            
-            initComponents();            
-            clearMessage();
-        });
-    });
-    
-</script>
 
 @include('partial.main_services')
 

@@ -15,7 +15,7 @@ class Catalog extends Model
      */
     public function catalog_details()
     {
-        return $this->hasMany('\App\CatalogDetail', 'catalog_id');
+        return $this->hasMany('\App\CatalogDetail', 'catalog_id')->orderBy('created_at');
     }
     
     /**

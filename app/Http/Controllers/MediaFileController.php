@@ -13,14 +13,20 @@ class MediaFileController extends Controller
         $this->viewsDir = "application.management.media_files.";
     } 
     
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {        
+        /*$ficheros  = scandir('_resource/images/');
+        
+        foreach ($ficheros as $fichero) :
+            
+        endforeach;*/
+        
         return view($this->viewsDir.'index_media_files');
     }
 
@@ -89,4 +95,5 @@ class MediaFileController extends Controller
     {
         //
     }
+        
 }

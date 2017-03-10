@@ -52,7 +52,22 @@
                     </div>                                                                                                                
                 </div>
                 
-                <div class="EmptyBox10"></div>                
+                <div class="EmptyBox10"></div> 
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="state" class="col-md-4 control-label">Detalle:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <ul>
+                            @foreach ($catalog->catalog_details as $catdet) 
+                                <li>{{ $catdet->catalog_detail_id.' - '.$catdet->value.' ('.$catdet->state.')' }}</li>
+                            @endforeach
+                        </ul>
+                    </div>                                                                                                                
+                </div>
+                
+                <div class="EmptyBox10"></div> 
 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">                                            

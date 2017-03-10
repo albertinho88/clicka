@@ -129,25 +129,36 @@ class CatalogController extends Controller
         if (!$catalog->catalog_details->isEmpty()) :
             if (isset($request_catalog_details)) :
                 // Save-Update Details
-                foreach($catalog->catalog_details as $catdet):                    
-                    // si esta ingresando un detalle con el mismo codigo de un detalle ya eliminado, imprimir mensaje de error
-                    if (isset($request_catalog_details[$catdet->catalog_detail_id]) && $catdet->state == 'A') :                    
-                        if ($request_catalog_details[$catdet->catalog_detail_id]['value'] != $catdet->value) :
-                            $catdet->value = $request_catalog_details[$catdet->catalog_detail_id]['value'];
-                            $catalog->catalog_details()->save($catdet);
+                foreach($catalog->catalog_details as $catdet):                                                            
+                    if (isset($request_catalog_details[$catdet->catalog_detail_id])) : 
+                        
+                        $hasToUpdate = false;
+                        
+                        if ($catdet->state == 'A' && !isset($request_catalog_details[$catdet->catalog_detail_id]['state'])):
+                            $catdet->state = 'I';
+                            $hasToUpdate = true;
+                        elseif ($catdet->state == 'I' && isset($request_catalog_details[$catdet->catalog_detail_id]['state'])):
+                            $catdet->state = 'A';
+                            $hasToUpdate = true;
                         endif;
                         
-                        unset($request_catalog_details[$catdet->catalog_detail_id]);
-                    elseif (!isset($request_catalog_details[$catdet->catalog_detail_id]) && $catdet->state == 'A') :
-                        $catdet->state = 'E';                
-                        $catdet->update();
-                        //$catalog->catalog_details()->save($catdet); 
+                        if ($request_catalog_details[$catdet->catalog_detail_id]['value'] != $catdet->value) :
+                            $catdet->value = $request_catalog_details[$catdet->catalog_detail_id]['value'];                            
+                            $hasToUpdate = true;
+                        endif;
+                        
+                        if ($hasToUpdate) :
+                            $catalog->catalog_details()->save($catdet);
+                        endif;                                                                             
+                        
+                        unset($request_catalog_details[$catdet->catalog_detail_id]);                    
+                        
                     endif;
                 endforeach; 
             else :
-                // Eliminar todos los details
+                // Inactivar todos los details
                 foreach($catalog->catalog_details as $catdet) :
-                    $catdet->state = 'E';
+                    $catdet->state = 'I';
                     $catalog->catalog_details()->save($catdet); 
                 endforeach;
             endif;
@@ -155,17 +166,17 @@ class CatalogController extends Controller
         
         if (isset($request_catalog_details)) :
             foreach ($request_catalog_details as $catdet) :
-                $newDetail = new \App\CatalogDetail();
-                $newDetail->catalog_id = $request->catalog_id;
+                $newDetail = new \App\CatalogDetail();                
                 $newDetail->catalog_detail_id = $catdet['catalog_detail_id'];
                 $newDetail->value = $catdet['value'];
-                $newDetail->state = 'A';                                                
-                $newDetail->save();
+                $newDetail->state = isset($catdet['state'])?'A':'I';
+                $catalog->catalog_details()->save($newDetail);                
             endforeach;
-        endif;
-        //die(print_r($request->catalog_details));
+        endif;        
         
-        return response()->json($request);
+        $catalog = \App\Catalog::findOrFail($request->catalog_id);
+        
+        return view($this->viewsDir.'partial.view_catalog',compact('catalog'));
     }
 
     /**

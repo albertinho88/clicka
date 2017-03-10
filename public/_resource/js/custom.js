@@ -5,10 +5,12 @@
  */
 
 $( document ).ready(function() {  
-    initComponents();                                 
+    initUiComponents();
+    initSubmitAjaxForms();
+    initAjaxLinks();
 });
 
-initComponents = function() {
+initUiComponents = function() {
 
     $("input:text").puiinputtext();
     $("input:password").puipassword();    
@@ -67,8 +69,8 @@ initComponents = function() {
         }
     });
     
-    initSubmitAjaxForms();
-    initAjaxLinks();
+    //initSubmitAjaxForms();
+    //initAjaxLinks();
 };
 
 addMessage = function(msg) {
@@ -90,18 +92,16 @@ setHtmlContent = function (divId, htmlContent) {
 };
 
 initSubmitAjaxForms = function() {
-    $('.ajaxJsonForm').submit(function(e){                        
-        var a = $(this).attr("action");        
-        $(".ui-state-error").removeClass('ui-state-error');
-        $(".help-block").html("").animate({ height: 'hide' });        
-        //alert($(this).serialize());
+    $('.ajaxJsonForm').submit(function(e){                                
+        
         $.ajax({
-            url: a,
+            url: $(this).attr("action"),
             method: "POST",
             data: $(this).serialize(),
             dataType: "html",            
             beforeSend: function( xhr ) {
                 addLoadingMessage();
+                removeFieldErrorMsgs();
             }
           })
           .fail(function (errorResponse){              
@@ -120,7 +120,7 @@ initSubmitAjaxForms = function() {
           .done(function(htmlResponse){         
               setHtmlContent('formAjax',htmlResponse);
               addMessage([{ severity: 'info', summary: '', detail: 'Información enviada y almacenada exitosamente.' }]);                                  
-              initComponents();
+              initUiComponents();
           })            
           .always(function() {
               // always executed..                 
@@ -141,7 +141,7 @@ initAjaxLinks = function() {
             }
             }).done(function( htmlResponse ) {
                 setHtmlContent('formAjax',htmlResponse);            
-                initComponents();            
+                initUiComponents();            
                 clearMessage();
             })
             .fail(function() {
@@ -150,5 +150,17 @@ initAjaxLinks = function() {
         
         e.preventDefault();
     });
+};
+
+removeFieldErrorMsgs = function() {    
+    $(".ui-state-error").each(function(){
+        $(this).removeClass("ui-state-error");
+    });
+    
+    $(".help-block").each(function() {
+        if ($(this).html().trim().length > 0) {
+            $(this).html("").animate({ height: 'hide' });
+        }
+    });            
 };
 

@@ -157,13 +157,15 @@
                         </span>
                         <span class="footer-text-right">
                             <span class="ui-icon ui-icon-copyright"></span>  
-                            <span>Todos los derechos reservados.</span>                                
+                            <span>Todos los derechos reservados. </span>                            
                         </span>
                     </div>
+                    <input type="text" value="{{ route('upload_image') }}" />
                 </div>
             </div>
         </div>
         
-        <div id="growlel"></div>               
+        <div id="growlel"></div> 
+        
     </body>
 </html>

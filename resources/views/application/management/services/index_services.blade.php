@@ -74,7 +74,7 @@
                     context: this,
                     success: function(response) {
                         callback.call(this, response);
-                        initComponents();            
+                        initUiComponents();            
                         clearMessage();
                     }
                 });

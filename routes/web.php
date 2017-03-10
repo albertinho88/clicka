@@ -30,7 +30,7 @@ Route::get('errors/no_menu_access',function(){
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('application','ApplicationController@principal')->name('application_principal');
+    Route::get('application','ApplicationController@principal')->name('application_principal');    
     
     Route::group(['middleware' => ['hasAccess']], function () {
         Route::get('application/management/menu_options','MenuOptionController@index')->name('index_menu_options');
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('application/management/catalogs/edit/{catalog_id}','CatalogController@edit')->name('edit_catalog');        
         Route::get('application/management/catalogs/show/{catalog_id}','CatalogController@show')->name('show_catalog');
         
-        Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');
+        Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');        
     });
             
     

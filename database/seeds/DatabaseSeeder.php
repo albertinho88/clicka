@@ -210,6 +210,16 @@ class DatabaseSeeder extends Seeder
             $menuop8->order = 5;
             $menuop8->menu_parent_id = $menuop1->menu_id;
             $menuop8->save();
+                
+                /*$menuop81 = new \App\MenuOption();
+                $menuop81->label = 'Crear Archivo Multimedia';
+                $menuop81->icon = '';
+                $menuop81->url = 'application/management/media_files/create';        
+                $menuop81->type = 'INT';
+                $menuop81->state = 'A';
+                $menuop81->order = 1;
+                $menuop81->menu_parent_id = $menuop8->menu_id;
+                $menuop81->save();*/
 
             $menuop7 = new \App\MenuOption();
             $menuop7->label = 'Servicios';

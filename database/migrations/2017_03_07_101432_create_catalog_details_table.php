@@ -15,7 +15,7 @@ class CreateCatalogDetailsTable extends Migration
     {
         Schema::create('catalog_details', function (Blueprint $table) {
             $table->string('catalog_detail_id',10);
-            $table->string('value',255);
+            $table->string('value',255)->nullable();
             $table->string('catalog_id',10);            
             $table->foreign('catalog_id')->references('catalog_id')->on('catalogs');
             $table->string('state',1);
