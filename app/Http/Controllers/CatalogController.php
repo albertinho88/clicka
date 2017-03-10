@@ -124,20 +124,28 @@ class CatalogController extends Controller
     
     public function storeCatalogDetails(Request $request) {        
         $catalog = \App\Catalog::findOrFail($request->catalog_id);
+        $request_catalog_details = $request->catalog_details;
         
         if (!$catalog->catalog_details->isEmpty()) :
-            if (isset($request->catalog_details)) :
-                // Save-Update Roles
-                foreach($catalog->catalog_details as $catdet):
-                    if (in_array($catdet->catalog_detail_id, $request->catalog_details)):                                                
-                        $request->catalog_details = array_diff($request->catalog_details, [$catdet->catalog_detail_id]);
-                    elseif (!in_array($catdet->catalog_detail_id, $request->catalog_details) && $catdet->state = 'A') :
+            if (isset($request_catalog_details)) :
+                // Save-Update Details
+                foreach($catalog->catalog_details as $catdet):                    
+                    // si esta ingresando un detalle con el mismo codigo de un detalle ya eliminado, imprimir mensaje de error
+                    if (isset($request_catalog_details[$catdet->catalog_detail_id]) && $catdet->state == 'A') :                    
+                        if ($request_catalog_details[$catdet->catalog_detail_id]['value'] != $catdet->value) :
+                            $catdet->value = $request_catalog_details[$catdet->catalog_detail_id]['value'];
+                            $catalog->catalog_details()->save($catdet);
+                        endif;
+                        
+                        unset($request_catalog_details[$catdet->catalog_detail_id]);
+                    elseif (!isset($request_catalog_details[$catdet->catalog_detail_id]) && $catdet->state == 'A') :
                         $catdet->state = 'E';                
-                        $catalog->catalog_details()->save($catdet); 
+                        $catdet->update();
+                        //$catalog->catalog_details()->save($catdet); 
                     endif;
                 endforeach; 
             else :
-                // Eliminar todos los roles
+                // Eliminar todos los details
                 foreach($catalog->catalog_details as $catdet) :
                     $catdet->state = 'E';
                     $catalog->catalog_details()->save($catdet); 
@@ -145,8 +153,8 @@ class CatalogController extends Controller
             endif;
         endif;
         
-        if (isset($request->catalog_details)) :
-            foreach ($request->catalog_details as $catdet) :
+        if (isset($request_catalog_details)) :
+            foreach ($request_catalog_details as $catdet) :
                 $newDetail = new \App\CatalogDetail();
                 $newDetail->catalog_id = $request->catalog_id;
                 $newDetail->catalog_detail_id = $catdet['catalog_detail_id'];

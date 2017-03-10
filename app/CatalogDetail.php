@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CatalogDetail extends Model
 {
+    use Traits\HasCompositePrimaryKey;
+    
     protected $table = 'catalog_details';
     protected $primaryKey = ['catalog_detail_id', 'catalog_id'];
     public $incrementing = false;

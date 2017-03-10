@@ -164,47 +164,6 @@
             </div>
         </div>
         
-        <div id="growlel"></div>
-        <button id="btn-show" type="button">Show</button>
-        <div id="dlg-clicka"></div>
-        
-        <script type="text/javascript">
-            $(function() {
-                
-                $('#dlg-clicka').html('<p>Seguro desea realizar esta acción?</p>');
-                $('#dlg-clicka').puidialog({
-                    showEffect: 'fade',
-                    hideEffect: 'fade',
-                    minimizable: false,
-                    maximizable: false,
-                    responsive: true,
-                    minWidth: 200,
-                    modal: true,
-                    title: 'Confirmación',
-                    buttons: [{
-                            text: 'Si',
-                            icon: 'fa-check',
-                            click: function() {
-                                $('#dlg-clicka').puidialog('hide');
-                            }
-                        },
-                        {
-                            text: 'No',
-                            icon: 'fa-close',
-                            click: function() {
-                                $('#dlg-clicka').puidialog('hide');
-                            }
-                        }
-                    ]
-                });
-
-                $('#btn-show').puibutton({
-                    icon: 'fa-external-link-square',
-                    click: function() {
-                        $('#dlg-clicka').puidialog('show');
-                    }
-                });
-            });
-        </script>
+        <div id="growlel"></div>               
     </body>
 </html>

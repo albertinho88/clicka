@@ -227,7 +227,7 @@
               })
               .done(function(htmlResponse){         
                   //setHtmlContent('formAjax',htmlResponse);
-                  alert(htmlResponse);
+                  //alert(htmlResponse);
                   addMessage([{ severity: 'info', summary: '', detail: 'Información enviada y almacenada exitosamente.' }]);                                  
                   initComponents();
               })            
