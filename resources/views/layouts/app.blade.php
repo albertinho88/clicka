@@ -159,8 +159,7 @@
                             <span class="ui-icon ui-icon-copyright"></span>  
                             <span>Todos los derechos reservados. </span>                            
                         </span>
-                    </div>
-                    <input type="text" value="{{ route('upload_image') }}" />
+                    </div>                    
                 </div>
             </div>
         </div>

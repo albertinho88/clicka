@@ -64,8 +64,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('application/management/catalogs/show/{catalog_id}','CatalogController@show')->name('show_catalog');
         
         Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');        
+        
     });
-            
+    
+    Route::get('application/management/media_files/list_media_files_json','MediaFileController@listMediaFilesJson')->name('list_media_files_json')
+            ->middleware('hasAccessOptional:application/management/media_files');    
     
     Route::get('application/management/menu_options/list_menu_options_json','MenuOptionController@listMenuOptionsJson')->name('list_menu_options_json')
                 ->middleware('hasAccessOptional:application/management/menu_options');    

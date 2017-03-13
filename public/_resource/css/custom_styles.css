@@ -403,3 +403,14 @@
   .visible {
       display: block !important;
   }
+  
+  
+  .directory {
+      cursor: pointer;
+      color: #5f666c;
+  }
+  
+  .file {
+      cursor: pointer;
+      color: #5f666c;
+  }

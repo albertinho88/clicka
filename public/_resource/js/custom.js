@@ -51,7 +51,7 @@ initUiComponents = function() {
     
     $('.ui-listbox').addClass('ui-selectonelistbox');
     
-    $('#growlel').puigrowl({sticky: true});
+    $('#growlel').puigrowl({sticky: true});        
     
     tinymce.init({ 
         selector:'.html_editor',
