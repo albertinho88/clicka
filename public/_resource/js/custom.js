@@ -85,10 +85,10 @@ clearMessage = function() {
     $('#growlel').puigrowl('clear');
 };
 
-setHtmlContent = function (divId, htmlContent) {
+setHtmlContent = function (divId, htmlContent, transitionTime) {
     $('#' + divId).hide();
     $('#' + divId).html(htmlContent);
-    $('#' + divId).show(200);
+    $('#' + divId).fadeIn(transitionTime);
 };
 
 initSubmitAjaxForms = function() {
@@ -108,7 +108,7 @@ initSubmitAjaxForms = function() {
                 var errors = JSON.parse(errorResponse.responseText);                                                                        
                 if (errors) {                    
                     $.each(errors, function(index, value) {                            
-                        $('#'+index).addClass('ui-state-error');
+                        $('#'+index).addClass('ui-state-error');                        
                         $('#'+index+'_help_block').html('<strong>' + value + '</strong>').animate( { height: 'show' });
                     });
 
@@ -118,7 +118,7 @@ initSubmitAjaxForms = function() {
                 }
           })
           .done(function(htmlResponse){         
-              setHtmlContent('formAjax',htmlResponse);
+              setHtmlContent('formAjax',htmlResponse,200);
               addMessage([{ severity: 'info', summary: '', detail: 'Información enviada y almacenada exitosamente.' }]);                                  
               initUiComponents();
           })            
@@ -140,7 +140,7 @@ initAjaxLinks = function() {
                 addLoadingMessage();
             }
             }).done(function( htmlResponse ) {
-                setHtmlContent('formAjax',htmlResponse);            
+                setHtmlContent('formAjax',htmlResponse,200);            
                 initUiComponents();            
                 clearMessage();
             })

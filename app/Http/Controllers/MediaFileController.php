@@ -39,27 +39,27 @@ class MediaFileController extends Controller
             $t = public_path().'/'.$parent_dir.$fichero;
             if (is_dir($t)) :
                 $dir_tree.= '<a class="directory" id="'.$fichero.'" >'
-                    . '<div class="ui-g-6 ui-md-3 ui-lg-2" >'
-                    . '<img style="width: 60px; height: 50px;" src="'.asset('_resource/thumbs/folder-50.png').'" />'
+                    . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
+                    . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-128.png').'" />'
                     . '<p><span class="text-center bolded">'.$fichero.'</span></p>'
-                    . '</div>'
+                    . '</div>'                    
                     . '</a>';
             elseif(is_file($t)):                
-                if (file_exists(public_path().'/_resource/thumbs/'.$fichero)) :
+                //if (file_exists(public_path().'/_resource/thumbs/'.$fichero)) :
                     $files_tree.= '<a class="file" href="'.asset($parent_dir.$fichero).'" >'
-                        . '<div class="ui-g-6 ui-md-3 ui-lg-2">'
-                        . '<img style="width: 60px; height: 50px;" src="'.asset('_resource/thumbs/'.$fichero).'" />'
+                        . '<div class="ui-g-6 ui-md-4 ui-lg-2">'
+                        . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" />'
                         . '<p>'.$fichero.'</p>'
                         . '</div>'
                         . '</a>';
-                else :
+                /*else :
                     $files_tree.= '<a class="file" href="'.asset($parent_dir.$fichero).'" >'
                         . '<div class="ui-g-6 ui-md-3 ui-lg-2">'
                         . '<img style="width: 60px; height: 50px;" src="'.asset('_resource/thumbs/no-thumb.png').'" />'
                         . '<p>'.$fichero.'</p>'
                         . '</div>'
                         . '</a>';
-                endif;                 
+                endif;  */               
             endif;
             //clearstatcache();
             //folder-50 
@@ -68,6 +68,21 @@ class MediaFileController extends Controller
         
         $files_tree = $dir_tree.$files_tree;
         return $files_tree;
+    }
+    
+    public function createDirectory(Request $request) {
+        $newDirectory = public_path().'/'.$request->parent_dir.$request->new_dir;  
+        
+        if (is_dir($newDirectory)) :
+            return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>'El directorio: "'.$request->new_dir.'", ya existe.']);
+        else:
+            if (mkdir($newDirectory)) :                                
+                return response()->json(["codigoRespuesta"=>"1","mensajeRespuesta"=>"Directorio creado satisfactoriamente."]);
+            else:
+                return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>"Error al crear el directorio ".$request->new_dir."."]);
+            endif;
+        endif;
+        
     }
 
     /**

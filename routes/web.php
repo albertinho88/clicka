@@ -68,7 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
     
     Route::get('application/management/media_files/list_media_files_json','MediaFileController@listMediaFilesJson')->name('list_media_files_json')
-            ->middleware('hasAccessOptional:application/management/media_files');    
+            ->middleware('hasAccessOptional:application/management/media_files');
+    Route::post('application/management/media_files/create_directory','MediaFileController@createDirectory')->name('create_directory')
+            ->middleware('hasAccessOptional:application/management/media_files');      
     
     Route::get('application/management/menu_options/list_menu_options_json','MenuOptionController@listMenuOptionsJson')->name('list_menu_options_json')
                 ->middleware('hasAccessOptional:application/management/menu_options');    
