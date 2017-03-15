@@ -84,60 +84,14 @@ class MediaFileController extends Controller
         endif;
         
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    
+    public function addMediaFile(Request $request) {
+        $target_dir = public_path().'/' ."_resource/images/";        
+        $target_file = $target_dir . basename($_FILES["ipt_new_file"]["name"]);;        
+        $sourcePath = $_FILES['ipt_new_file']['tmp_name'];       // Storing source path of the file in a variable
+        //$targetPath = "upload/".$_FILES['file']['name']; // Target path where file is to be stored
+        move_uploaded_file($sourcePath,$target_file) ;  
+        return response()->json($request);
     }
 
     /**

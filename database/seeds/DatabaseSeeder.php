@@ -212,7 +212,7 @@ class DatabaseSeeder extends Seeder
             $menuop8->save();
                 
                 /*$menuop81 = new \App\MenuOption();
-                $menuop81->label = 'Crear Archivo Multimedia';
+                $menuop81->label = 'Subir Archivo Multimedia';
                 $menuop81->icon = '';
                 $menuop81->url = 'application/management/media_files/create';        
                 $menuop81->type = 'INT';

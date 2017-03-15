@@ -414,3 +414,7 @@
       cursor: pointer;
       color: #5f666c;
   }
+  #prev-image {
+      line-height: 10px;
+      font-size: 8pt;
+  }

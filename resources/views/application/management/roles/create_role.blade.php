@@ -80,7 +80,7 @@
                                 <div class="ui-grid ui-grid-responsive">
                                     <div class="ui-grid-row">
                                         <div class="ui-grid-col-12">                                            
-                                            <div id="j_idt89" class="ui-selectmanymenu ui-inputfield ui-widget ui-widget-content ui-corner-all" style="width:95%;">
+                                            <div class="ui-selectmanymenu ui-inputfield ui-widget ui-widget-content ui-corner-all" style="width:95%;">
                                                 <div class="ui-selectlistbox-listcontainer" style="height:auto">
                                                     <ul class="ui-selectlistbox-list">                                                        
                                                         @foreach($active_menu_options as $actmenop)
