@@ -9,6 +9,14 @@
                 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
+                        @include('application.management.media_files.partial.menu_media_file')
+                    </div>
+                </div>
+                
+                <div class="EmptyBox10" ></div>
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
                         <div class="text-center titulo">
                             <p>
                                 <i class="fa fa-th-list" ></i>
@@ -22,31 +30,7 @@
                 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
-                        <ul class="menubar">                                    
-                            <li>
-                                <a  data-icon="fa-plus" onclick="document.getElementById('dlg_upload_image').show()">Subir Archivo</a>
-                                <p-dialog id="dlg_upload_image" title="Subir archivo" modal showeffect="fade" hideeffect="fade" renderdelay="10">
-                                    <form id="frmUploadMedia" >
-                                        <div class="ui-grid ui-grid-responsive">
-                                            <div class="ui-grid-row">
-                                                <div class="ui-grid-col-12"> 
-                                                    <div id="prev-image" ></div>
-                                                </div>
-                                            </div>
-                                            <div class="ui-grid-row">
-                                                <div class="ui-grid-col-12">                                                                                                                                                    
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input id="iptNewFile" name="new_file" type="file" style="width: 95%;" autocomplete="off" 
-                                                           accept=".jpg, .png, .jpeg, .gif, .bmp, .svg"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <script type="x-facet-buttons">
-                                        <button type="button" is="p-button" icon="fa-check" onclick="uploadImage()">Subir</button>                                        
-                                    </script>                                    
-                                </p-dialog>
-                            </li> 
+                        <ul class="menubar">                                                                
                             <li>
                                 <a data-icon="fa-plus" onclick="document.getElementById('dlgelement').show()">Crear Carpeta</a>
                                 <p-dialog id="dlgelement" title="Crear carpeta" modal showeffect="fade" hideeffect="fade" renderdelay="10">
@@ -85,7 +69,31 @@ $(function() {
     
     $("#iptNewFile").on("change",function(e){
         //$("#prev-image").html($(this).val());
-        console.log(this.files);
+        //console.log(e.target.files);
+        
+        var files = e.target.files; // FileList object
+        console.log(files);
+        //Obtenemos la imagen del campo "file". 
+        for (var i = 0, f; f = files[i]; i++) {         
+             //Solo admitimos imágenes.             
+             if (!f.type.match('image.*')) {
+                 console.log('no si es imagen');
+                  continue;
+             }
+
+             var reader = new FileReader();
+
+             reader.onload = (function(theFile) {
+                 return function(e) {
+                 // Creamos la imagen.
+                    //console.log();
+                    //$("#prev-image").html('hola mundo');
+                    //$("#prev-image").html('<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>');
+                    document.getElementById("prev-image").innerHTML = ['<img style="width: 256px; height: 256px;" class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+                 };
+             })(f);             
+             reader.readAsDataURL(f);
+         }
     });
 });
 

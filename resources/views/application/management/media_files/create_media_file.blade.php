@@ -15,7 +15,22 @@
                     
                     <div class="EmptyBox10" ></div>
                     
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12"> 
+                            <div id="prev-image" ></div>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">                                                                                                                                                    
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input id="iptNewFile" name="new_file" type="file" style="width: 95%;" autocomplete="off" 
+                                   accept=".jpg, .png, .jpeg, .gif, .bmp, .svg"/>
+                        </div>
+                    </div>
                 </div>
+                
+                                        
+                </form>
             </div>
         </div>
     </div>

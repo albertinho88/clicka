@@ -63,7 +63,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('application/management/catalogs/edit/{catalog_id}','CatalogController@edit')->name('edit_catalog');        
         Route::get('application/management/catalogs/show/{catalog_id}','CatalogController@show')->name('show_catalog');
         
-        Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');        
+        Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');
+        Route::get('application/management/catalogs/create','MediaFileController@create')->name('create_media_file');        
         
     });
     
