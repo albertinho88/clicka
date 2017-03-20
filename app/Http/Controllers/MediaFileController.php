@@ -86,12 +86,30 @@ class MediaFileController extends Controller
     }
     
     public function addMediaFile(Request $request) {
-        $target_dir = public_path().'/' ."_resource/images/";        
-        $target_file = $target_dir . basename($_FILES["ipt_new_file"]["name"]);;        
-        $sourcePath = $_FILES['ipt_new_file']['tmp_name'];       // Storing source path of the file in a variable
-        //$targetPath = "upload/".$_FILES['file']['name']; // Target path where file is to be stored
-        move_uploaded_file($sourcePath,$target_file) ;  
-        return response()->json($request);
+        $target_dir = public_path().'/' .$request->parent_dir;        
+        $target_file = $target_dir . basename($_FILES["ipt_new_file"]["name"]);        
+        $sourcePath = $_FILES['ipt_new_file']['tmp_name'];       // Storing source path of the file in a variable        
+        
+        $check = getimagesize($_FILES["ipt_new_file"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+        
+        if (move_uploaded_file($sourcePath,$target_file)) :
+            $html_img = '<a class="file" href="'.asset('_resource/images/'.basename($_FILES["ipt_new_file"]["name"])).'" >'
+                        . '<div class="ui-g-6 ui-md-4 ui-lg-2">'
+                        . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/images/'.basename($_FILES["ipt_new_file"]["name"])).'" />'
+                        . '<p>'.basename($_FILES["ipt_new_file"]["name"]).'</p>'
+                        . '</div>'
+                        . '</a>';
+            return response()->json(["codigoRespuesta"=>"1","mensajeRespuesta"=>'Archivo subido satisfactoriamente.',"html_img"=>$html_img]);
+        else:
+            return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>"Error al subir el archivo."]);
+        endif;        
     }
 
     /**
@@ -106,3 +124,53 @@ class MediaFileController extends Controller
     }
         
 }
+
+/*
+
+<?php
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
+// Check if file already exists
+if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+}
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 500000) {
+    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
+}
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
+?>
+
+ *  /
+ */

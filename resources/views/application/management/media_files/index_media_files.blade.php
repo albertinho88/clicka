@@ -24,7 +24,7 @@
                     <div class="ui-grid-col-12">
                         <ul class="menubar">                                                                
                             <li>
-                                <a data-icon="fa-plus" onclick="document.getElementById('dlg-add-media').show()"  >Subir Archivo</a>
+                                <a data-icon="fa-upload" onclick="document.getElementById('dlg-add-media').show()"  >Subir Archivo</a>
                                 <p-dialog id="dlg-add-media" title="Subir Archivo" modal showeffect="fade" hideeffect="fade" renderdelay="10">
                                     <form id="frmAddMedia" >
                                         <div class="ui-grid ui-grid-responsive">
@@ -37,13 +37,7 @@
                                             <div class="EmptyBox10" ></div>
                                             <div class="ui-grid-row">
                                                 <div class="ui-grid-col-12 text-center" id="prev-image"></div>                                                    
-                                            </div> 
-                                            <div class="EmptyBox10" ></div>
-                                            <div class="ui-grid-row">
-                                                <div class="ui-grid-col-12 text-center">
-                                                    <input type="submit" value="subir" />
-                                                </div>                                                    
-                                            </div> 
+                                            </div>                                             
                                         </div>
                                     </form>
                                     <script type="x-facet-buttons">
@@ -52,7 +46,7 @@
                                 </p-dialog>
                             </li>
                             <li>
-                                <a data-icon="fa-plus" onclick="document.getElementById('dlgelement').show()">Crear Carpeta</a>
+                                <a data-icon="fa-folder-open" onclick="document.getElementById('dlgelement').show()">Crear Carpeta</a>
                                 <p-dialog id="dlgelement" title="Crear carpeta" modal showeffect="fade" hideeffect="fade" renderdelay="10">
                                     <form id="frmListMedia" >
                                         <div class="ui-grid ui-grid-responsive">
@@ -78,6 +72,7 @@
                 
                 
                 <div id="div_files_tree" class="text-center"></div>
+                
             </div>            
         </div>
     </div>
@@ -206,6 +201,7 @@ addMedia = function(){
     if (document.getElementById("ipt-new-file").files.length>0) {  
         var form = $('form')[0]; // You need to use standart javascript object here
         var formData = new FormData(form);
+        formData.append("parent_dir",$("#parent_dir").val());        
         
         $.ajax({
             url: "{{ route('add_media_file') }}",
@@ -219,6 +215,17 @@ addMedia = function(){
             },       
             success: function(response) {
                 console.log(response);
+                
+                if (response.codigoRespuesta == '1') {
+                    addMessage([{ severity: 'info', summary: '', detail: response.mensajeRespuesta }]);
+                    document.getElementById('dlg-add-media').hide();
+                    $("#ipt-new-file").val("");
+                    listMediaFiles();
+
+                } else if (response.codigoRespuesta == '0') {
+                    addMessage([{ severity: 'error', summary: '', detail: response.mensajeRespuesta }]);
+                }
+                
                 /*setHtmlContent("div_files_tree", response,500);            
                 initUiComponents();            
                 clearMessage();
