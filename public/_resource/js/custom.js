@@ -23,7 +23,9 @@ initUiComponents = function() {
     $('fieldset').puifieldset({
         toggleable: true,
         collapsed: false
-    });  
+    });
+    
+    
     
 
     $("input").addClass( "ui-inputfield" );
@@ -68,7 +70,7 @@ initUiComponents = function() {
             });
         }
     });
-    
+    $(document).puitooltip();
     //initSubmitAjaxForms();
     //initAjaxLinks();
 };

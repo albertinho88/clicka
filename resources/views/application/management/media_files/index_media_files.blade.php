@@ -31,9 +31,10 @@
                                             <div class="ui-grid-row">
                                                 <div class="ui-grid-col-12">                                                                                                    
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="file" id="ipt-new-file" name="ipt_new_file" class="form-control" style="width: 100%;" />                                                    
+                                                    <input type="file" id="ipt-new-file" name="ipt_new_file" class="form-control" style="width: 100%;" />
+                                                    <p><small>Tamaño máximo permitido: <span class="bolded">2Mb</span></small></p>                                                    
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                             <div class="EmptyBox10" ></div>
                                             <div class="ui-grid-row">
                                                 <div class="ui-grid-col-12 text-center" id="prev-image"></div>                                                    
@@ -101,7 +102,8 @@ $(function() {
 
              reader.onload = (function(theFile) {
                  return function(e) {
-                 // Creamos la imagen.                    
+                 // Creamos la imagen.
+                 console.log(theFile.size);
                     var image  = new Image();
                     image.src = window.URL.createObjectURL(theFile);
                     
@@ -196,8 +198,7 @@ createDirectory = function() {
     }
 };
 
-addMedia = function(){   
-    //console.log(document.getElementById("ipt-new-file").files);
+addMedia = function(){       
     if (document.getElementById("ipt-new-file").files.length>0) {  
         var form = $('form')[0]; // You need to use standart javascript object here
         var formData = new FormData(form);
@@ -213,23 +214,19 @@ addMedia = function(){
             beforeSend: function() {
                addLoadingMessage();           
             },       
-            success: function(response) {
-                console.log(response);
+            success: function(response) {                
                 
-                if (response.codigoRespuesta == '1') {
-                    addMessage([{ severity: 'info', summary: '', detail: response.mensajeRespuesta }]);
+                if (response.codigoRespuesta === '1') {                    
                     document.getElementById('dlg-add-media').hide();
                     $("#ipt-new-file").val("");
+                    $("#prev-image").hide();        
+                    $("#prev-image").html("");  
                     listMediaFiles();
-
-                } else if (response.codigoRespuesta == '0') {
+                    addMessage([{ severity: 'info', summary: '', detail: response.mensajeRespuesta }]);
+                } else if (response.codigoRespuesta === '0') {
                     addMessage([{ severity: 'error', summary: '', detail: response.mensajeRespuesta }]);
                 }
-                
-                /*setHtmlContent("div_files_tree", response,500);            
-                initUiComponents();            
-                clearMessage();
-                initCustomComponents();*/            
+          
             }
         }).fail(function(e){
             addMessage([{severity: 'error', summary: '', detail: 'Ha ocurrido un error. Por favor intente más tarde.'}]);

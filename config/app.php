@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost/clicka/public/'),
+    'url' => env('APP_URL', 'http://localhost/clicka/public/index.php'),
 
     /*
     |--------------------------------------------------------------------------

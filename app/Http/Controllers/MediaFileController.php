@@ -27,10 +27,8 @@ class MediaFileController extends Controller
     
     public function listMediaFilesJson(Request $request) {
                 
-        $parent_dir = $request->parent_dir;    
-        
-        $images_files = array_diff(scandir($parent_dir,0), array('.'));        
-        
+        $parent_dir = $request->parent_dir;            
+        $images_files = array_diff(scandir($parent_dir,0), array('.'));                
         $dir_tree = '';
         $files_tree = '';
         
@@ -46,23 +44,30 @@ class MediaFileController extends Controller
                     . '</a>';
             elseif(is_file($t)):                
                 //if (file_exists(public_path().'/_resource/thumbs/'.$fichero)) :
+                $check = getimagesize($t);
+                $detallesFichero = "";
+                
+                if ($check != false) {
+                    $detallesFichero .= "Dimensiones: ".$check[0]." x ".$check[1]." - ";
+                }                
+                $detallesFichero .= " (".  number_format(filesize($t)/1024,2)." Kb )";                
+                //if($check != false):
                     $files_tree.= '<a class="file" href="'.asset($parent_dir.$fichero).'" >'
                         . '<div class="ui-g-6 ui-md-4 ui-lg-2">'
-                        . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" />'
-                        . '<p>'.$fichero.'</p>'
+                        . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" title="'. urldecode($detallesFichero).'" />'
+                        . '<p>'.$fichero.'</p>'                                                
                         . '</div>'
                         . '</a>';
-                /*else :
+                /*else:
                     $files_tree.= '<a class="file" href="'.asset($parent_dir.$fichero).'" >'
                         . '<div class="ui-g-6 ui-md-3 ui-lg-2">'
                         . '<img style="width: 60px; height: 50px;" src="'.asset('_resource/thumbs/no-thumb.png').'" />'
                         . '<p>'.$fichero.'</p>'
                         . '</div>'
                         . '</a>';
-                endif;  */               
+                endif; */                                 
             endif;
-            //clearstatcache();
-            //folder-50 
+            clearstatcache();            
         endforeach;
         $files_tree .= '</p-lightbox>';
         
@@ -89,88 +94,26 @@ class MediaFileController extends Controller
         $target_dir = public_path().'/' .$request->parent_dir;        
         $target_file = $target_dir . basename($_FILES["ipt_new_file"]["name"]);        
         $sourcePath = $_FILES['ipt_new_file']['tmp_name'];       // Storing source path of the file in a variable        
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION); //svg exception
+        $check = getimagesize($sourcePath);
         
-        $check = getimagesize($_FILES["ipt_new_file"]["tmp_name"]);
-        if($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
-        }
-        
-        if (move_uploaded_file($sourcePath,$target_file)) :
-            $html_img = '<a class="file" href="'.asset('_resource/images/'.basename($_FILES["ipt_new_file"]["name"])).'" >'
-                        . '<div class="ui-g-6 ui-md-4 ui-lg-2">'
-                        . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/images/'.basename($_FILES["ipt_new_file"]["name"])).'" />'
-                        . '<p>'.basename($_FILES["ipt_new_file"]["name"]).'</p>'
-                        . '</div>'
-                        . '</a>';
-            return response()->json(["codigoRespuesta"=>"1","mensajeRespuesta"=>'Archivo subido satisfactoriamente.',"html_img"=>$html_img]);
+        if($check == false && $imageFileType != "svg") :            
+            return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>"El archivo no es una imagen."]);
+        // Check if file already exists
+        elseif (file_exists($target_file)) :            
+            return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>"El archivo ya existe."]);                    
+        // Check file size
+        elseif ($_FILES["ipt_new_file"]["size"] > 2097152) : //2Mb
+            return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>"Lo sentimos, el tamaño máximo permitido es de 2Mb."]);
+        // Allow certain file formats
+        elseif($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" && $imageFileType != "svg" ) :
+            return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>"Lo sentimos, solo archivos con extensión JPG, JPEG, PNG, SVG & GIF son permitidos."]);            
+        elseif (move_uploaded_file($sourcePath,$target_file)) :            
+            return response()->json(["codigoRespuesta"=>"1","mensajeRespuesta"=>'Archivo subido satisfactoriamente.']);
         else:
             return response()->json(["codigoRespuesta"=>"0","mensajeRespuesta"=>"Error al subir el archivo."]);
         endif;        
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
         
 }
-
-/*
-
-<?php
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-}
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-}
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-}
-?>
-
- *  /
- */
