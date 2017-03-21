@@ -44,18 +44,20 @@ class MediaFileController extends Controller
                     . '</a>';
             elseif(is_file($t)):                
                 //if (file_exists(public_path().'/_resource/thumbs/'.$fichero)) :
-                $check = getimagesize($t);
-                $detallesFichero = "";
-                
+                $check = getimagesize($t);                
+                $dimensionesFichero = "";
+            
                 if ($check != false) {
-                    $detallesFichero .= "Dimensiones: ".$check[0]." x ".$check[1]." - ";
+                    $dimensionesFichero .= "Dimensiones: ".$check[0]." x ".$check[1]."";
                 }                
-                $detallesFichero .= " (".  number_format(filesize($t)/1024,2)." Kb )";                
+                
+                $detallesFichero = "<p>".$fichero;
+                $detallesFichero .= "<br /> (".  number_format(filesize($t)/1024,2)." Kb) </p>";
                 //if($check != false):
                     $files_tree.= '<a class="file" href="'.asset($parent_dir.$fichero).'" >'
                         . '<div class="ui-g-6 ui-md-4 ui-lg-2">'
-                        . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" title="'. urldecode($detallesFichero).'" />'
-                        . '<p>'.$fichero.'</p>'                                                
+                        . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" title="'.$dimensionesFichero.'" />'
+                        . $detallesFichero
                         . '</div>'
                         . '</a>';
                 /*else:

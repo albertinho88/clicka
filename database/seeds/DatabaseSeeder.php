@@ -280,6 +280,35 @@ class DatabaseSeeder extends Seeder
             $menuop6->order = 1;
             $menuop6->menu_parent_id = $menuop5->menu_id;
             $menuop6->save();
+            
+        $menuop20 = new \App\MenuOption();
+        $menuop20->label = 'Sitio Web';
+        $menuop20->icon = 'sitemap';
+        $menuop20->url = '#';        
+        $menuop20->type = 'EXT';
+        $menuop20->state = 'A';
+        $menuop20->order = 3;
+        $menuop20->save();
+        
+            $menuop201 = new \App\MenuOption();
+            $menuop201->label = 'Inicio';
+            $menuop201->icon = 'home';
+            $menuop201->url = 'application/cms/home';        
+            $menuop201->type = 'EXT';
+            $menuop201->state = 'A';
+            $menuop201->order = 1;
+            $menuop201->menu_parent_id = $menuop20->menu_id;
+            $menuop201->save();
+            
+            $menuop202 = new \App\MenuOption();
+            $menuop202->label = 'Conócenos';
+            $menuop202->icon = 'comment-o';
+            $menuop202->url = 'application/cms/about_us';        
+            $menuop202->type = 'EXT';
+            $menuop202->state = 'A';
+            $menuop202->order = 2;
+            $menuop202->menu_parent_id = $menuop20->menu_id;
+            $menuop202->save();
         
         $all_menu_options = \App\MenuOption::all();
         
