@@ -31,7 +31,7 @@
                                 <label for="label" class="col-md-4 control-label">Etiqueta:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="label" name="label" type="text" autocomplete="off" style="width: 95%;" class="form-control" />
+                                <input id="label" name="label" type="text" autocomplete="off" class="form-control" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -52,7 +52,7 @@
                                 <label for="icon" class="col-md-4 control-label">Icono:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="icon" name="icon" type="text" autocomplete="off" style="width: 95%;" class="form-control" />
+                                <input id="icon" name="icon" type="text" autocomplete="off" class="form-control" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -73,7 +73,7 @@
                                 <label for="url" class="col-md-4 control-label">Url:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="url" name="url" type="text" autocomplete="off" style="width: 95%;" class="form-control" />
+                                <input id="url" name="url" type="text" autocomplete="off" class="form-control" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">
@@ -94,7 +94,7 @@
                                 <label for="order" class="col-md-4 control-label">Orden:</label>
                             </div>
                             <div class="ui-grid-col-10">
-                                <input id="order" name="order" type="text" autocomplete="off" style="width: 95%;" class="form-control" />
+                                <input id="order" name="order" type="text" autocomplete="off" class="form-control" />
                             </div>                                                                                                                
                         </div>
                         <div class="ui-grid-row">

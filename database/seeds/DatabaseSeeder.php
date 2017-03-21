@@ -291,24 +291,44 @@ class DatabaseSeeder extends Seeder
         $menuop20->save();
         
             $menuop201 = new \App\MenuOption();
-            $menuop201->label = 'Inicio';
-            $menuop201->icon = 'home';
-            $menuop201->url = 'application/cms/home';        
+            $menuop201->label = 'Páginas';
+            $menuop201->icon = 'bars';
+            $menuop201->url = 'application/cms/pages';        
             $menuop201->type = 'EXT';
             $menuop201->state = 'A';
             $menuop201->order = 1;
             $menuop201->menu_parent_id = $menuop20->menu_id;
             $menuop201->save();
-            
-            $menuop202 = new \App\MenuOption();
-            $menuop202->label = 'Conócenos';
-            $menuop202->icon = 'comment-o';
-            $menuop202->url = 'application/cms/about_us';        
-            $menuop202->type = 'EXT';
-            $menuop202->state = 'A';
-            $menuop202->order = 2;
-            $menuop202->menu_parent_id = $menuop20->menu_id;
-            $menuop202->save();
+                        
+                $menuop2011 = new \App\MenuOption();
+                $menuop2011->label = 'Crear Página';
+                $menuop2011->icon = '';
+                $menuop2011->url = 'application/cms/pages/create';        
+                $menuop2011->type = 'INT';
+                $menuop2011->state = 'A';
+                $menuop2011->order = 1;
+                $menuop2011->menu_parent_id = $menuop201->menu_id;
+                $menuop2011->save();
+
+                $menuop2012 = new \App\MenuOption();
+                $menuop2012->label = 'Editar Página';
+                $menuop2012->icon = '';
+                $menuop2012->url = 'application/cms/pages/edit/{page_id}';        
+                $menuop2012->type = 'INT';
+                $menuop2012->state = 'A';
+                $menuop2012->order = 2;
+                $menuop2012->menu_parent_id = $menuop201->menu_id;
+                $menuop2012->save();
+
+                $menuop2013 = new \App\MenuOption();
+                $menuop2013->label = 'Ver Página';
+                $menuop2013->icon = '';
+                $menuop2013->url = 'application/cms/pages/show/{page_id}';        
+                $menuop2013->type = 'INT';
+                $menuop2013->state = 'A';
+                $menuop2013->order = 3;
+                $menuop2013->menu_parent_id = $menuop201->menu_id;
+                $menuop2013->save();
         
         $all_menu_options = \App\MenuOption::all();
         

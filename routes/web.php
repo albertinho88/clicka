@@ -63,7 +63,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('application/management/catalogs/edit/{catalog_id}','CatalogController@edit')->name('edit_catalog');        
         Route::get('application/management/catalogs/show/{catalog_id}','CatalogController@show')->name('show_catalog');
         
-        Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');                
+        Route::get('application/management/media_files','MediaFileController@index')->name('index_media_files');
+        
+        Route::get('application/cms/pages','PageController@index')->name('index_pages');
+        Route::get('application/cms/pages/create','PageController@create')->name('create_page');
+        Route::post('application/cms/pages/create','PageController@store')->name('store_page');
+        Route::get('application/cms/pages/edit/{page_id}','PageController@edit')->name('edit_page');        
+        Route::get('application/cms/pages/show/{page_id}','PageController@show')->name('show_page');
         
     });
     
@@ -103,6 +109,11 @@ Route::group(['middleware' => ['auth']], function () {
                     ->middleware('hasAccessOptional:application/management/catalogs');    
     Route::post('application/management/catalogs/store_catalog_details','CatalogController@storeCatalogDetails')->name('store_catalog_details')
                     ->middleware('hasAccessOptional:application/management/catalogs');    
+    
+    Route::get('application/cms/pages/list_pages_json','PageController@listPagesJson')->name('list_pages_json')
+		->middleware('hasAccessOptional:application/cms/pages');
+    Route::post('application/cms/pages/update','PageController@update')->name('update_page')
+            ->middleware('hasAccessOptional:application/cms/pages/edit/{page_id}');
     
 });
 
