@@ -8,6 +8,7 @@ class Page extends Model
 {
     protected $table = 'pages';
     protected $primaryKey = 'page_id';
+    public $incrementing = false;
     
     /**
     * Get the user that owns the user_role.

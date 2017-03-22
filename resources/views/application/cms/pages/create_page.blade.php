@@ -27,90 +27,28 @@
 
                     <form id="createPageForm" name="createPageForm" method="POST" action="{{ route('store_page') }}" class="ajaxJsonForm form-horizontal">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2">                                            
-                                    <label for="name" class="col-md-4 control-label">Nombre:</label>
+                                    <label for="page_id" class="col-md-4 control-label">Identificador:</label>
                                 </div>
                                 <div class="ui-grid-col-10">
-                                    <input id="label" name="name" type="text" autocomplete="off"  class="form-control" />
+                                    <input id="page_id" name="page_id" type="text" autocomplete="off"  class="form-control" />
                                 </div>                                                                                                                
                             </div>
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2"></div>
                                 <div class="ui-grid-col-10">
-                                    <span id="name_help_block" class="help-block">
-                                        @if ($errors->has('name'))                                                    
-                                            <strong>{{ $errors->first('name') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>                                                                                                
-
-                            <div class="EmptyBox10"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="icon" class="col-md-4 control-label">Icono:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    <input id="icon" name="icon" type="text" autocomplete="off"  class="form-control" />
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="icon_help_block" class="help-block">
-                                        @if ($errors->has('icon'))                                                    
-                                            <strong>{{ $errors->first('icon') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>                                                                                                
-
-                            <div class="EmptyBox10"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="html_class" class="col-md-4 control-label">Clases html:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    <input id="html_class" name="html_class" type="text" autocomplete="off"  class="form-control" />
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="html_class_help_block" class="help-block">
-                                        @if ($errors->has('html_class'))                                                    
-                                            <strong>{{ $errors->first('html_class') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>                                                                                                
-
-                            <div class="EmptyBox10"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="order" class="col-md-4 control-label">Orden:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    <input id="order" name="order" type="text" autocomplete="off"  class="form-control" />
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="order_help_block" class="help-block">
-                                        @if ($errors->has('order'))                                                    
-                                            <strong>{{ $errors->first('order') }}</strong>                                                    
+                                    <span id="page_id_help_block" class="help-block">
+                                        @if ($errors->has('page_id'))                                                    
+                                            <strong>{{ $errors->first('page_id') }}</strong>                                                    
                                         @endif
                                     </span>
                                 </div>
                             </div>
-
+                            
                             <div class="EmptyBox10"></div>
-
+                            
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2">                                            
                                     <label for="is_menu_item" class="col-md-4 control-label">Es menú item?</label>
@@ -130,8 +68,122 @@
                                 </div>
                             </div>
 
+                            <div class="EmptyBox20"></div>
+                            
+                            <fieldset>
+                                <legend>Propiedades Menú</legend>
+                                
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="name" class="col-md-4 control-label">Nombre:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="name" name="name" type="text" autocomplete="off"  class="form-control" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="name_help_block" class="help-block">
+                                            @if ($errors->has('name'))                                                    
+                                                <strong>{{ $errors->first('name') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>                                                                                                
+
+                                <div class="EmptyBox10"></div>
+
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="icon" class="col-md-4 control-label">Icono:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="icon" name="icon" type="text" autocomplete="off"  class="form-control" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="icon_help_block" class="help-block">
+                                            @if ($errors->has('icon'))                                                    
+                                                <strong>{{ $errors->first('icon') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>                                                                                                
+
+                                <div class="EmptyBox10"></div>
+
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="menu_class" class="col-md-4 control-label">Clases html:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="menu_class" name="menu_class" type="text" autocomplete="off"  class="form-control" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="menu_class_help_block" class="help-block">
+                                            @if ($errors->has('menu_class'))                                                    
+                                                <strong>{{ $errors->first('menu_class') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>                                                                                                
+
+                                <div class="EmptyBox10"></div>
+
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="order" class="col-md-4 control-label">Orden:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="order" name="order" type="text" autocomplete="off"  class="form-control" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="order_help_block" class="help-block">
+                                            @if ($errors->has('order'))                                                    
+                                                <strong>{{ $errors->first('order') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>
+                            </fieldset>
+
                             <div class="EmptyBox10"></div>
 
+                            <fieldset>
+                                <legend>Propiedades Html</legend>
+                                
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="title" class="col-md-4 control-label">Título:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="title" name="title" type="text" autocomplete="off"  class="form-control" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="title_help_block" class="help-block">
+                                            @if ($errors->has('title'))                                                    
+                                                <strong>{{ $errors->first('title') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div> 
+                                
+                            </fieldset>
+                            
+                            <div class="EmptyBox10"></div>
+                            
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2">                                            
                                     <label for="state" class="col-md-4 control-label">Estado:</label>

@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {      
         
         view()->composer('partial.site_menu', function($view){                        
-            $view->with('site_menu',$this->getPagesTree(null, ''));
+            $view->with('site_menu',$this->getPagesTree(null, '', 0));
         }); 
         
         view()->composer('partial.left_menu', function($view){            
@@ -37,31 +37,42 @@ class AppServiceProvider extends ServiceProvider
         //
     }
     
-    public function getPagesTree($idPageParent, $pages_tree) {                
+    public function getPagesTree($idPageParent, $pages_tree, $nivel) {                
         if ($idPageParent == NULL) {
             $pages = \App\Page::whereNull('page_parent_id')
                     ->whereIn('state',array('A','I'))
                     ->where('is_menu_item',true)
-                    ->orderBy('order','asc')
+                    ->orderBy('order','desc')
                     ->get();
         } else {
             $pages = \App\Page::where('page_parent_id','=',$idPageParent)
                     ->whereIn('state',array('A','I'))
                     ->where('is_menu_item',true)
-                    ->orderBy('order','asc')
+                    ->orderBy('order','desc')
                     ->get();
         }
         
         if (!$pages->isEmpty()) { 
             foreach ($pages as $page) :
-                $pages_tree .= "<li>";
-                $pages_tree .= '    <a class="topbar-link">';
-                $pages_tree .= '        <i class="topbar-icon fa fa-fw fa-'.$page->icon.' '.$page->html_class.'"></i>';
+                
+                $a_class = $nivel==0?'topbar-link':'';
+                $i_class = $nivel==0?'topbar-icon':'';
+                
+                $pages_tree .= '<li role="menuitem">';
+                $pages_tree .= '    <a class="'.$a_class.'" href="'.route('show_site_page',['page_id' => $page->page_id]).'">';
+                $pages_tree .= '        <i class="'.$i_class.' fa fa-fw fa-'.$page->icon.' '.$page->menu_class.'"></i>';
                 $pages_tree .= '        <span>'.$page->name.'</span>';                
-                $pages_tree .= "    </a>";
+                $pages_tree .= "    </a>";                
+                
+                if ($page->children_pages()->count()>0) :
+                    $menu_children = $this->getPagesTree($page->page_id, '', $nivel+1);
+                    $pages_tree .= '<ul class="poseidon-menu animated fadeInDown">';
+                    $pages_tree .= $menu_children;
+                    $pages_tree .= '</ul>';
+                endif;
+                
                 $pages_tree .= "</li>";
-                                
-                $pages_tree = $this->getPagesTree($page->page_id, $pages_tree);
+                                                
             endforeach;
         }
         

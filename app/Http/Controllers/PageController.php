@@ -122,20 +122,35 @@ class PageController extends Controller
         //
         
         $this->validate(request(),[
-            'name' => 'required|unique:pages',
+            'page_id' => 'string|required|unique:pages',
+            
+            'name' => 'string',
             'icon' => 'max:20',
-            'html_class' => 'max:50',            
-            'state' => 'required|max:1',
-            'order' => 'required|numeric|integer'
+            'menu_class' => 'max:50',            
+            'order' => 'numeric|integer',
+            
+            'title' => 'max:255',
+            
+            'state' => 'required|max:1'
+            
         ]);
         
         $page = new \App\Page();
-        $page->name = $request->name;
-        $page->icon = $request->icon;
-        $page->html_class = $request->html_class;
-        $page->is_menu_item = isset($request->is_menu_item) ? true : false;        
-        $page->state = $request->state;
-        $page->order = $request->order;
+        $page->page_id = $request->page_id;
+        
+        if (isset($request->is_menu_item)) :
+            $page->name = $request->name;
+            $page->icon = $request->icon;
+            $page->menu_class = $request->menu_class;
+            $page->order = $request->order;
+            $page->is_menu_item = true;
+        else:
+            $page->is_menu_item = false;
+        endif;
+        
+        $page->title = $request->title;
+                
+        $page->state = $request->state;        
         if($request->page_parent_id != '0') {
             $page->page_parent_id = $request->page_parent_id;
         } else {
@@ -184,7 +199,8 @@ class PageController extends Controller
             'page_parent_id.different' => 'Error de recursividad. Una página no puede ser escogida como su propia Página Padre.',
         ];                
         
-        $this->validate(request(),[            
+        $this->validate(request(),[
+            'name' => 'required',
             'icon' => 'max:20',
             'html_class' => 'max:50',            
             'state' => 'required|max:1',

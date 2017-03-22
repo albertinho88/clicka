@@ -13,17 +13,29 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
-            $table->increments('page_id');
-            $table->string('name')->unique();
-            $table->string('icon',20)->nullable();
-            $table->string('html_class',50)->nullable();
-            $table->string('state',1);
-            $table->integer('order');
+        Schema::create('pages', function (Blueprint $table) {            
+            $table->string('page_id',20);
+            $table->primary('page_id');
+            // menu attributes
+            
             $table->boolean('is_menu_item');
-            $table->integer('page_parent_id')->unsigned()->nullable();
-            $table->foreign('page_parent_id')->references('page_id')->on('pages');
+            $table->string('name')->nullable();
+            $table->string('icon',20)->nullable();
+            $table->string('menu_class',50)->nullable();
+            $table->integer('order')->nullable();
+            
+            // content attributes
+            
+            $table->string('title',255)->nullable();
+            
+            // general attributes
+            
+            $table->string('state',1);
+            $table->string('page_parent_id',20)->nullable();
+            $table->foreign('page_parent_id')->references('page_id')->on('pages');                        
             $table->timestamps();
+            
+            
         });
     }
 

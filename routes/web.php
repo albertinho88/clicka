@@ -24,6 +24,9 @@ Route::get('login', 'SessionController@create')->name('login');
 Route::post('login', 'SessionController@store');
 Route::get('logout', 'SessionController@destroy');
 
+Route::get('page/{page_id}', 'SiteController@viewPage')->name('show_site_page');
+
+
 Route::get('errors/no_menu_access',function(){
     return view('errors.no_menu_access');
 });

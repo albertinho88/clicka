@@ -39,7 +39,8 @@
         </li>
     @endif
     
-    <?php echo $site_menu; ?>
+    <?php 
+    echo $site_menu; ?>
     
     
 
