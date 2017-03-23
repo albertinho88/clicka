@@ -125,7 +125,8 @@ return [
         'order' => 'orden',
         'menu_parent_id' => 'Menú Padre',
         'menu_id' => 'Menú',
-        'featured' => 'destacado'
+        'featured' => 'destacado',
+        'page_id' => 'Identificador',
     ],
 
 ];

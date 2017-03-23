@@ -18,48 +18,15 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="EmptyBox10" ></div>
 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">                                            
-                        <label for="name" class="col-md-4 control-label">Nombre:</label>
+                        <label for="page_id" class="col-md-4 control-label">Identificador:</label>
                     </div>
                     <div class="ui-grid-col-10">
-                        {{ $page->name }}
-                    </div>                                                                                                                
-                </div>
-                
-                <div class="EmptyBox10"></div>
-                
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-2">                                            
-                        <label for="label" class="col-md-4 control-label">Icono:</label>
-                    </div>
-                    <div class="ui-grid-col-10">
-                        {{ $page->icon }}
-                    </div>                                                                                                                
-                </div>
-                
-                <div class="EmptyBox10"></div>
-                
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-2">                                            
-                        <label for="html_class" class="col-md-4 control-label">Clases html:</label>
-                    </div>
-                    <div class="ui-grid-col-10">
-                        {{ $page->html_class }}
-                    </div>                                                                                                                
-                </div>
-                
-                <div class="EmptyBox10"></div>
-                
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-2">                                            
-                        <label for="order" class="col-md-4 control-label">Orden:</label>
-                    </div>
-                    <div class="ui-grid-col-10">
-                        {{ $page->order }}
+                        {{ $page->page_id }}
                     </div>                                                                                                                
                 </div>
                 
@@ -74,6 +41,54 @@
                     </div>                                                                                                                
                 </div>
                 
+                @if($page->is_menu_item) :
+                
+                    <div class="EmptyBox10" ></div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">                                            
+                            <label for="name" class="col-md-4 control-label">Nombre:</label>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            {{ $page->name }}
+                        </div>                                                                                                                
+                    </div>
+
+                    <div class="EmptyBox10"></div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">                                            
+                            <label for="label" class="col-md-4 control-label">Icono:</label>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            {{ $page->icon }}
+                        </div>                                                                                                                
+                    </div>
+
+                    <div class="EmptyBox10"></div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">                                            
+                            <label for="menu_class" class="col-md-4 control-label">Clases html:</label>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            {{ $page->menu_class }}
+                        </div>                                                                                                                
+                    </div>
+
+                    <div class="EmptyBox10"></div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">                                            
+                            <label for="order" class="col-md-4 control-label">Orden:</label>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            {{ $page->order }}
+                        </div>                                                                                                                
+                    </div>
+                
+                @endif
+                                                
                 <div class="EmptyBox10"></div>
 
                 <div class="ui-grid-row">

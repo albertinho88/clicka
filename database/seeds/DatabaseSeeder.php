@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CatalogsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
         
         $user = new \App\User();
         $user->name = 'Julio Larraga';
