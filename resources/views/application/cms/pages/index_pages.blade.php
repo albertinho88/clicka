@@ -61,7 +61,7 @@
                 },
                 {
                   content: function(rowData) {                      
-                      return rowData.page_id;
+                      return rowData.name;
                   },
                   headerText: 'Página'
                 },                

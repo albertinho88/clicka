@@ -70,7 +70,7 @@
 
                             <div class="EmptyBox20"></div>
                             
-                            <fieldset>
+                            <fieldset id="fldsMenu">
                                 <legend>Propiedades Menú</legend>
                                 
                                 <div class="ui-grid-row">
@@ -159,7 +159,7 @@
                             <div class="EmptyBox10"></div>
 
                             <fieldset>
-                                <legend>Propiedades Html</legend>
+                                <legend>Contenido</legend>
                                 
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-2">                                            
@@ -182,7 +182,7 @@
                                 
                             </fieldset>
                             
-                            <div class="EmptyBox10"></div>
+                            <div class="EmptyBox20"></div>
                             
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2">                                            
@@ -249,5 +249,24 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        
+        $("#fldsMenu").hide();
+        
+        $("#is_menu_item").change(function(){
+            if ($(this)[0].checked) {
+                $("#fldsMenu").show("fade", 500);
+            } else {
+                
+                $("#fldsMenu :text").val("");
+                $("#fldsMenu").hide("fade", 300);
+            }
+        });
+    });
+    
+</script>
 
 @endsection

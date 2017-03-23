@@ -41,7 +41,7 @@
                     </div>                                                                                                                
                 </div>
                 
-                @if($page->is_menu_item) :
+                @if($page->is_menu_item)
                 
                     <div class="EmptyBox10" ></div>
 

@@ -39,81 +39,6 @@
                                 </div>                                                                                                                
                             </div>
                             
-                            <div class="EmptyBox20"></div>
-                            
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="name" class="col-md-4 control-label">Nombre:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    {{ $page->name }}
-                                </div>                                                                                                                
-                            </div>
-                                                                                                                           
-
-                            <div class="EmptyBox20"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="icon" class="col-md-4 control-label">Icono:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    <input id="icon" name="icon" type="text" autocomplete="off" class="form-control" value="{{ $page->icon }}" />
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="icon_help_block" class="help-block">
-                                        @if ($errors->has('icon'))                                                    
-                                            <strong>{{ $errors->first('icon') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>                                                                                                
-
-                            <div class="EmptyBox10"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="html_class" class="col-md-4 control-label">Clases html:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    <input id="html_class" name="html_class" type="text" autocomplete="off" value="{{ $page->html_class }}" class="form-control" />
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="html_class_help_block" class="help-block">
-                                        @if ($errors->has('html_class'))                                                    
-                                            <strong>{{ $errors->first('html_class') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>                                                                                                
-
-                            <div class="EmptyBox10"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="order" class="col-md-4 control-label">Orden:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    <input id="order" name="order" type="text" autocomplete="off" value="{{ $page->order }}" class="form-control" />
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="order_help_block" class="help-block">
-                                        @if ($errors->has('order'))                                                    
-                                            <strong>{{ $errors->first('order') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>
-
                             <div class="EmptyBox10"></div>
 
                             <div class="ui-grid-row">
@@ -134,8 +59,123 @@
                                     </span>
                                 </div>
                             </div>
+                            
+                            <div class="EmptyBox10"></div>
+                            
+                            <fieldset id="fldsMenu">
+                                <legend>Propiedades Menú</legend>
+                                
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="name" class="col-md-4 control-label">Nombre:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">                                        
+                                        <input id="name" name="name" type="text" autocomplete="off" class="form-control" value="{{ $page->name }}" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="name_item_help_block" class="help-block">
+                                            @if ($errors->has('name'))                                                    
+                                                <strong>{{ $errors->first('name') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>                                                                                                                           
+
+                                <div class="EmptyBox10"></div>
+
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="icon" class="col-md-4 control-label">Icono:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="icon" name="icon" type="text" autocomplete="off" class="form-control" value="{{ $page->icon }}" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="icon_help_block" class="help-block">
+                                            @if ($errors->has('icon'))                                                    
+                                                <strong>{{ $errors->first('icon') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>                                                                                                
+
+                                <div class="EmptyBox10"></div>
+
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="menu_class" class="col-md-4 control-label">Clases html:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="html_class" name="menu_class" type="text" autocomplete="off" value="{{ $page->menu_class }}" class="form-control" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="menu_class_help_block" class="help-block">
+                                            @if ($errors->has('menu_class'))                                                    
+                                                <strong>{{ $errors->first('menu_class') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>                                                                                                
+
+                                <div class="EmptyBox10"></div>
+
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="order" class="col-md-4 control-label">Orden:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="order" name="order" type="text" autocomplete="off" value="{{ $page->order }}" class="form-control" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="order_help_block" class="help-block">
+                                            @if ($errors->has('order'))                                                    
+                                                <strong>{{ $errors->first('order') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                            </fieldset>                            
 
                             <div class="EmptyBox10"></div>
+                            
+                            <fieldset>
+                                <legend>Contenido</legend>
+                                
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="title" class="col-md-4 control-label">Título:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="title" name="title" type="text" autocomplete="off"  class="form-control" value="{{ $page->title }}" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="title_help_block" class="help-block">
+                                            @if ($errors->has('title'))                                                    
+                                                <strong>{{ $errors->first('title') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div> 
+                                
+                            </fieldset>
+                            
+                            <div class="EmptyBox20"></div>
 
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2">                                            
@@ -202,4 +242,30 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        
+        if ($("#is_menu_item")[0].checked) {
+            $("#fldsMenu").show();
+        } else {                
+            $("#fldsMenu :text").val("");
+            $("#fldsMenu").hide();
+        }
+        
+        //$("#fldsMenu").hide();
+        
+        $("#is_menu_item").change(function(){
+            if ($(this)[0].checked) {
+                $("#fldsMenu").show("fade", 500);
+            } else {                
+                $("#fldsMenu :text").val("");
+                $("#fldsMenu").hide("fade", 300);
+            }
+        });
+    });
+    
+</script>
+
 @endsection

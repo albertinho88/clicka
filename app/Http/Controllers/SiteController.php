@@ -54,4 +54,9 @@ class SiteController extends Controller
 
         return view('partial.contact_form_response', ['contacto' => $newContacto]);
     }
+    
+    public function viewPage($page_id) {
+        $page = \App\Page::findOrFail($page_id);
+        return view('site.page',compact('page'));
+    }
 }

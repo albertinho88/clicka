@@ -48,7 +48,7 @@ class PageController extends Controller
                 $etiqueta .= str_repeat('<td style="width: 2%;"></td>', $nivel);
                 $etiqueta .= "<td>";
                 $etiqueta = $page->children_pages->count()>0 ? $etiqueta."<i class='fa fa-sort-down' /> " : $etiqueta;
-                $etiqueta .= $page->name."</td></tr></table>";                
+                $etiqueta .= $page->page_id."</td></tr></table>";                
                 $page->name = $etiqueta;                
                 $pages_tree->push($page);                
                 $pages_tree = $this->getPagesTree($page->page_id, $pages_tree, $nivel+1);
@@ -102,7 +102,7 @@ class PageController extends Controller
                         .'<option value="'.$page->page_id.'" '.$selected.' >'
                             //.str_repeat('&nbsp;', $nivel*10)
                             .$prefijoMenu
-                            .$page->name
+                            .$page->page_id
                         .'</option>';                                                    
                 $pages_list = $this->getPagesOptionTree($page->page_id, $pages_list, $nivel+1, $idSelectedPage);
             endforeach;
@@ -197,30 +197,44 @@ class PageController extends Controller
     {
         $messages = [
             'page_parent_id.different' => 'Error de recursividad. Una página no puede ser escogida como su propia Página Padre.',
-        ];                
+        ];                        
         
         $this->validate(request(),[
-            'name' => 'required',
+            'page_id' => 'string|required',
+            
+            'name' => 'string',
             'icon' => 'max:20',
-            'html_class' => 'max:50',            
+            'menu_class' => 'max:50',            
+            'order' => 'numeric|integer',
+            
+            'title' => 'max:255',
+            
             'state' => 'required|max:1',
-            'order' => 'required|numeric|integer',
-            'page_parent_id' => 'different:page_id',
+            'page_parent_id' => 'different:page_id'
         ], $messages);
         
         $page = \App\Page::find($request->page_id);
-        //$page->name = $request->name;
-        $page->icon = $request->icon;
-        $page->html_class = $request->html_class;
-        $page->is_menu_item = isset($request->is_menu_item) ? true : false;        
-        $page->state = $request->state;
-        $page->order = $request->order;
+        
+        if (isset($request->is_menu_item)) :
+            $page->name = $request->name;
+            $page->icon = $request->icon;
+            $page->menu_class = $request->menu_class;
+            $page->order = $request->order;
+            $page->is_menu_item = true;
+        else:
+            $page->is_menu_item = false;
+        endif;
+        
+        $page->title = $request->title;
+                
+        $page->state = $request->state;        
         if($request->page_parent_id != '0') {
             $page->page_parent_id = $request->page_parent_id;
         } else {
             $page->page_parent_id = NULL;
         }
-        $page->save();
+
+        $page->update();
         
         return view($this->viewsDir.'partial.view_page', compact('page'));
     }
