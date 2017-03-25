@@ -14,7 +14,7 @@ class SiteController extends Controller
     }
     
     public function viewAboutUsPage() {
-        return view('site.about');
+        return view('site.about_us');
     }
     
     public function viewServicesPage() {

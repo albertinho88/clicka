@@ -26,7 +26,8 @@ class CreatePagesTable extends Migration
             
             // content attributes
             
-            $table->string('title',255)->nullable();
+            $table->string('container_class',50)->nullable();
+            $table->string('title',255)->nullable();            
             
             // general attributes
             

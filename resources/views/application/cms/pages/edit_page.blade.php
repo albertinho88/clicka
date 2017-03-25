@@ -171,7 +171,25 @@
                                             @endif
                                         </span>
                                     </div>
-                                </div> 
+                                </div>
+                                
+                                <div id="divPageContent"></div>
+                                
+                                <div class="EmptyBox20"></div>
+                                
+                                <div class="ui-grid-row">
+                                    <ul class="menubar">                                                                        
+                                        <li>
+                                            <a id="addHtmlSection" data-icon="fa-code" class="">Agregar Sección Html</a>
+                                        </li>
+                                        <li>
+                                            <a id="addSlider" data-icon="fa-picture-o" class="">Agregar Slider</a>
+                                        </li>
+                                        <li>
+                                            <a id="addForm" data-icon="fa-file-text" class="">Agregar Formulario</a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 
                             </fieldset>
                             
@@ -263,6 +281,12 @@
                 $("#fldsMenu :text").val("");
                 $("#fldsMenu").hide("fade", 300);
             }
+        });
+        
+        $("#addHtmlSection").click(function(){
+            $("#divPageContent").append('<div class="EmptyBox10"></div>');
+            $("#divPageContent").append('<div class="ui-grid-row"><div class="ui-grid-col-12"><textarea id="content[]" class="html_editor"></textarea></div></div>');
+            initUiComponents();
         });
     });
     

@@ -57,7 +57,7 @@ initUiComponents = function() {
     
     tinymce.init({ 
         selector:'.html_editor',
-        height: 500,
+        height: 200,
         plugins: [
             "advlist autolink lists link image charmap print preview anchor",
             "searchreplace visualblocks code fullscreen",

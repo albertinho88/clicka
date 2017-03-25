@@ -10,7 +10,7 @@
 <div class="ui-fluid">
     <div class="ui-g">
         <div class="ui-g-12">            
-            <div class="card card-w-title seccionSite text-center">
+            <div class="card card-w-title text-center">
                 <p><i class="fa fa-lightbulb-o" style="font-size: 40px; color: #43a047; font-weight: bold;"></i></p>
                 <p><span class="coolvetica-rg" style="font-size: 28px;">Soluciones creativas e innovadoras para tu empresa.</span></p>                                
                 

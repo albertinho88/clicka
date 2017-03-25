@@ -35,6 +35,9 @@ class PagesTableSeeder extends Seeder
         $npage->name = "Conócenos";
         $npage->icon = "comment-o";
         $npage->order = 2;
+        
+        $npage->container_class = "card card-w-title seccionSite text-center";
+        
         $npage->state = "A";
         $npage->save();
     }
@@ -46,6 +49,10 @@ class PagesTableSeeder extends Seeder
         $npage->name = "Servicios";
         $npage->icon = "laptop";
         $npage->order = 3;
+        
+        $npage->container_class = "card card-w-title seccionSite text-center";
+        $npage->title = "Servicios";
+        
         $npage->state = "A";
         $npage->save();
     }
@@ -58,6 +65,10 @@ class PagesTableSeeder extends Seeder
         $npage->icon = "envelope-o";
         $npage->menu_class = "animated swing infinite";
         $npage->order = 4;
+        
+        $npage->container_class = "card card-w-title seccionSite text-center";
+        $npage->title = "Contáctanos";
+        
         $npage->state = "A";
         $npage->save();
     }

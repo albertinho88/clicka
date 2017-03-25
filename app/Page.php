@@ -25,4 +25,12 @@ class Page extends Model
     {
        return $this->hasMany('\App\Page', 'page_parent_id', 'page_id');       
     }
+    
+    /**
+     * Get all of the user_role for the user.
+     */
+    public function page_content()
+    {
+        return $this->hasMany('\App\PageContent', 'page_id');
+    }
 }
