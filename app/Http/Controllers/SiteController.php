@@ -14,7 +14,7 @@ class SiteController extends Controller
     }
     
     public function viewAboutUsPage() {
-        return view('site.about_us');
+        return view('site.static.about_us');
     }
     
     public function viewServicesPage() {
@@ -57,6 +57,11 @@ class SiteController extends Controller
     
     public function viewPage($page_id) {
         $page = \App\Page::findOrFail($page_id);
-        return view('site.page',compact('page'));
+        
+        $page_content = \App\PageContent::where("page_id",$page_id)
+                                    ->orderBy('order','asc')
+                                    ->get();
+        
+        return view('site.page',compact(['page','page_content']));
     }
 }

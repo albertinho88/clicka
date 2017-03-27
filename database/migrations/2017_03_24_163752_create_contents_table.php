@@ -18,12 +18,10 @@ class CreateContentsTable extends Migration
             
             $table->string('cat_id_type',10);
             $table->string('cat_det_id_type',10);
-            $table->foreign(['cat_id_type', 'cat_det_id_type'])->references(['catalog_detail_id', 'catalog_id'])->on('catalog_details');
+            $table->foreign(['cat_det_id_type', 'cat_id_type'])->references(['catalog_detail_id', 'catalog_id'])->on('catalog_details');
             
             $table->integer('htmlsection_id')->unsigned()->nullable();
-            $table->foreign('htmlsection_id')->references('htmlsection_id')->on('htmlsections');
-            
-            $table->string('state',1);            
+            $table->foreign('htmlsection_id')->references('htmlsection_id')->on('htmlsections');                                    
             
             $table->timestamps();
         });

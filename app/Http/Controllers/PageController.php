@@ -181,9 +181,12 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        $page = \App\Page::find($id);
-        $pages_list = $this->getPagesOptionTree(NULL, '', 1, $page->parent_page == null?null:$page->parent_page->page_id);        
-        return view($this->viewsDir.'edit_page',compact(['page','pages_list']));                                
+        $page = \App\Page::findOrFail($id);
+        $pages_list = $this->getPagesOptionTree(NULL, '', 1, $page->parent_page == null?null:$page->parent_page->page_id);
+        $page_content = \App\PageContent::where("page_id",$page->page_id)
+                                    ->orderBy('order','asc')
+                                    ->get();
+        return view($this->viewsDir.'edit_page',compact(['page','pages_list','page_content']));                                
     }
 
     /**
@@ -234,7 +237,7 @@ class PageController extends Controller
             $page->page_parent_id = NULL;
         }
 
-        $page->update();
+        $page->update();                
         
         return view($this->viewsDir.'partial.view_page', compact('page'));
     }

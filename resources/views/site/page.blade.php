@@ -21,7 +21,15 @@
                         </div>
                     @endif
                     
-                    
+                    @foreach($page_content as $pcontent)
+                        @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')
+                            @include('partial.htmlsection',['htmlsection' => $pcontent->content->htmlsection])                            
+                        @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
+                            @include('partial.slider')
+                        @elseif ($pcontent->content->cat_det_id_type == 'FORM')
+                            @include('partial.form')
+                        @endif                        
+                    @endforeach
                     
                 </div>                
             </div>

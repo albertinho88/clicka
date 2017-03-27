@@ -1,0 +1,1 @@
+<?php echo $htmlsection->html_content; ?>

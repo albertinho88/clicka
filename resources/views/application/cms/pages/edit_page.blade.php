@@ -171,9 +171,27 @@
                                             @endif
                                         </span>
                                     </div>
-                                </div>
+                                </div>                                                                
                                 
-                                <div id="divPageContent"></div>
+                                <div id="divPageContent">
+                                    @foreach($page_content as $pcontent) 
+                                    
+                                        <div class="EmptyBox10"></div>
+                                    
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-12">
+                                                @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')
+                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
+                                                    <textarea name="page_content[{{ $pcontent->page_content_id }}][html_content]" class=" form-control html_editor">{{ $pcontent->content->htmlsection->html_content }}</textarea>
+                                                @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
+                                                    Slider
+                                                @elseif ($pcontent->content->cat_det_id_type == 'FORM')
+                                                    Formulario
+                                                @endif 
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                                 
                                 <div class="EmptyBox20"></div>
                                 
@@ -265,14 +283,14 @@
     
     $(document).ready(function(){
         
+        var newHtmlSectionCount = 1;
+        
         if ($("#is_menu_item")[0].checked) {
             $("#fldsMenu").show();
         } else {                
             $("#fldsMenu :text").val("");
             $("#fldsMenu").hide();
-        }
-        
-        //$("#fldsMenu").hide();
+        }                
         
         $("#is_menu_item").change(function(){
             if ($(this)[0].checked) {
@@ -285,8 +303,26 @@
         
         $("#addHtmlSection").click(function(){
             $("#divPageContent").append('<div class="EmptyBox10"></div>');
-            $("#divPageContent").append('<div class="ui-grid-row"><div class="ui-grid-col-12"><textarea id="content[]" class="html_editor"></textarea></div></div>');
-            initUiComponents();
+            $("#divPageContent").append('<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />');
+            $("#divPageContent").append('<div class="ui-grid-row"><div class="ui-grid-col-12"><textarea id="new_htmlsection_'+newHtmlSectionCount+'" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" class="form-control"></textarea></div></div>');
+            
+            tinymce.init({ 
+                selector:'#new_htmlsection_'+newHtmlSectionCount,
+                height: 200,
+                plugins: [
+                    "advlist autolink lists link image charmap print preview anchor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table contextmenu paste imagetools"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                }
+            });
+            
+            newHtmlSectionCount++;
         });
     });
     
