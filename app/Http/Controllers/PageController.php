@@ -239,6 +239,70 @@ class PageController extends Controller
 
         $page->update();                
         
+        
+        $request_page_content = $request->page_content;
+        
+        if (!$page->page_content->isEmpty()) :
+            if (isset($request_page_content)) :
+                // Update Content
+                foreach($page->page_content as $pagcont):                                                            
+                    if (isset($request_page_content[$pagcont->page_content_id])) : 
+                        
+                        /*$v_pagcont = \App\PageContent::findOrFail($request_page_content[$pagcont->page_content_id]['page_content_id']);
+                        $v_content = \App\Content::findOrFail($v_pagcont->content->content_id);
+                        
+                        if ($v_content->cat_det_id_type == "HTMLSEC" && isset($v_content->htmlsection()) && 
+                                $v_content->htmlsection->html_content != $request_page_content[$pagcont->page_content_id]['html_content']):
+                            $v_content->htmlsection->html_content = $request_page_content[$pagcont->page_content_id]['html_content'];
+                            $v_content->htmlsection->update();
+                        endif; */                                                                                                                       
+                        
+                        unset($request_page_content[$pagcont->page_content_id]);                    
+                    else:
+                        $pagcont->delete();
+                    endif; 
+                endforeach;
+            else :
+                // Delete all page content
+                /*foreach($page->page_content as $pagcontd) :                    
+                    $pagcontd->delete();
+                endforeach;*/
+            endif;
+        endif;
+        
+        if (isset($request_page_content)):
+            //Crear page content
+            foreach ($request_page_content as $pagcont) :                        
+            
+                $new_content = new \App\Content();
+                $new_content->cat_id_type = "TIPCONWEB";
+                                
+                if ($pagcont['content_type'] == 'HTMLSEC') :
+                    $newhtmlsec = new \App\HtmlSection();
+                    $newhtmlsec->html_content = $pagcont['html_content'];
+                    $newhtmlsec->save();
+                    
+                    $new_content->htmlsection_id = $newhtmlsec->htmlsection_id;
+                    $new_content->cat_det_id_type = "HTMLSEC";
+                    
+                elseif($pagcont['content_type'] == 'SLIDER') :
+                    $new_content->cat_det_id_type = "SLIDER";
+                
+                elseif($pagcont['content_type'] == 'FORM') :
+                    $new_content->cat_det_id_type = "FORM";
+                
+                endif;
+                
+                $new_content->save();
+                
+                $new_pagecontent = new \App\PageContent();
+                $new_pagecontent->content_id = $new_content->content_id;
+                $new_pagecontent->order = 0;
+                $page->page_content()->save($new_pagecontent);                                
+            endforeach;
+        endif;
+        
+        
         return view($this->viewsDir.'partial.view_page', compact('page'));
     }
 

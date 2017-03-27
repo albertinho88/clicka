@@ -43,6 +43,55 @@
 
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2">                                            
+                                    <label for="state" class="col-md-4 control-label">Estado:</label>
+                                </div>
+                                <div class="ui-grid-col-10">                                                                           
+                                    <select id="state" name="state" class="selectOneMenu">
+                                        <option value="">Seleccionar</option>
+                                        <option value="A" <?php echo $page->state=='A'?'selected':''; ?> >Activo</option>
+                                        <option value="I" <?php echo $page->state=='I'?'selected':''; ?>>Inactivo</option> 
+                                    </select>
+                                </div>                                                                                                                
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2"></div>
+                                <div class="ui-grid-col-10">
+                                    <span id="state_help_block" class="help-block">
+                                        @if ($errors->has('state'))                                                    
+                                            <strong>{{ $errors->first('state') }}</strong>                                                    
+                                        @endif
+                                    </span>
+                                </div>
+                            </div>  
+                            
+                            <div class="EmptyBox10"></div>
+
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">                                            
+                                    <label for="page_parent_id" class="col-md-4 control-label">Página Padre:</label>
+                                </div>
+                                <div class="ui-grid-col-10">
+                                    <select id="page_parent_id" name="page_parent_id" class="selectList" >
+                                        <option value="0">> Raíz</option>
+                                        <?php echo $pages_list ?>
+                                    </select>                                
+                                </div>                                                                                                                
+                            </div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2"></div>
+                                <div class="ui-grid-col-10">
+                                    <span id="page_parent_id_help_block" class="help-block">
+                                        @if ($errors->has('page_parent_id'))                                                    
+                                            <strong>{{ $errors->first('page_parent_id') }}</strong>                                                    
+                                        @endif
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="EmptyBox10"></div>
+
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">                                            
                                     <label for="is_menu_item" class="col-md-4 control-label">Es menú item?</label>
                                 </div>
                                 <div class="ui-grid-col-10">
@@ -180,12 +229,38 @@
                                     
                                         <div class="ui-grid-row">
                                             <div class="ui-grid-col-12">
-                                                @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')
-                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
-                                                    <textarea name="page_content[{{ $pcontent->page_content_id }}][html_content]" class=" form-control html_editor">{{ $pcontent->content->htmlsection->html_content }}</textarea>
+                                                <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
+                                                @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                    
+                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="HTMLSEC" />
+                                                    <textarea id="pagecontent_{{ $pcontent->page_content_id }}" name="page_content[{{ $pcontent->page_content_id }}][html_content]" class="form-control">
+                                                        {{ $pcontent->content->htmlsection->html_content }}
+                                                    </textarea>
+                                                    <script type="text/javascript">
+                                                        tinymce.init({ 
+                                                            selector:'#pagecontent_{{ $pcontent->page_content_id }}',
+                                                            height: 200,
+                                                            plugins: [
+                                                                "advlist autolink lists link image charmap print preview anchor",
+                                                                "searchreplace visualblocks code fullscreen",
+                                                                "insertdatetime media table contextmenu paste imagetools"
+                                                            ],
+                                                            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                                                            setup: function (editor) {
+                                                                editor.on('change', function () {
+                                                                    editor.save();
+                                                                });
+                                                            },
+                                                            init_instance_callback : function(editor) {
+                                                                console.log("Editor: " + editor.id + " is now initialized.");
+                                                                editor.save();
+                                                              }
+                                                        });                                                        
+                                                    </script>
                                                 @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
+                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="SLIDER" />
                                                     Slider
                                                 @elseif ($pcontent->content->cat_det_id_type == 'FORM')
+                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="FORM" />
                                                     Formulario
                                                 @endif 
                                             </div>
@@ -209,56 +284,7 @@
                                     </ul>
                                 </div>
                                 
-                            </fieldset>
-                            
-                            <div class="EmptyBox20"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="state" class="col-md-4 control-label">Estado:</label>
-                                </div>
-                                <div class="ui-grid-col-10">                                                                           
-                                    <select id="state" name="state" class="selectOneMenu">
-                                        <option value="">Seleccionar</option>
-                                        <option value="A" <?php echo $page->state=='A'?'selected':''; ?> >Activo</option>
-                                        <option value="I" <?php echo $page->state=='I'?'selected':''; ?>>Inactivo</option> 
-                                    </select>
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="state_help_block" class="help-block">
-                                        @if ($errors->has('state'))                                                    
-                                            <strong>{{ $errors->first('state') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="EmptyBox10"></div>
-
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2">                                            
-                                    <label for="page_parent_id" class="col-md-4 control-label">Página Padre:</label>
-                                </div>
-                                <div class="ui-grid-col-10">
-                                    <select id="page_parent_id" name="page_parent_id" class="selectList" >
-                                        <option value="0">> Raíz</option>
-                                        <?php echo $pages_list ?>
-                                    </select>                                
-                                </div>                                                                                                                
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-2"></div>
-                                <div class="ui-grid-col-10">
-                                    <span id="page_parent_id_help_block" class="help-block">
-                                        @if ($errors->has('page_parent_id'))                                                    
-                                            <strong>{{ $errors->first('page_parent_id') }}</strong>                                                    
-                                        @endif
-                                    </span>
-                                </div>
-                            </div>
+                            </fieldset>                                                                                  
 
                             <div class="EmptyBox20"></div>
 
@@ -300,10 +326,11 @@
                 $("#fldsMenu").hide("fade", 300);
             }
         });
-        
+                        
         $("#addHtmlSection").click(function(){
             $("#divPageContent").append('<div class="EmptyBox10"></div>');
             $("#divPageContent").append('<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />');
+            $("#divPageContent").append('<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][content_type]" value="HTMLSEC" />');
             $("#divPageContent").append('<div class="ui-grid-row"><div class="ui-grid-col-12"><textarea id="new_htmlsection_'+newHtmlSectionCount+'" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" class="form-control"></textarea></div></div>');
             
             tinymce.init({ 
