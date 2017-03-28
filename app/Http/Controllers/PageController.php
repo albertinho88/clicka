@@ -248,6 +248,12 @@ class PageController extends Controller
                 foreach($page->page_content as $pagcont):                                                            
                     if (isset($request_page_content[$pagcont->page_content_id])) : 
                         
+                        if ($pagcont->content->cat_det_id_type == "HTMLSEC" && isset($pagcont->content->htmlsection)
+                                && $pagcont->content->htmlsection->html_content != $request_page_content[$pagcont->page_content_id]['html_content']) :
+                            $pagcont->content->htmlsection->html_content = $request_page_content[$pagcont->page_content_id]['html_content'];
+                            $pagcont->content->htmlsection->update();
+                        endif;
+                        
                         /*$v_pagcont = \App\PageContent::findOrFail($request_page_content[$pagcont->page_content_id]['page_content_id']);
                         $v_content = \App\Content::findOrFail($v_pagcont->content->content_id);
                         
