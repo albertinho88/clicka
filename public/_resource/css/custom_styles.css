@@ -418,3 +418,19 @@
       line-height: 10px;
       font-size: 8pt;
   }
+  
+  #divPageContent{
+      font-size: 8pt;
+  }
+  #divPageContent ul {
+      margin: 0;
+      padding: 0;
+  }
+  #divPageContent ul li {
+      list-style: none;
+      border: 1px solid;
+      margin: 5px;
+      padding: 5px;
+      color: #5f666c;
+      cursor: grab;
+  }

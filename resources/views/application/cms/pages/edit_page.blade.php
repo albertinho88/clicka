@@ -231,32 +231,13 @@
                                             <div class="ui-grid-row">
                                                 <div class="ui-grid-col-12">
                                                     <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
+                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][order]" value="{{ $pcontent->order }}" />
                                                     @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                    
                                                         <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="HTMLSEC" />
-                                                        <textarea id="pagecontent_{{ $pcontent->page_content_id }}" name="page_content[{{ $pcontent->page_content_id }}][html_content]" class="form-control">
-                                                            {{ $pcontent->content->htmlsection->html_content }}
-                                                        </textarea>
-                                                        <script type="text/javascript">
-                                                            tinymce.init({ 
-                                                                selector:'#pagecontent_{{ $pcontent->page_content_id }}',
-                                                                height: 200,
-                                                                plugins: [
-                                                                    "advlist autolink lists link image charmap print preview anchor",
-                                                                    "searchreplace visualblocks code fullscreen",
-                                                                    "insertdatetime media table contextmenu paste imagetools"
-                                                                ],
-                                                                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                                                                setup: function (editor) {
-                                                                    editor.on('change', function () {
-                                                                        editor.save();
-                                                                    });
-                                                                },
-                                                                init_instance_callback : function(editor) {
-                                                                    console.log("Editor: " + editor.id + " is now initialized.");
-                                                                    editor.save();
-                                                                  }
-                                                            });                                                        
-                                                        </script>
+                                                        <input type="hidden" id="pagecontent_{{ $pcontent->page_content_id }}" 
+                                                                name="page_content[{{ $pcontent->page_content_id }}][html_content]" 
+                                                                value="{{ $pcontent->content->htmlsection->html_content }}" />
+                                                        <?php echo $pcontent->content->htmlsection->html_content; ?>
                                                     @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
                                                         <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="SLIDER" />
                                                         Slider
@@ -300,17 +281,7 @@
                                 </div>
                             </div> 
 
-                        </form>
-                        
-                        <div class="ui-grid-row">
-                            
-                                <li class="ui-state-default">Item 1</li>
-                                <li class="ui-state-default">Item 2</li>
-                                <li class="ui-state-default">Item 3</li>
-                                <li class="ui-state-default">Item 4</li>
-                                <li class="ui-state-default">Item 5</li>
-                            </ul>
-                        </div>                    
+                        </form>                                           
                 </div>
             </div>
         </div>
@@ -320,15 +291,8 @@
 <script type="text/javascript">
     
       $( function() {
-        $( "#sortable" ).sortable({
-          revert: true
-        });
-        $( "#draggable" ).draggable({
-          connectToSortable: "#sortable",
-          helper: "clone",
-          revert: "invalid"
-        });
-        //$( "ul, li" ).disableSelection();
+            $( "#sortable" ).sortable();
+            $( "#sortable" ).disableSelection();
       } );
     
     $(document).ready(function(){
