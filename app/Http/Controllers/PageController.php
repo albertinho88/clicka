@@ -252,16 +252,7 @@ class PageController extends Controller
                                 && $pagcont->content->htmlsection->html_content != $request_page_content[$pagcont->page_content_id]['html_content']) :
                             $pagcont->content->htmlsection->html_content = $request_page_content[$pagcont->page_content_id]['html_content'];
                             $pagcont->content->htmlsection->update();
-                        endif;
-                        
-                        /*$v_pagcont = \App\PageContent::findOrFail($request_page_content[$pagcont->page_content_id]['page_content_id']);
-                        $v_content = \App\Content::findOrFail($v_pagcont->content->content_id);
-                        
-                        if ($v_content->cat_det_id_type == "HTMLSEC" && isset($v_content->htmlsection()) && 
-                                $v_content->htmlsection->html_content != $request_page_content[$pagcont->page_content_id]['html_content']):
-                            $v_content->htmlsection->html_content = $request_page_content[$pagcont->page_content_id]['html_content'];
-                            $v_content->htmlsection->update();
-                        endif; */                                                                                                                       
+                        endif;                                                                                                                                           
                         
                         unset($request_page_content[$pagcont->page_content_id]);                    
                     else:
@@ -270,16 +261,17 @@ class PageController extends Controller
                 endforeach;
             else :
                 // Delete all page content
-                /*foreach($page->page_content as $pagcontd) :                    
-                    $pagcontd->delete();
-                endforeach;*/
+                /*
+                    foreach($page->page_content as $pagcontd) :                    
+                        $pagcontd->delete();
+                    endforeach;
+                 */
             endif;
         endif;
         
         if (isset($request_page_content)):
             //Crear page content
-            foreach ($request_page_content as $pagcont) :                        
-            
+            foreach ($request_page_content as $pagcont) :                                    
                 $new_content = new \App\Content();
                 $new_content->cat_id_type = "TIPCONWEB";
                                 
@@ -306,8 +298,7 @@ class PageController extends Controller
                 $new_pagecontent->order = 0;
                 $page->page_content()->save($new_pagecontent);                                
             endforeach;
-        endif;
-        
+        endif;        
         
         return view($this->viewsDir.'partial.view_page', compact('page'));
     }

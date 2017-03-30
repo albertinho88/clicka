@@ -291,7 +291,11 @@
 <script type="text/javascript">
     
       $( function() {
-            $( "#sortable" ).sortable();
+            $( "#sortable" ).sortable({
+                update: function( event, ui ) {
+                    alert('update');
+                }
+            });
             $( "#sortable" ).disableSelection();
       } );
     
