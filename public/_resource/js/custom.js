@@ -68,6 +68,9 @@ initUiComponents = function() {
             editor.on('change', function () {
                 editor.save();
             });
+        },
+        init_instance_callback : function(editor) {         
+            editor.save();
         }
     });
     $(document).puitooltip();

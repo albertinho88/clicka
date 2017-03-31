@@ -44,51 +44,99 @@
                 @if($page->is_menu_item)
                 
                     <div class="EmptyBox10" ></div>
-
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-2">                                            
-                            <label for="name" class="col-md-4 control-label">Nombre:</label>
+                    
+                    <fieldset id="fldsMenu">
+                        <legend>Propiedades Menú</legend>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="name" class="col-md-4 control-label">Nombre:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                {{ $page->name }}
+                            </div>                                                                                                                
                         </div>
-                        <div class="ui-grid-col-10">
-                            {{ $page->name }}
-                        </div>                                                                                                                
-                    </div>
 
-                    <div class="EmptyBox10"></div>
+                        <div class="EmptyBox10"></div>
 
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-2">                                            
-                            <label for="label" class="col-md-4 control-label">Icono:</label>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="label" class="col-md-4 control-label">Icono:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                {{ $page->icon }}
+                            </div>                                                                                                                
                         </div>
-                        <div class="ui-grid-col-10">
-                            {{ $page->icon }}
-                        </div>                                                                                                                
-                    </div>
 
-                    <div class="EmptyBox10"></div>
+                        <div class="EmptyBox10"></div>
 
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-2">                                            
-                            <label for="menu_class" class="col-md-4 control-label">Clases html:</label>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="menu_class" class="col-md-4 control-label">Clases html:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                {{ $page->menu_class }}
+                            </div>                                                                                                                
                         </div>
-                        <div class="ui-grid-col-10">
-                            {{ $page->menu_class }}
-                        </div>                                                                                                                
-                    </div>
 
-                    <div class="EmptyBox10"></div>
+                        <div class="EmptyBox10"></div>
 
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-2">                                            
-                            <label for="order" class="col-md-4 control-label">Orden:</label>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="order" class="col-md-4 control-label">Orden:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                {{ $page->order }}
+                            </div>                                                                                                                
                         </div>
-                        <div class="ui-grid-col-10">
-                            {{ $page->order }}
-                        </div>                                                                                                                
-                    </div>
+                    </fieldset>
                 
                 @endif
                                                 
+                <div class="EmptyBox10"></div>
+                
+                <fieldset>
+                    <legend>Contenido</legend>
+                    
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">                                            
+                            <label for="container_class" class="col-md-4 control-label">Clases Contenedor:</label>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            {{ $page->container_class }}
+                        </div>                                                                                                                
+                    </div>
+                    
+                    <div class="EmptyBox10"></div>
+                    
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">                                            
+                            <label for="order" class="col-md-4 control-label">Título:</label>
+                        </div>
+                        <div class="ui-grid-col-10">
+                            {{ $page->title }}
+                        </div>                                                                                                                
+                    </div>                                                                        
+                    
+                    <div id="divPageContent" class="{{ $page->container_class }}">
+                        @foreach($page_content as $pcontent)
+                            <div class="EmptyBox10"></div>
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-12">                                
+                                    @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                                                        
+                                        <?php echo $pcontent->content->htmlsection->html_content; ?>
+                                    @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')                                    
+                                        Slider
+                                    @elseif ($pcontent->content->cat_det_id_type == 'FORM')                                    
+                                        Formulario
+                                    @endif 
+                                </div>
+                            </div>                        
+                        @endforeach
+                    </div>
+
+                    
+                </fieldset>
+                
                 <div class="EmptyBox10"></div>
 
                 <div class="ui-grid-row">

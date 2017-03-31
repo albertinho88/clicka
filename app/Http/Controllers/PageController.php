@@ -170,7 +170,10 @@ class PageController extends Controller
     public function show($id)
     {
         $page = \App\Page::find($id);
-        return view($this->viewsDir.'show_page',compact('page'));
+        $page_content = \App\PageContent::where("page_id",$page->page_id)
+                                    ->orderBy('order','asc')
+                                    ->get();
+        return view($this->viewsDir.'show_page',compact(['page','pages_list','page_content']));
     }
 
     /**
@@ -246,7 +249,7 @@ class PageController extends Controller
             if (isset($request_page_content)) :
                 // Update Content
                 foreach($page->page_content as $pagcont):                                                            
-                    if (isset($request_page_content[$pagcont->page_content_id])) : 
+                    if (isset($request_page_content[$pagcont->page_content_id])) :                                                                                                 
                         
                         if ($pagcont->content->cat_det_id_type == "HTMLSEC" && isset($pagcont->content->htmlsection)
                                 && $pagcont->content->htmlsection->html_content != $request_page_content[$pagcont->page_content_id]['html_content']) :
@@ -254,18 +257,21 @@ class PageController extends Controller
                             $pagcont->content->htmlsection->update();
                         endif;                                                                                                                                           
                         
+                        if ($pagcont->order != $request_page_content[$pagcont->page_content_id]['order']):
+                            $pagcont->order = $request_page_content[$pagcont->page_content_id]['order'];
+                            $pagcont->update();
+                        endif;
+                        
                         unset($request_page_content[$pagcont->page_content_id]);                    
                     else:
                         $pagcont->delete();
                     endif; 
                 endforeach;
             else :
-                // Delete all page content
-                /*
-                    foreach($page->page_content as $pagcontd) :                    
-                        $pagcontd->delete();
-                    endforeach;
-                 */
+                // Delete all page content                
+                foreach($page->page_content as $pagcontd) :                    
+                    $pagcontd->delete();
+                endforeach;                 
             endif;
         endif;
         
@@ -295,12 +301,16 @@ class PageController extends Controller
                 
                 $new_pagecontent = new \App\PageContent();
                 $new_pagecontent->content_id = $new_content->content_id;
-                $new_pagecontent->order = 0;
+                $new_pagecontent->order = $pagcont['order'];
                 $page->page_content()->save($new_pagecontent);                                
             endforeach;
-        endif;        
+        endif;      
         
-        return view($this->viewsDir.'partial.view_page', compact('page'));
+        $page_content = \App\PageContent::where("page_id",$page->page_id)
+                                    ->orderBy('order','asc')
+                                    ->get();
+        
+        return view($this->viewsDir.'partial.view_page', compact(['page','page_content']));
     }
 
 }

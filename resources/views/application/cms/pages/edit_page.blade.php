@@ -6,7 +6,7 @@
     <div class="ui-g">
         <div class="ui-g-12"> 
             <div class="card card-w-title">                                                                                                 
-                <div class="ui-grid ui-grid-responsive">
+                <div id="divEditPage" class="ui-grid ui-grid-responsive">
 
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
@@ -71,7 +71,7 @@
                                     <label for="page_parent_id" class="col-md-4 control-label">Página Padre:</label>
                                 </div>
                                 <div class="ui-grid-col-10">
-                                    <select id="page_parent_id" name="page_parent_id" class="selectList" >
+                                    <select id="page_parent_id" name="page_parent_id" class="selectOneMenu" >
                                         <option value="0">> Raíz</option>
                                         <?php echo $pages_list ?>
                                     </select>                                
@@ -221,51 +221,61 @@
                                         </span>
                                     </div>
                                 </div>                                                                
+                                        
+                                <div class="EmptyBox10"></div>
                                 
-                                <div id="divPageContent">
-                                    <ul id="sortable">
-                                    @foreach($page_content as $pcontent) 
-                                        <li class="ui-state-default">
-                                            <div class="EmptyBox10"></div>
-
-                                            <div class="ui-grid-row">
-                                                <div class="ui-grid-col-12">
-                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
-                                                    <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][order]" value="{{ $pcontent->order }}" />
-                                                    @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                    
-                                                        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="HTMLSEC" />
-                                                        <input type="hidden" id="pagecontent_{{ $pcontent->page_content_id }}" 
-                                                                name="page_content[{{ $pcontent->page_content_id }}][html_content]" 
-                                                                value="{{ $pcontent->content->htmlsection->html_content }}" />
-                                                        <?php echo $pcontent->content->htmlsection->html_content; ?>
-                                                    @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
-                                                        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="SLIDER" />
-                                                        Slider
-                                                    @elseif ($pcontent->content->cat_det_id_type == 'FORM')
-                                                        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="FORM" />
-                                                        Formulario
-                                                    @endif 
+                                <div id="divPageContent" class="{{ $page->container_class }}">
+                                    <ul id="ulPageContent" >
+                                        @foreach($page_content as $pcontent)                                        
+                                            <li class="ui-state-default" id="li_sec_{{ $pcontent->page_content_id }}">  
+                                                
+                                                <div class="ui-grid-row">
+                                                    <div class="ui-grid-col-12" style="text-align: right;">
+                                                        <button class="delete_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px;" parent_li="li_sec_{{ $pcontent->page_content_id }}" ></button>
+                                                        <button class="edit_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px;" parent_li="li_sec_{{ $pcontent->page_content_id }}" ></button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
+                                                    
+                                                <div class="ui-grid-row">
+                                                    <div class="ui-grid-col-12">                                                        
+                                                        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
+                                                        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][order]" value="{{ $pcontent->order }}" class="page_content_order" />
+                                                        @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                    
+                                                            <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="HTMLSEC" />
+                                                            <input type="hidden" id="li_sec_{{ $pcontent->page_content_id }}_htmlcontent" 
+                                                                    name="page_content[{{ $pcontent->page_content_id }}][html_content]" 
+                                                                    value="<?php echo htmlentities($pcontent->content->htmlsection->html_content); ?>" />
+                                                            <?php echo $pcontent->content->htmlsection->html_content; ?>
+                                                        @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
+                                                            <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="SLIDER" />
+                                                            Slider
+                                                        @elseif ($pcontent->content->cat_det_id_type == 'FORM')
+                                                            <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="FORM" />
+                                                            Formulario
+                                                        @endif 
+                                                    </div>
+                                                </div>
+                                            </li>                                        
+                                        @endforeach
                                     </ul>
                                 </div>
-                                
-                                <div class="EmptyBox20"></div>
+                                                                
+                                <div class="EmptyBox10"></div>
                                 
                                 <div class="ui-grid-row">
-                                    <ul class="menubar">                                                                        
-                                        <li>
-                                            <a id="addHtmlSection" data-icon="fa-code" class="">Agregar Sección Html</a>
-                                        </li>
-                                        <li>
-                                            <a id="addSlider" data-icon="fa-picture-o" class="">Agregar Slider</a>
-                                        </li>
-                                        <li>
-                                            <a id="addForm" data-icon="fa-file-text" class="">Agregar Formulario</a>
-                                        </li>
-                                    </ul>
+                                    <div class="ui-grid-col-12">
+                                        <ul class="menubar">                                                                        
+                                            <li>
+                                                <a id="addHtmlSection" data-icon="fa-code" >Agregar Sección Html</a>                                                                                          
+                                            </li>
+                                            <li>
+                                                <a id="addSlider" data-icon="fa-picture-o" class="">Agregar Slider</a>
+                                            </li>
+                                            <li>
+                                                <a id="addForm" data-icon="fa-file-text" class="">Agregar Formulario</a>
+                                            </li>                                        
+                                        </ul>
+                                    </div>
                                 </div>
                                 
                             </fieldset>                                                                                  
@@ -283,6 +293,61 @@
 
                         </form>                                           
                 </div>
+                
+                <div id="divEditHtmlSection" class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <div class="text-center titulo">
+                                <p><i class="fa fa-code" ></i></p>
+                                <p><h1 class="coolvetica-rg" >Sección Html.</h1></p>                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="EmptyBox10"></div>
+                    
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <textarea id="newHtmlSection" ></textarea>
+                            <textarea id="editHtmlSection" ></textarea>
+                            <script type="text/javascript">
+                                tinymce.init({ 
+                                        selector:'#newHtmlSection',
+                                        height: 200,
+                                        plugins: [
+                                                "advlist autolink lists link image charmap print preview anchor",
+                                                "searchreplace visualblocks code fullscreen",
+                                                "insertdatetime media table contextmenu paste imagetools"
+                                        ],
+                                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                                        setup: function (editor) {
+                                                editor.on('change', function () {
+                                                        editor.save();
+                                                });
+                                        },
+                                        init_instance_callback : function(editor) {
+                                                console.log("Editor: " + editor.id + " is now initialized.");
+                                                editor.save();
+                                          }
+                                });                                                        
+                            </script>
+                        </div>
+                    </div>
+                    
+                    <div class="EmptyBox10"></div>
+                    
+                    <div class="ui-grid-row text-center">
+                        <div class="ui-grid-col-12" >                                
+                            <button id="add-new-section" role="button" aria-disabled="false" is="p-button" icon="fa-plus" class="width_auto" >
+                                Agregar
+                            </button>
+                            <button id="cancel-new-section" role="button" aria-disabled="false" is="p-button" icon="fa-ban" class="width_auto" >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div> 
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -290,18 +355,21 @@
 
 <script type="text/javascript">
     
-      $( function() {
-            $( "#sortable" ).sortable({
-                update: function( event, ui ) {
-                    alert('update');
-                }
-            });
-            $( "#sortable" ).disableSelection();
-      } );
-    
     $(document).ready(function(){
         
         var newHtmlSectionCount = 1;
+        $("#divEditHtmlSection").hide();
+        
+        $( "#ulPageContent" ).sortable({
+            update: function( event, ui ) {                
+                var cont = 0;
+                $("input.page_content_order").each(function(index){
+                    $(this).val(cont);
+                    cont++;
+                });                                        
+            }
+        });
+        $( "#ulPageContent" ).disableSelection();                
         
         if ($("#is_menu_item")[0].checked) {
             $("#fldsMenu").show();
@@ -318,32 +386,100 @@
                 $("#fldsMenu").hide("fade", 300);
             }
         });
-                        
-        $("#addHtmlSection").click(function(){
-            $("#divPageContent").append('<div class="EmptyBox10"></div>');
-            $("#divPageContent").append('<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />');
-            $("#divPageContent").append('<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][content_type]" value="HTMLSEC" />');
-            $("#divPageContent").append('<div class="ui-grid-row"><div class="ui-grid-col-12"><textarea id="new_htmlsection_'+newHtmlSectionCount+'" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" class="form-control"></textarea></div></div>');
+        
+        $("#cancel-new-section").click(function(){            
+            $("#divEditHtmlSection").hide("fade", 300);            
+            tinyMCE.get('newHtmlSection').setContent("");
+            $("#divEditPage").show("fade", 400);            
             
-            tinymce.init({ 
-                selector:'#new_htmlsection_'+newHtmlSectionCount,
-                height: 200,
-                plugins: [
-                    "advlist autolink lists link image charmap print preview anchor",
-                    "searchreplace visualblocks code fullscreen",
-                    "insertdatetime media table contextmenu paste imagetools"
-                ],
-                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                setup: function (editor) {
-                    editor.on('change', function () {
-                        editor.save();
-                    });
-                }
-            });
+            $('html, body').animate({
+                scrollTop: $("#addHtmlSection").offset().top
+            }, 800);
+        });
+        
+        $("#addHtmlSection").click(function(){
+            
+            $("#divEditPage").hide("fade", 300);            
+            $("#divEditHtmlSection").show("fade", 400);            
+        });
+        
+        $("#add-new-section").click(function(){                                                
+            
+            var li_count = $("#ulPageContent li").length;
+            var new_li = '';                        
+            
+            new_li = '<li class="ui-state-default" id="li_nsec_' + newHtmlSectionCount + '">'
+                    + '<div class="ui-grid-row"><div class="ui-grid-col-12" style="text-align: right;">'
+                    + '<button class="delete_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '<button class="edit_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '</div></div>'
+                    + '<div class="ui-grid-row"><div class="ui-grid-col-12">'
+                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />'
+                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][order]" value="' + li_count + '" class="page_content_order" />'
+                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][content_type]" value="HTMLSEC" />'
+                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" value="' + tinyMCE.get('newHtmlSection').getContent({format : 'html'}) + '" />'
+                    + tinyMCE.get('newHtmlSection').getContent({format : 'raw'})
+                    + '</div></div></li>';
+            
+            $("#divPageContent ul").append(new_li);                                                                                
+            
+            $("#divEditHtmlSection").hide("fade", 300);            
+            tinyMCE.get('newHtmlSection').setContent("");
+            $("#divEditPage").show("fade", 400);                        
+            
+            initHtmlSectionButtons();
+            
+            $('html, body').animate({
+                scrollTop: $("#li_nsec_" + newHtmlSectionCount).offset().top
+            }, 800);
             
             newHtmlSectionCount++;
         });
+        
+        initHtmlSectionButtons();
+        
     });
+    
+    initHtmlSectionButtons = function(){
+        $(".delete_htmlcontent").click(function(e){                                                
+            $("#" + $(this).attr('parent_li')).fadeOut("normal", function() {
+                $(this).remove();
+            });
+            e.preventDefault();
+        });
+        
+        $(".edit_htmlcontent").click(function(e){
+            console.log($("#" + $(this).attr('parent_li') + '_htmlcontent').val());
+            //$('#newHtmlSection').val($("#" + $(this).attr('parent_li') + '_htmlcontent').val());            
+            $('#editHtmlSection').val($("#" + $(this).attr('parent_li') + '_htmlcontent').val());
+            
+            tinymce.init({ 
+                    selector:'#editHtmlSection',
+                    height: 200,
+                    plugins: [
+                            "advlist autolink lists link image charmap print preview anchor",
+                            "searchreplace visualblocks code fullscreen",
+                            "insertdatetime media table contextmenu paste imagetools"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                    setup: function (editor) {
+                            editor.on('change', function () {
+                                    editor.save();
+                            });
+                    },
+                    init_instance_callback : function(editor) {
+                            console.log("Editor: " + editor.id + " is now initialized.");
+                            editor.save();
+                      }
+            });
+            
+            //tinyMCE.get('newHtmlSection').setContent($("#" + $(this).attr('parent_li') + '_htmlcontent').val());
+            //tinyMCE.get('newHtmlSection').save();
+            $("#divEditPage").hide("fade", 300);            
+            $("#divEditHtmlSection").show("fade", 400);
+            e.preventDefault();
+        });
+    };
     
 </script>
 
