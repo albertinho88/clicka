@@ -244,8 +244,10 @@
                                                             <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="HTMLSEC" />
                                                             <input type="hidden" id="li_sec_{{ $pcontent->page_content_id }}_htmlcontent" 
                                                                     name="page_content[{{ $pcontent->page_content_id }}][html_content]" 
-                                                                    value="<?php echo htmlentities($pcontent->content->htmlsection->html_content); ?>" />
-                                                            <?php echo $pcontent->content->htmlsection->html_content; ?>
+                                                                    value="<?php echo htmlentities($pcontent->content->htmlsection->html_content); ?>" />                                                            
+                                                            <div id="li_sec_{{ $pcontent->page_content_id }}_htmlcontent_div" >
+                                                                <?php echo $pcontent->content->htmlsection->html_content; ?>
+                                                            </div>
                                                         @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
                                                             <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="SLIDER" />
                                                             Slider
@@ -309,9 +311,14 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
                             <textarea id="newHtmlSection" ></textarea>
-                            <textarea id="editHtmlSection" ></textarea>
+                            <input id="iptHtmlContentId" type="hidden"/>
                             <script type="text/javascript">
                                 tinymce.init({ 
+                                        cleanup_on_startup: false,
+                                        trim_span_elements: false,
+                                        verify_html: false,
+                                        cleanup: false,
+                                        convert_urls: false,
                                         selector:'#newHtmlSection',
                                         height: 200,
                                         plugins: [
@@ -340,6 +347,9 @@
                         <div class="ui-grid-col-12" >                                
                             <button id="add-new-section" role="button" aria-disabled="false" is="p-button" icon="fa-plus" class="width_auto" >
                                 Agregar
+                            </button>
+                            <button id="edit-section" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" class="width_auto" >
+                                Editar
                             </button>
                             <button id="cancel-new-section" role="button" aria-disabled="false" is="p-button" icon="fa-ban" class="width_auto" >
                                 Cancelar
@@ -398,27 +408,27 @@
         });
         
         $("#addHtmlSection").click(function(){
-            
+            $("#edit-section").hide();
+            $("#add-new-section").show();            
             $("#divEditPage").hide("fade", 300);            
             $("#divEditHtmlSection").show("fade", 400);            
         });
         
-        $("#add-new-section").click(function(){                                                
-            
+        $("#add-new-section").click(function(){                                                            
             var li_count = $("#ulPageContent li").length;
             var new_li = '';                        
             
             new_li = '<li class="ui-state-default" id="li_nsec_' + newHtmlSectionCount + '">'
                     + '<div class="ui-grid-row"><div class="ui-grid-col-12" style="text-align: right;">'
-                    + '<button class="delete_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
-                    + '<button class="edit_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '<button id="delete_nhtmlcontent_' + newHtmlSectionCount + '" class="delete_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '<button id="edit_nhtmlcontent_' + newHtmlSectionCount + '" class="edit_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
                     + '</div></div>'
                     + '<div class="ui-grid-row"><div class="ui-grid-col-12">'
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />'
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][order]" value="' + li_count + '" class="page_content_order" />'
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][content_type]" value="HTMLSEC" />'
-                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" value="' + tinyMCE.get('newHtmlSection').getContent({format : 'html'}) + '" />'
-                    + tinyMCE.get('newHtmlSection').getContent({format : 'raw'})
+                    + '<input type="hidden" id="li_nsec_' + newHtmlSectionCount + '_htmlcontent" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" value=\''  + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '\' />'
+                    + '<div id="li_nsec_' + newHtmlSectionCount + '_htmlcontent_div">' + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '</div>'
                     + '</div></div></li>';
             
             $("#divPageContent ul").append(new_li);                                                                                
@@ -427,13 +437,38 @@
             tinyMCE.get('newHtmlSection').setContent("");
             $("#divEditPage").show("fade", 400);                        
             
-            initHtmlSectionButtons();
+            $("#edit_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                        
+                tinyMCE.get('newHtmlSection').setContent($("#" + $(this).attr('parent_li') + '_htmlcontent').val(),{format:'text'});            
+                $("#iptHtmlContentId").val($(this).attr('parent_li') + '_htmlcontent');
+                
+                $("#edit-section").show();
+                $("#add-new-section").hide();
+                $("#divEditPage").hide("fade", 300);            
+                $("#divEditHtmlSection").show("fade", 400);
+                e.preventDefault();
+            });
+            
+            $("#delete_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                                                
+                $("#" + $(this).attr('parent_li')).fadeOut("normal", function() {
+                    $(this).remove();
+                });
+                e.preventDefault();
+            });
             
             $('html, body').animate({
                 scrollTop: $("#li_nsec_" + newHtmlSectionCount).offset().top
             }, 800);
             
             newHtmlSectionCount++;
+        });
+        
+        $("#edit-section").click(function(){
+            console.log("#" + $("#iptHtmlContentId").val() + "_div");
+            $("#" + $("#iptHtmlContentId").val()).val(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
+            $("#" + $("#iptHtmlContentId").val() + "_div").html(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
+            $("#divEditHtmlSection").hide("fade", 300);            
+            tinyMCE.get('newHtmlSection').setContent("");
+            $("#divEditPage").show("fade", 400);  
         });
         
         initHtmlSectionButtons();
@@ -448,33 +483,12 @@
             e.preventDefault();
         });
         
-        $(".edit_htmlcontent").click(function(e){
-            console.log($("#" + $(this).attr('parent_li') + '_htmlcontent').val());
-            //$('#newHtmlSection').val($("#" + $(this).attr('parent_li') + '_htmlcontent').val());            
-            $('#editHtmlSection').val($("#" + $(this).attr('parent_li') + '_htmlcontent').val());
+        $(".edit_htmlcontent").click(function(e){                        
+            tinyMCE.get('newHtmlSection').setContent($("#" + $(this).attr('parent_li') + '_htmlcontent').val(),{format:'text'});
+            $("#iptHtmlContentId").val($(this).attr('parent_li') + '_htmlcontent');
             
-            tinymce.init({ 
-                    selector:'#editHtmlSection',
-                    height: 200,
-                    plugins: [
-                            "advlist autolink lists link image charmap print preview anchor",
-                            "searchreplace visualblocks code fullscreen",
-                            "insertdatetime media table contextmenu paste imagetools"
-                    ],
-                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                    setup: function (editor) {
-                            editor.on('change', function () {
-                                    editor.save();
-                            });
-                    },
-                    init_instance_callback : function(editor) {
-                            console.log("Editor: " + editor.id + " is now initialized.");
-                            editor.save();
-                      }
-            });
-            
-            //tinyMCE.get('newHtmlSection').setContent($("#" + $(this).attr('parent_li') + '_htmlcontent').val());
-            //tinyMCE.get('newHtmlSection').save();
+            $("#edit-section").show();
+            $("#add-new-section").hide();
             $("#divEditPage").hide("fade", 300);            
             $("#divEditHtmlSection").show("fade", 400);
             e.preventDefault();
