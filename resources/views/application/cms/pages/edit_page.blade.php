@@ -31,7 +31,7 @@
                                    
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-2">                                            
-                                    <label for="page_id" class="col-md-4 control-label">Código:</label>
+                                    <label for="page_id" class="col-md-4 control-label">Identificador:</label>
                                 </div>
                                 <div class="ui-grid-col-10">
                                     {{ $page->page_id }}
@@ -202,6 +202,27 @@
                             
                             <fieldset>
                                 <legend>Contenido</legend>
+                                
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2">                                            
+                                        <label for="container_class" class="col-md-4 control-label">Clase Contenedor:</label>
+                                    </div>
+                                    <div class="ui-grid-col-10">
+                                        <input id="container_class" name="container_class" type="text" autocomplete="off"  class="form-control" value="{{ $page->container_class }}" />
+                                    </div>                                                                                                                
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-2"></div>
+                                    <div class="ui-grid-col-10">
+                                        <span id="container_class_help_block" class="help-block">
+                                            @if ($errors->has('container_class'))                                                    
+                                                <strong>{{ $errors->first('container_class') }}</strong>                                                    
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>                                                                
+                                        
+                                <div class="EmptyBox10"></div>
                                 
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-2">                                            
@@ -462,13 +483,16 @@
             newHtmlSectionCount++;
         });
         
-        $("#edit-section").click(function(){
-            console.log("#" + $("#iptHtmlContentId").val() + "_div");
+        $("#edit-section").click(function(){            
             $("#" + $("#iptHtmlContentId").val()).val(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
             $("#" + $("#iptHtmlContentId").val() + "_div").html(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
             $("#divEditHtmlSection").hide("fade", 300);            
             tinyMCE.get('newHtmlSection').setContent("");
-            $("#divEditPage").show("fade", 400);  
+            $("#divEditPage").show("fade", 400); 
+            
+            $('html, body').animate({
+                scrollTop: $("#" + $("#iptHtmlContentId").val() + "_div").offset().top
+            }, 800);
         });
         
         initHtmlSectionButtons();

@@ -40,13 +40,13 @@ class AppServiceProvider extends ServiceProvider
     public function getPagesTree($idPageParent, $pages_tree, $nivel) {                
         if ($idPageParent == NULL) {
             $pages = \App\Page::whereNull('page_parent_id')
-                    ->whereIn('state',array('A','I'))
+                    ->whereIn('state',array('A'))
                     ->where('is_menu_item',true)
                     ->orderBy('order','desc')
                     ->get();
         } else {
             $pages = \App\Page::where('page_parent_id','=',$idPageParent)
-                    ->whereIn('state',array('A','I'))
+                    ->whereIn('state',array('A'))
                     ->where('is_menu_item',true)
                     ->orderBy('order','desc')
                     ->get();

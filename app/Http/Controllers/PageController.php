@@ -129,11 +129,13 @@ class PageController extends Controller
             'menu_class' => 'max:50',            
             'order' => 'numeric|integer',
             
+            'container_class' => 'max:50',
             'title' => 'max:255',
             
             'state' => 'required|max:1'
             
-        ]);
+        ]);                     
+                                                    
         
         $page = new \App\Page();
         $page->page_id = $request->page_id;
@@ -148,6 +150,7 @@ class PageController extends Controller
             $page->is_menu_item = false;
         endif;
         
+        $page->container_class = $request->container_class;
         $page->title = $request->title;
                 
         $page->state = $request->state;        
@@ -158,7 +161,45 @@ class PageController extends Controller
         }
         $page->save();
         
-        return view($this->viewsDir.'partial.view_page', compact('page'));
+        
+        $request_page_content = $request->page_content;
+        
+        if (isset($request_page_content)):
+            //Crear page content
+            foreach ($request_page_content as $pagcont) :                                    
+                $new_content = new \App\Content();
+                $new_content->cat_id_type = "TIPCONWEB";
+                                
+                if ($pagcont['content_type'] == 'HTMLSEC') :
+                    $newhtmlsec = new \App\HtmlSection();
+                    $newhtmlsec->html_content = $pagcont['html_content'];
+                    $newhtmlsec->save();
+                    
+                    $new_content->htmlsection_id = $newhtmlsec->htmlsection_id;
+                    $new_content->cat_det_id_type = "HTMLSEC";
+                    
+                elseif($pagcont['content_type'] == 'SLIDER') :
+                    $new_content->cat_det_id_type = "SLIDER";
+                
+                elseif($pagcont['content_type'] == 'FORM') :
+                    $new_content->cat_det_id_type = "FORM";
+                
+                endif;
+                
+                $new_content->save();
+                
+                $new_pagecontent = new \App\PageContent();
+                $new_pagecontent->content_id = $new_content->content_id;
+                $new_pagecontent->order = $pagcont['order'];
+                $page->page_content()->save($new_pagecontent);                                
+            endforeach;
+        endif;
+        
+        $page_content = \App\PageContent::where("page_id",$page->page_id)
+                                    ->orderBy('order','asc')
+                                    ->get();
+        
+        return view($this->viewsDir.'partial.view_page', compact(['page','page_content']));
     }
 
     /**
@@ -213,6 +254,7 @@ class PageController extends Controller
             'menu_class' => 'max:50',            
             'order' => 'numeric|integer',
             
+            'container_class' => 'max:50',
             'title' => 'max:255',
             
             'state' => 'required|max:1',
@@ -231,6 +273,7 @@ class PageController extends Controller
             $page->is_menu_item = false;
         endif;
         
+        $page->container_class = $request->container_class;
         $page->title = $request->title;
                 
         $page->state = $request->state;        

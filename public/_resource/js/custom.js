@@ -23,10 +23,7 @@ initUiComponents = function() {
     $('fieldset').puifieldset({
         toggleable: true,
         collapsed: false
-    });
-    
-    
-    
+    });            
 
     $("input").addClass( "ui-inputfield" );
     $("textarea").addClass("ui-inputfield ui-inputtextarea");    
@@ -64,14 +61,14 @@ initUiComponents = function() {
             "insertdatetime media table contextmenu paste imagetools"
         ],
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-//        setup: function (editor) {
-//            editor.on('change', function () {
-//                editor.save();
-//            });
-//        },
-//        init_instance_callback : function(editor) {         
-//            editor.save();
-//        }
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save();
+            });
+        },
+        init_instance_callback : function(editor) {         
+            editor.save();
+        }
     });
     $(document).puitooltip();
     //initSubmitAjaxForms();
