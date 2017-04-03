@@ -20,6 +20,9 @@ class CreatePageContentsTable extends Migration
             $table->foreign('page_id')->references('page_id')->on('pages');
             $table->foreign('content_id')->references('content_id')->on('content');
             $table->integer('order');            
+            $table->integer('columns_on_g');
+            $table->integer('columns_on_md');
+            $table->integer('columns_on_lg');
             $table->timestamps();
         });
     }

@@ -79,6 +79,9 @@ class PagesTableSeeder extends Seeder
         $pagecontent = new \App\PageContent();
         $pagecontent->content_id = $content->content_id;
         $pagecontent->order = 1;
+        $pagecontent->columns_on_g = "12";
+        $pagecontent->columns_on_md = "12";
+        $pagecontent->columns_on_lg = "12";        
         $npage->page_content()->save($pagecontent);
         
     }

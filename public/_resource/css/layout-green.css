@@ -52,7 +52,9 @@
   background: #ffffff;
   padding: 16px;
   box-sizing: border-box;
-  margin-bottom: 16px; }
+  /*margin-bottom: 16px; */
+  margin-bottom: 0px; 
+}
   .card.card-w-title {
     /*padding-bottom: 32px; */
     padding-bottom: 10px; 
@@ -867,7 +869,9 @@ body {
     .layout-wrapper .layout-main .route-bar .fa {
       margin-right: 2px; }
   .layout-wrapper .layout-main .layout-main-content {
-    padding: 15px; }
+    /*padding: 15px; */
+    padding: 0px;
+  }
 .layout-wrapper .layout-menu {
   margin: 0;
   padding: 0;

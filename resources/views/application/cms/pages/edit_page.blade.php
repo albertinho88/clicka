@@ -249,35 +249,7 @@
                                     <ul id="ulPageContent" >
                                         @foreach($page_content as $pcontent)                                        
                                             <li class="ui-state-default" id="li_sec_{{ $pcontent->page_content_id }}">  
-                                                
-                                                <div class="ui-grid-row">
-                                                    <div class="ui-grid-col-12" style="text-align: right;">
-                                                        <button class="delete_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px;" parent_li="li_sec_{{ $pcontent->page_content_id }}" ></button>
-                                                        <button class="edit_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px;" parent_li="li_sec_{{ $pcontent->page_content_id }}" ></button>
-                                                    </div>
-                                                </div>
-                                                    
-                                                <div class="ui-grid-row">
-                                                    <div class="ui-grid-col-12">                                                        
-                                                        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
-                                                        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][order]" value="{{ $pcontent->order }}" class="page_content_order" />
-                                                        @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                    
-                                                            <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="HTMLSEC" />
-                                                            <input type="hidden" id="li_sec_{{ $pcontent->page_content_id }}_htmlcontent" 
-                                                                    name="page_content[{{ $pcontent->page_content_id }}][html_content]" 
-                                                                    value="<?php echo htmlentities($pcontent->content->htmlsection->html_content); ?>" />                                                            
-                                                            <div id="li_sec_{{ $pcontent->page_content_id }}_htmlcontent_div" >
-                                                                <?php echo $pcontent->content->htmlsection->html_content; ?>
-                                                            </div>
-                                                        @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
-                                                            <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="SLIDER" />
-                                                            Slider
-                                                        @elseif ($pcontent->content->cat_det_id_type == 'FORM')
-                                                            <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="FORM" />
-                                                            Formulario
-                                                        @endif 
-                                                    </div>
-                                                </div>
+                                                @include('application.cms.pages.partial.page_content',['pcontent' => $pcontent]) 
                                             </li>                                        
                                         @endforeach
                                     </ul>
@@ -362,7 +334,66 @@
                         </div>
                     </div>
                     
+                    <div class="EmptyBox20"></div>
+                    
+                    <fieldset>
+                        <legend>Tamaño de columna por resolución</legend>
+                        
+                        <div class="EmptyBox10"></div>
+                        
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <small style="color: blue;">
+                                    El tamaño máximo es 12 y significa que habrá 1 sola columna en la fila, mientras que si se escoge el tamaño 1 significa que el contenido
+                                    ocupará 1 columna de las 12 posibles en una fila.
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="EmptyBox20"></div>
+                        
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="columns_on_lg" class="col-md-4 control-label">Dispositivos grandes:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <select id="columns_on_lg" name="columns_on_lg" class="selectOneMenu">
+                                    @for($i=12; $i>=1; $i--)
+                                        <option>{{$i}}</option>
+                                    @endfor
+                                </select>
+                            </div>                                                                                                                
+                        </div> 
+
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="columns_on_md" class="col-md-4 control-label">Dispositivos medianos:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <select id="columns_on_md" name="columns_on_md" class="selectOneMenu">
+                                    @for($i=12; $i>=1; $i--)
+                                        <option>{{$i}}</option>
+                                    @endfor
+                                </select>
+                            </div>                                                                                                                
+                        </div>
+
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">                                            
+                                <label for="columns_on_g" class="col-md-4 control-label">Dispositivos pequeños:</label>
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <select id="columns_on_g" name="columns_on_g" class="selectOneMenu">                                
+                                    @for($i=12; $i>=1; $i--)
+                                        <option>{{$i}}</option>
+                                    @endfor 
+                                </select>
+                            </div>                                                                                                                
+                        </div>
+                    </fieldset>
+                    
                     <div class="EmptyBox10"></div>
+                    
                     
                     <div class="ui-grid-row text-center">
                         <div class="ui-grid-col-12" >                                
@@ -435,14 +466,18 @@
             $("#divEditHtmlSection").show("fade", 400);            
         });
         
-        $("#add-new-section").click(function(){                                                            
+        $("#add-new-section").click(function(){              
+            console.log("adding html section....");
             var li_count = $("#ulPageContent li").length;
+            console.log("li count: " + li_count);
             var new_li = '';                        
             
             new_li = '<li class="ui-state-default" id="li_nsec_' + newHtmlSectionCount + '">'
-                    + '<div class="ui-grid-row"><div class="ui-grid-col-12" style="text-align: right;">'
-                    + '<button id="delete_nhtmlcontent_' + newHtmlSectionCount + '" class="delete_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
-                    + '<button id="edit_nhtmlcontent_' + newHtmlSectionCount + '" class="edit_htmlcontent" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '<div class="ui-grid-row">'
+                    + '<div class="ui-grid-col-12" >'
+                    + '<button id="delete_nhtmlcontent_' + newHtmlSectionCount + '" class="delete_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '<button id="edit_nhtmlcontent_' + newHtmlSectionCount + '" class="edit_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '<button id="show_nlayoutinfo_' + newHtmlSectionCount + '" class="show_layoutinfo" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-info-circle" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
                     + '</div></div>'
                     + '<div class="ui-grid-row"><div class="ui-grid-col-12">'
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />'
@@ -450,7 +485,7 @@
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][content_type]" value="HTMLSEC" />'
                     + '<input type="hidden" id="li_nsec_' + newHtmlSectionCount + '_htmlcontent" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" value=\''  + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '\' />'
                     + '<div id="li_nsec_' + newHtmlSectionCount + '_htmlcontent_div">' + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '</div>'
-                    + '</div></div></li>';
+                    + '</div></div></li>';                        
             
             $("#divPageContent ul").append(new_li);                                                                                
             
@@ -458,21 +493,16 @@
             tinyMCE.get('newHtmlSection').setContent("");
             $("#divEditPage").show("fade", 400);                        
             
-            $("#edit_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                        
-                tinyMCE.get('newHtmlSection').setContent($("#" + $(this).attr('parent_li') + '_htmlcontent').val(),{format:'text'});            
-                $("#iptHtmlContentId").val($(this).attr('parent_li') + '_htmlcontent');
-                
-                $("#edit-section").show();
-                $("#add-new-section").hide();
-                $("#divEditPage").hide("fade", 300);            
-                $("#divEditHtmlSection").show("fade", 400);
-                e.preventDefault();
+            $("#edit_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                                        
+                editHtmlSection($(this).attr('parent_li'),e);
             });
             
-            $("#delete_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                                                
-                $("#" + $(this).attr('parent_li')).fadeOut("normal", function() {
-                    $(this).remove();
-                });
+            $("#delete_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                                                                                
+                deleteHtmlSection($(this).attr('parent_li'), e);
+            });
+            
+            $("#show_nlayoutinfo_" + newHtmlSectionCount).click(function(e){                                                                                
+                document.getElementById($(this).attr('parent_li') + "_layoutinfo").show();            
                 e.preventDefault();
             });
             
@@ -500,23 +530,37 @@
     });
     
     initHtmlSectionButtons = function(){
-        $(".delete_htmlcontent").click(function(e){                                                
-            $("#" + $(this).attr('parent_li')).fadeOut("normal", function() {
-                $(this).remove();
-            });
+        $(".delete_htmlcontent").click(function(e){                                                          
+            deleteHtmlSection($(this).attr('parent_li'), e);
+        });
+        
+        $(".edit_htmlcontent").click(function(e){                                   
+            editHtmlSection($(this).attr('parent_li'),e);
+        });
+        
+        $(".show_layoutinfo").click(function(e){            
+            document.getElementById($(this).attr('parent_li') + "_layoutinfo").show();            
             e.preventDefault();
         });
         
-        $(".edit_htmlcontent").click(function(e){                        
-            tinyMCE.get('newHtmlSection').setContent($("#" + $(this).attr('parent_li') + '_htmlcontent').val(),{format:'text'});
-            $("#iptHtmlContentId").val($(this).attr('parent_li') + '_htmlcontent');
-            
-            $("#edit-section").show();
-            $("#add-new-section").hide();
-            $("#divEditPage").hide("fade", 300);            
-            $("#divEditHtmlSection").show("fade", 400);
-            e.preventDefault();
+    };
+    
+    deleteHtmlSection = function(htmlsection_id, e) {
+        $("#" + htmlsection_id).fadeOut("normal", function() {
+            $(this).remove();
         });
+        e.preventDefault();
+    };
+    
+    editHtmlSection = function(htmlsection_id, e) {
+        tinyMCE.get('newHtmlSection').setContent($("#" + htmlsection_id + '_htmlcontent').val(),{format:'text'});            
+        $("#iptHtmlContentId").val(htmlsection_id + '_htmlcontent');
+
+        $("#edit-section").show();
+        $("#add-new-section").hide();
+        $("#divEditPage").hide("fade", 300);            
+        $("#divEditHtmlSection").show("fade", 400);
+        e.preventDefault();
     };
     
 </script>

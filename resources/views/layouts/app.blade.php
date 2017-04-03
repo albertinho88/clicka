@@ -84,7 +84,9 @@
             
             <div class="layout-main">
                 <div class="layout-main-content">
-                    @yield('content')                    
+                    <div class="ui-grid-row">
+                        @yield('content')                    
+                    </div>
                 </div>                
                 <div class="footer">
                     <div class="card clearfix">

@@ -116,7 +116,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('application/cms/pages/list_pages_json','PageController@listPagesJson')->name('list_pages_json')
 		->middleware('hasAccessOptional:application/cms/pages');
     Route::post('application/cms/pages/update','PageController@update')->name('update_page')
-            ->middleware('hasAccessOptional:application/cms/pages/edit/{page_id}');
+            ->middleware('hasAccessOptional:application/cms/pages/edit/{page_id}');    
     
 });
 

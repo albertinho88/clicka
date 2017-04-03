@@ -10,7 +10,7 @@
     @endif    
         
     <div class="ui-fluid">
-        <div class="ui-g">
+        <div class="ui-g dashboard">
             <div class="ui-g-12">
                 <div class="{{ $page->container_class }}">
                     
@@ -22,13 +22,15 @@
                     @endif
                     
                     @foreach($page_content as $pcontent)
-                        @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')
-                            @include('partial.htmlsection',['htmlsection' => $pcontent->content->htmlsection])                            
-                        @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')
-                            @include('partial.slider')
-                        @elseif ($pcontent->content->cat_det_id_type == 'FORM')
-                            @include('partial.form')
+                        <div class="ui-g-{{ $pcontent->columns_on_g  }} ui-md-{{ $pcontent->columns_on_md  }} ui-lg-{{ $pcontent->columns_on_lg  }}">
+                            @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                            
+                                @include('partial.htmlsection',['htmlsection' => $pcontent->content->htmlsection])                                                    
+                            @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')                            
+                                @include('partial.slider')                            
+                            @elseif ($pcontent->content->cat_det_id_type == 'FORM')                            
+                                @include('partial.form')                            
                         @endif                        
+                        </div>
                     @endforeach
                     
                 </div>                

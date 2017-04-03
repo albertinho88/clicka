@@ -355,5 +355,6 @@ class PageController extends Controller
         
         return view($this->viewsDir.'partial.view_page', compact(['page','page_content']));
     }
+     
 
 }
