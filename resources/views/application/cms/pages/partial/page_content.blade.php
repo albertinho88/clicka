@@ -22,6 +22,11 @@
     <div class="ui-grid-col-12">                                                        
         <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
         <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][order]" value="{{ $pcontent->order }}" class="page_content_order" />
+        
+        <input id="li_sec_{{ $pcontent->page_content_id }}_columns_on_lg" type="hidden" name="page_content[{{ $pcontent->page_content_id }}][columns_on_lg]" value="{{ $pcontent->columns_on_lg }}" />
+        <input id="li_sec_{{ $pcontent->page_content_id }}_columns_on_md" type="hidden" name="page_content[{{ $pcontent->page_content_id }}][columns_on_md]" value="{{ $pcontent->columns_on_md }}" />
+        <input id="li_sec_{{ $pcontent->page_content_id }}_columns_on_g" type="hidden" name="page_content[{{ $pcontent->page_content_id }}][columns_on_g]" value="{{ $pcontent->columns_on_g }}" />
+        
         @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                    
             <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][content_type]" value="HTMLSEC" />
             <input type="hidden" id="li_sec_{{ $pcontent->page_content_id }}_htmlcontent" 

@@ -359,7 +359,7 @@
                             <div class="ui-grid-col-10">
                                 <select id="columns_on_lg" name="columns_on_lg" class="selectOneMenu">
                                     @for($i=12; $i>=1; $i--)
-                                        <option>{{$i}}</option>
+                                        <option value="{{$i}}">{{$i}}</option>
                                     @endfor
                                 </select>
                             </div>                                                                                                                
@@ -554,7 +554,12 @@
     
     editHtmlSection = function(htmlsection_id, e) {
         tinyMCE.get('newHtmlSection').setContent($("#" + htmlsection_id + '_htmlcontent').val(),{format:'text'});            
-        $("#iptHtmlContentId").val(htmlsection_id + '_htmlcontent');
+        $("#iptHtmlContentId").val(htmlsection_id + '_htmlcontent');        
+        //$("#columns_on_lg").val("3").change();
+        $("#columns_on_lg option").filter(function() {
+            //may want to use $.trim in here
+            return $(this).text() == "3"; 
+        }).prop('selected', true);
 
         $("#edit-section").show();
         $("#add-new-section").hide();
