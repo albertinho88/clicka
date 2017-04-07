@@ -478,6 +478,12 @@
                     + '<button id="delete_nhtmlcontent_' + newHtmlSectionCount + '" class="delete_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
                     + '<button id="edit_nhtmlcontent_' + newHtmlSectionCount + '" class="edit_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
                     + '<button id="show_nlayoutinfo_' + newHtmlSectionCount + '" class="show_layoutinfo" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-info-circle" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
+                    + '<div id="li_nsec_' + newHtmlSectionCount + '_nlayoutinfo" title="Layout Info" >'
+                    + '<p>testing</p>'
+                           /* <p><span class="bolded">Columnas en g: </span> {{ $pcontent->columns_on_g }}</p>
+                            <p><span class="bolded">Columnas en md: </span> {{ $pcontent->columns_on_md }}</p>
+                            <p><span class="bolded">Columnas en lg: </span> {{ $pcontent->columns_on_lg }}</p>     */                                                          
+                    + '</div>'
                     + '</div></div>'
                     + '<div class="ui-grid-row"><div class="ui-grid-col-12">'
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />'
@@ -501,8 +507,20 @@
                 deleteHtmlSection($(this).attr('parent_li'), e);
             });
             
-            $("#show_nlayoutinfo_" + newHtmlSectionCount).click(function(e){                                                                                
-                document.getElementById($(this).attr('parent_li') + "_layoutinfo").show();            
+            $('#li_nsec_' + newHtmlSectionCount + '_nlayoutinfo').puidialog({
+                showEffect: 'fade',
+                hideEffect: 'fade',
+                minimizable: true,
+                maximizable: true,
+                responsive: true,
+                minWidth: 200,
+                modal: true
+            });
+            
+            $('#show_nlayoutinfo_' + newHtmlSectionCount).click(function(e){
+                console.log('show puidialog');
+                $('#li_nsec_' + newHtmlSectionCount + '_nlayoutinfo').puidialog('show');
+                console.log('working fine pui');
                 e.preventDefault();
             });
             
@@ -538,7 +556,7 @@
             editHtmlSection($(this).attr('parent_li'),e);
         });
         
-        $(".show_layoutinfo").click(function(e){            
+        $(".show_layoutinfo").click(function(e){              
             document.getElementById($(this).attr('parent_li') + "_layoutinfo").show();            
             e.preventDefault();
         });
