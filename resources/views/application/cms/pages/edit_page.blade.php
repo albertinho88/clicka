@@ -507,22 +507,22 @@
                 deleteHtmlSection($(this).attr('parent_li'), e);
             });
             
+            $('#show_nlayoutinfo_' + newHtmlSectionCount).click(function(e){
+                console.log('show puidialog 2');
+                $('#' + $(this).attr('parent_li') + '_nlayoutinfo').puidialog('show');
+                console.log('working fine pui 2');
+                e.preventDefault();
+            });
+            
             $('#li_nsec_' + newHtmlSectionCount + '_nlayoutinfo').puidialog({
                 showEffect: 'fade',
-                hideEffect: 'fade',
-                minimizable: true,
-                maximizable: true,
+                hideEffect: 'fade',                
                 responsive: true,
                 minWidth: 200,
                 modal: true
             });
             
-            $('#show_nlayoutinfo_' + newHtmlSectionCount).click(function(e){
-                console.log('show puidialog');
-                $('#li_nsec_' + newHtmlSectionCount + '_nlayoutinfo').puidialog('show');
-                console.log('working fine pui');
-                e.preventDefault();
-            });
+            
             
             $('html, body').animate({
                 scrollTop: $("#li_nsec_" + newHtmlSectionCount).offset().top
@@ -573,11 +573,13 @@
     editHtmlSection = function(htmlsection_id, e) {
         tinyMCE.get('newHtmlSection').setContent($("#" + htmlsection_id + '_htmlcontent').val(),{format:'text'});            
         $("#iptHtmlContentId").val(htmlsection_id + '_htmlcontent');        
-        //$("#columns_on_lg").val("3").change();
-        $("#columns_on_lg option").filter(function() {
-            //may want to use $.trim in here
-            return $(this).text() == "3"; 
-        }).prop('selected', true);
+                
+        console.log($("#" + htmlsection_id + '_columns_on_lg').val());
+        console.log($("#" + htmlsection_id + '_columns_on_md').val());
+        console.log($("#" + htmlsection_id + '_columns_on_g').val());
+        $('#columns_on_lg').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_lg').val());       
+        $('#columns_on_md').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_md').val());
+        $('#columns_on_g').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_g').val());
 
         $("#edit-section").show();
         $("#add-new-section").hide();

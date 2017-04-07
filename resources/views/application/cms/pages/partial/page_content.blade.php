@@ -21,7 +21,7 @@
 <div class="ui-grid-row">
     <div class="ui-grid-col-12">                                                        
         <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][page_content_id]" value="{{ $pcontent->page_content_id }}" />
-        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][order]" value="{{ $pcontent->order }}" class="page_content_order" />
+        <input type="hidden" name="page_content[{{ $pcontent->page_content_id }}][order]" value="{{ $pcontent->order }}" class="page_content_order" />        
         
         <input id="li_sec_{{ $pcontent->page_content_id }}_columns_on_lg" type="hidden" name="page_content[{{ $pcontent->page_content_id }}][columns_on_lg]" value="{{ $pcontent->columns_on_lg }}" />
         <input id="li_sec_{{ $pcontent->page_content_id }}_columns_on_md" type="hidden" name="page_content[{{ $pcontent->page_content_id }}][columns_on_md]" value="{{ $pcontent->columns_on_md }}" />
