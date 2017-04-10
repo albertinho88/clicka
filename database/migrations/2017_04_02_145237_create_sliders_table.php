@@ -15,8 +15,7 @@ class CreateSlidersTable extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->increments('slider_id');
-            $table->integer('width');
-            $table->integer('height');
+            $table->string('name',50);            
             $table->boolean('animate_automatically');
             $table->integer('transition_speed');
             $table->integer('time_between_transition');
@@ -27,7 +26,8 @@ class CreateSlidersTable extends Migration
             $table->boolean('pause_hover_controls');
             $table->string('prev_text',50)->nullable();
             $table->string('next_text',50)->nullable();
-            $table->integer('max_width')->nullable();
+            $table->string('max_width',10)->nullable();
+            $table->string('state',1);
             $table->timestamps();
         });
     }

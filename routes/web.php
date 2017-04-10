@@ -74,6 +74,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('application/cms/pages/edit/{page_id}','PageController@edit')->name('edit_page');        
         Route::get('application/cms/pages/show/{page_id}','PageController@show')->name('show_page');
         
+        Route::get('application/cms/sliders','SliderController@index')->name('index_sliders');
+        Route::get('application/cms/sliders/create','SliderController@create')->name('create_slider');
+        Route::post('application/cms/sliders/create','SliderController@store')->name('store_slider');
+        Route::get('application/cms/sliders/edit/{slider_id}','SliderController@edit')->name('edit_slider');        
+        Route::get('application/cms/sliders/show/{slider_id}','SliderController@show')->name('show_slider');                
+        
     });
     
     Route::get('application/management/media_files/list_media_files_json','MediaFileController@listMediaFilesJson')->name('list_media_files_json')
@@ -116,7 +122,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('application/cms/pages/list_pages_json','PageController@listPagesJson')->name('list_pages_json')
 		->middleware('hasAccessOptional:application/cms/pages');
     Route::post('application/cms/pages/update','PageController@update')->name('update_page')
-            ->middleware('hasAccessOptional:application/cms/pages/edit/{page_id}');    
+            ->middleware('hasAccessOptional:application/cms/pages/edit/{page_id}');
+
+    Route::get('application/cms/sliders/list_sliders_json','SliderController@listSlidersJson')->name('list_sliders_json')
+		->middleware('hasAccessOptional:application/cms/sliders');
+    Route::post('application/cms/sliders/update','SliderController@update')->name('update_slider')
+            ->middleware('hasAccessOptional:application/cms/sliders/edit/{slider_id}');
     
 });
 

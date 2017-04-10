@@ -127,6 +127,20 @@ return [
         'menu_id' => 'Menú',
         'featured' => 'destacado',
         'page_id' => 'Identificador',
+        
+        'width' => 'ancho',
+        'height' => 'largo',
+        'animate_automatically' => 'animado automáticamente',
+        'transition_speed' => 'velocidad de transición',
+        'time_between_transition' => 'tiempo entre transición',
+        'show_pager' => 'mostrar paginador',
+        'show_navigation' => 'mostrar navegación',
+        'random_slides_order' => 'orden de slides aleatorio',
+        'pause_on_hover' => 'pausa sobre slider',
+        'pause_hover_controls' => 'pausa sobre controles',
+        'prev_text' => 'texto anterior',
+        'next_text' => 'texto siguiente',
+        'max_width' => 'ancho máximo'
     ],
 
 ];

@@ -330,6 +330,46 @@ class DatabaseSeeder extends Seeder
                 $menuop2013->order = 3;
                 $menuop2013->menu_parent_id = $menuop201->menu_id;
                 $menuop2013->save();
+                
+            $menuop301 = new \App\MenuOption();
+            $menuop301->label = 'Sliders';
+            $menuop301->icon = 'picture-o';
+            $menuop301->url = 'application/cms/sliders';        
+            $menuop301->type = 'EXT';
+            $menuop301->state = 'A';
+            $menuop301->order = 2;
+            $menuop301->menu_parent_id = $menuop20->menu_id;
+            $menuop301->save();
+                        
+                $menuop3011 = new \App\MenuOption();
+                $menuop3011->label = 'Crear Slider';
+                $menuop3011->icon = '';
+                $menuop3011->url = 'application/cms/sliders/create';        
+                $menuop3011->type = 'INT';
+                $menuop3011->state = 'A';
+                $menuop3011->order = 1;
+                $menuop3011->menu_parent_id = $menuop301->menu_id;
+                $menuop3011->save();
+
+                $menuop3012 = new \App\MenuOption();
+                $menuop3012->label = 'Editar Slider';
+                $menuop3012->icon = '';
+                $menuop3012->url = 'application/cms/sliders/edit/{slider_id}';        
+                $menuop3012->type = 'INT';
+                $menuop3012->state = 'A';
+                $menuop3012->order = 2;
+                $menuop3012->menu_parent_id = $menuop301->menu_id;
+                $menuop3012->save();
+
+                $menuop3013 = new \App\MenuOption();
+                $menuop3013->label = 'Ver Slider';
+                $menuop3013->icon = '';
+                $menuop3013->url = 'application/cms/sliders/show/{slider_id}';        
+                $menuop3013->type = 'INT';
+                $menuop3013->state = 'A';
+                $menuop3013->order = 3;
+                $menuop3013->menu_parent_id = $menuop301->menu_id;
+                $menuop3013->save();
         
         $all_menu_options = \App\MenuOption::all();
         
