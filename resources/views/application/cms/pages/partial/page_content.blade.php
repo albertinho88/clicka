@@ -9,10 +9,23 @@
         <button class="show_layoutinfo" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-info-circle" 
                 style="height: 30px; width: 30px; float: right;" parent_li="li_sec_{{ $pcontent->page_content_id }}"></button>
 
-        <p-dialog id="li_sec_{{ $pcontent->page_content_id }}_layoutinfo" title="Layout Info" modal showeffect="fade" hideeffect="fade" renderdelay="10">
-            <p><span class="bolded">Columnas en g: </span> {{ $pcontent->columns_on_g }}</p>
-            <p><span class="bolded">Columnas en md: </span> {{ $pcontent->columns_on_md }}</p>
-            <p><span class="bolded">Columnas en lg: </span> {{ $pcontent->columns_on_lg }}</p>                                                               
+        <p-dialog id="li_sec_{{ $pcontent->page_content_id }}_layoutinfo" title="Tamaño de columna por resolución" modal showeffect="fade" hideeffect="fade" renderdelay="10">
+            <div class="ui-grid-responsive">
+                <div class="ui-grid-row" >
+                    <div class="ui-grid-col-8"><span class="bolded">Dispositivos grandes: </span></div> 
+                    <div id="li_sec_{{ $pcontent->page_content_id }}_columns_on_lg_div" class="ui-grid-col-4">{{ $pcontent->columns_on_lg }}</div>
+                </div>
+                
+                <div class="ui-grid-row" >
+                    <div class="ui-grid-col-8"><span class="bolded">Dispositivos medianos: </span></div>
+                    <div id="li_sec_{{ $pcontent->page_content_id }}_columns_on_md_div" class="ui-grid-col-4">{{ $pcontent->columns_on_md }}</div>
+                </div>
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-8"><span class="bolded">Dispositivos pequeños: </span></div>
+                    <div id="li_sec_{{ $pcontent->page_content_id }}_columns_on_g_div" class="ui-grid-col-4">{{ $pcontent->columns_on_g }}</div>
+                </div>
+            </div>
         </p-dialog>
 
     </div>

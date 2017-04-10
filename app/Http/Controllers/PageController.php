@@ -134,8 +134,7 @@ class PageController extends Controller
             
             'state' => 'required|max:1'
             
-        ]);                     
-                                                    
+        ]);                                                                       
         
         $page = new \App\Page();
         $page->page_id = $request->page_id;
@@ -191,6 +190,9 @@ class PageController extends Controller
                 $new_pagecontent = new \App\PageContent();
                 $new_pagecontent->content_id = $new_content->content_id;
                 $new_pagecontent->order = $pagcont['order'];
+                $new_pagecontent->columns_on_lg = $pagcont['columns_on_lg'];
+                $new_pagecontent->columns_on_g = $pagcont['columns_on_g'];
+                $new_pagecontent->columns_on_md = $pagcont['columns_on_md'];
                 $page->page_content()->save($new_pagecontent);                                
             endforeach;
         endif;
@@ -300,8 +302,29 @@ class PageController extends Controller
                             $pagcont->content->htmlsection->update();
                         endif;                                                                                                                                           
                         
+                        $contentHasChanged = false;
+                        
+                        if ($pagcont->columns_on_lg != $request_page_content[$pagcont->page_content_id]['columns_on_lg']):
+                            $pagcont->columns_on_lg = $request_page_content[$pagcont->page_content_id]['columns_on_lg'];
+                            $contentHasChanged = true;
+                        endif;
+                        
+                        if ($pagcont->columns_on_g != $request_page_content[$pagcont->page_content_id]['columns_on_g']):
+                            $pagcont->columns_on_g = $request_page_content[$pagcont->page_content_id]['columns_on_g'];
+                            $contentHasChanged = true;
+                        endif;
+                        
+                        if ($pagcont->columns_on_md != $request_page_content[$pagcont->page_content_id]['columns_on_md']):
+                            $pagcont->columns_on_md = $request_page_content[$pagcont->page_content_id]['columns_on_md'];
+                            $contentHasChanged = true;
+                        endif;
+                        
                         if ($pagcont->order != $request_page_content[$pagcont->page_content_id]['order']):
                             $pagcont->order = $request_page_content[$pagcont->page_content_id]['order'];
+                            $contentHasChanged = true;
+                        endif;
+                        
+                        if ($contentHasChanged):
                             $pagcont->update();
                         endif;
                         
@@ -345,6 +368,9 @@ class PageController extends Controller
                 $new_pagecontent = new \App\PageContent();
                 $new_pagecontent->content_id = $new_content->content_id;
                 $new_pagecontent->order = $pagcont['order'];
+                $new_pagecontent->columns_on_lg = $pagcont['columns_on_lg'];
+                $new_pagecontent->columns_on_g = $pagcont['columns_on_g'];
+                $new_pagecontent->columns_on_md = $pagcont['columns_on_md'];
                 $page->page_content()->save($new_pagecontent);                                
             endforeach;
         endif;      

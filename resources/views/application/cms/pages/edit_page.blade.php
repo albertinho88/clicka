@@ -372,7 +372,7 @@
                             <div class="ui-grid-col-10">
                                 <select id="columns_on_md" name="columns_on_md" class="selectOneMenu">
                                     @for($i=12; $i>=1; $i--)
-                                        <option>{{$i}}</option>
+                                        <option value="{{$i}}">{{$i}}</option>
                                     @endfor
                                 </select>
                             </div>                                                                                                                
@@ -385,7 +385,7 @@
                             <div class="ui-grid-col-10">
                                 <select id="columns_on_g" name="columns_on_g" class="selectOneMenu">                                
                                     @for($i=12; $i>=1; $i--)
-                                        <option>{{$i}}</option>
+                                        <option value="{{$i}}">{{$i}}</option>
                                     @endfor 
                                 </select>
                             </div>                                                                                                                
@@ -467,10 +467,12 @@
         });
         
         $("#add-new-section").click(function(){              
-            console.log("adding html section....");
-            var li_count = $("#ulPageContent li").length;
-            console.log("li count: " + li_count);
-            var new_li = '';                        
+            
+            var li_count = $("#ulPageContent li").length;            
+            var new_li = '';
+            var v_columns_on_lg = $("#columns_on_lg").val();
+            var v_columns_on_md = $("#columns_on_md").val();
+            var v_columns_on_g = $("#columns_on_g").val();            
             
             new_li = '<li class="ui-state-default" id="li_nsec_' + newHtmlSectionCount + '">'
                     + '<div class="ui-grid-row">'
@@ -478,16 +480,21 @@
                     + '<button id="delete_nhtmlcontent_' + newHtmlSectionCount + '" class="delete_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
                     + '<button id="edit_nhtmlcontent_' + newHtmlSectionCount + '" class="edit_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
                     + '<button id="show_nlayoutinfo_' + newHtmlSectionCount + '" class="show_layoutinfo" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-info-circle" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
-                    + '<div id="li_nsec_' + newHtmlSectionCount + '_nlayoutinfo" title="Layout Info" >'
-                    + '<p>testing</p>'
-                           /* <p><span class="bolded">Columnas en g: </span> {{ $pcontent->columns_on_g }}</p>
-                            <p><span class="bolded">Columnas en md: </span> {{ $pcontent->columns_on_md }}</p>
-                            <p><span class="bolded">Columnas en lg: </span> {{ $pcontent->columns_on_lg }}</p>     */                                                          
-                    + '</div>'
+                    + '<div id="li_nsec_' + newHtmlSectionCount + '_nlayoutinfo" title="Tamaño de columna por resolución" >'
+                    + '<div class="ui-grid-responsive">'
+                    + '<div class="ui-grid-row" ><div class="ui-grid-col-8"><span class="bolded">Dispositivos grandes: </span></div><div id="li_nsec_' + newHtmlSectionCount + '_columns_on_lg_div" class="ui-grid-col-4">' + v_columns_on_lg + '</div></div>'
+                    + '<div class="ui-grid-row" ><div class="ui-grid-col-8"><span class="bolded">Dispositivos medianos: </span></div><div id="li_nsec_' + newHtmlSectionCount + '_columns_on_md_div" class="ui-grid-col-4">' + v_columns_on_md + '</div></div>'
+                    + '<div class="ui-grid-row" ><div class="ui-grid-col-8"><span class="bolded">Dispositivos pequeños: </span></div><div id="li_nsec_' + newHtmlSectionCount + '_columns_on_g_div" class="ui-grid-col-4">' + v_columns_on_g + '</div></div>'                                        
+                    + '</div></div>'
                     + '</div></div>'
                     + '<div class="ui-grid-row"><div class="ui-grid-col-12">'
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />'
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][order]" value="' + li_count + '" class="page_content_order" />'
+            
+                    + '<input id="li_nsec_' + newHtmlSectionCount + '_columns_on_lg" type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][columns_on_lg]" value="' + v_columns_on_lg + '" />' 
+                    + '<input id="li_nsec_' + newHtmlSectionCount + '_columns_on_md" type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][columns_on_md]" value="' + v_columns_on_md + '" />' 
+                    + '<input id="li_nsec_' + newHtmlSectionCount + '_columns_on_g" type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][columns_on_g]" value="' + v_columns_on_g + '" />'
+            
                     + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][content_type]" value="HTMLSEC" />'
                     + '<input type="hidden" id="li_nsec_' + newHtmlSectionCount + '_htmlcontent" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" value=\''  + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '\' />'
                     + '<div id="li_nsec_' + newHtmlSectionCount + '_htmlcontent_div">' + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '</div>'
@@ -507,10 +514,8 @@
                 deleteHtmlSection($(this).attr('parent_li'), e);
             });
             
-            $('#show_nlayoutinfo_' + newHtmlSectionCount).click(function(e){
-                console.log('show puidialog 2');
-                $('#' + $(this).attr('parent_li') + '_nlayoutinfo').puidialog('show');
-                console.log('working fine pui 2');
+            $('#show_nlayoutinfo_' + newHtmlSectionCount).click(function(e){                
+                $('#' + $(this).attr('parent_li') + '_nlayoutinfo').puidialog('show');                
                 e.preventDefault();
             });
             
@@ -520,9 +525,7 @@
                 responsive: true,
                 minWidth: 200,
                 modal: true
-            });
-            
-            
+            });                        
             
             $('html, body').animate({
                 scrollTop: $("#li_nsec_" + newHtmlSectionCount).offset().top
@@ -532,14 +535,23 @@
         });
         
         $("#edit-section").click(function(){            
-            $("#" + $("#iptHtmlContentId").val()).val(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
-            $("#" + $("#iptHtmlContentId").val() + "_div").html(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
+            $("#" + $("#iptHtmlContentId").val() + '_htmlcontent').val(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
+            $("#" + $("#iptHtmlContentId").val() + "_htmlcontent_div").html(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
+                        
+            $("#" + $("#iptHtmlContentId").val() + '_columns_on_lg').val($("#columns_on_lg").puidropdown('getSelectedValue'));
+            $("#" + $("#iptHtmlContentId").val() + '_columns_on_md').val($("#columns_on_md").puidropdown('getSelectedValue'));
+            $("#" + $("#iptHtmlContentId").val() + '_columns_on_g').val($("#columns_on_g").puidropdown('getSelectedValue'));
+            
+            $("#" + $("#iptHtmlContentId").val() + '_columns_on_lg_div').html($("#columns_on_lg").puidropdown('getSelectedValue'));
+            $("#" + $("#iptHtmlContentId").val() + '_columns_on_md_div').html($("#columns_on_md").puidropdown('getSelectedValue'));
+            $("#" + $("#iptHtmlContentId").val() + '_columns_on_g_div').html($("#columns_on_g").puidropdown('getSelectedValue'));
+            
             $("#divEditHtmlSection").hide("fade", 300);            
             tinyMCE.get('newHtmlSection').setContent("");
             $("#divEditPage").show("fade", 400); 
             
             $('html, body').animate({
-                scrollTop: $("#" + $("#iptHtmlContentId").val() + "_div").offset().top
+                scrollTop: $("#" + $("#iptHtmlContentId").val() + "_htmlcontent_div").offset().top
             }, 800);
         });
         
@@ -572,11 +584,8 @@
     
     editHtmlSection = function(htmlsection_id, e) {
         tinyMCE.get('newHtmlSection').setContent($("#" + htmlsection_id + '_htmlcontent').val(),{format:'text'});            
-        $("#iptHtmlContentId").val(htmlsection_id + '_htmlcontent');        
+        $("#iptHtmlContentId").val(htmlsection_id);                
                 
-        console.log($("#" + htmlsection_id + '_columns_on_lg').val());
-        console.log($("#" + htmlsection_id + '_columns_on_md').val());
-        console.log($("#" + htmlsection_id + '_columns_on_g').val());
         $('#columns_on_lg').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_lg').val());       
         $('#columns_on_md').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_md').val());
         $('#columns_on_g').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_g').val());
