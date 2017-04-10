@@ -126,6 +126,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('application/cms/sliders/list_sliders_json','SliderController@listSlidersJson')->name('list_sliders_json')
 		->middleware('hasAccessOptional:application/cms/sliders');
+    Route::get('application/cms/sliders/list_media_slider_json','SliderController@listMediaFilesJson')->name('list_media_slider_json')
+            ->middleware('hasAccessOptional:application/cms/sliders');
     Route::post('application/cms/sliders/update','SliderController@update')->name('update_slider')
             ->middleware('hasAccessOptional:application/cms/sliders/edit/{slider_id}');
     

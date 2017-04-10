@@ -35,7 +35,55 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view($this->viewsDir.'create_slider');
+        $root_dir = '_resource/images/';
+        return view($this->viewsDir.'create_slider',compact('root_dir'));
+    }
+    
+    public function listMediaFilesJson(Request $request) {
+                
+        $parent_dir = $request->parent_dir;            
+        $images_files = array_diff(scandir($parent_dir,0), array('.'));                
+        $dir_tree = '';
+        $files_tree = '';
+        
+        //$files_tree .= '<p-lightbox>';
+        foreach ($images_files as $fichero) :
+            $t = public_path().'/'.$parent_dir.$fichero;
+            if (is_dir($t)) :
+                $dir_tree.= '<a class="directory" id="'.$fichero.'" >'
+                    . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
+                    . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-128.png').'" />'
+                    . '<p><small><span class="text-center bolded">'.$fichero.'</span></small></p>'
+                    . '</div>'                    
+                    . '</a>';
+            elseif(is_file($t)):                               
+                $check = getimagesize($t);                
+                $dimensionesFichero = "";
+            
+                if ($check != false) {
+                    $dimensionesFichero .= "".$check[0]." x ".$check[1]." px.";
+                }                
+                
+                $detallesFichero = "<p><small>".$fichero."</small>";
+                //$detallesFichero .= "<br /> <small>(".  number_format(filesize($t)/1024,2)." Kb)</small>";
+                //$detallesFichero .= "<br /><small>".$dimensionesFichero."</small>";
+                $detallesFichero .= '<br />';                
+                $detallesFichero .= '<a class="file" ><i class="fa fa-search" /></a>';                
+                $detallesFichero .= '| <a class="file" onclick="selectFile(\''.$fichero.'\')"  ><i class="fa fa-hand-pointer-o" /></a></p>';
+                
+                $files_tree.= ''
+                    . '<div class="ui-g-6 ui-md-4 ui-lg-2">'                    
+                    . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" title="'.$dimensionesFichero.'" />'                    
+                    . $detallesFichero
+                    . ''
+                    . '</div>';  
+            endif;
+            clearstatcache();            
+        endforeach;
+        //$files_tree .= '</p-lightbox>';
+        
+        $files_tree = $dir_tree.$files_tree;
+        return $files_tree;
     }
 
     /**
