@@ -41,14 +41,23 @@ class SliderController extends Controller
     
     public function listMediaFilesJson(Request $request) {
                 
-        $parent_dir = $request->parent_dir;            
-        $images_files = array_diff(scandir($parent_dir,0), array('.'));                
+        $parent_dir = realpath($request->parent_dir);            
+        $images_files = array_diff(scandir($parent_dir,0), array('.','..'));                
         $dir_tree = '';
+
         $files_tree = '';
-        
+                
         //$files_tree .= '<p-lightbox>';
+        
+        $dir_tree.= '<a class="back_directory" id="'.$request->parent_dir.'" >'
+                    . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
+                    . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-back-128.png').'" />'
+                    . '<p><small><span class="text-center bolded"></span></small></p>'
+                    . '</div>'                    
+                    . '</a>';
+        
         foreach ($images_files as $fichero) :
-            $t = public_path().'/'.$parent_dir.$fichero;
+            $t = $parent_dir."\/".$fichero;            
             if (is_dir($t)) :
                 $dir_tree.= '<a class="directory" id="'.$fichero.'" >'
                     . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
@@ -59,21 +68,23 @@ class SliderController extends Controller
             elseif(is_file($t)):                               
                 $check = getimagesize($t);                
                 $dimensionesFichero = "";
-            
                 if ($check != false) {
                     $dimensionesFichero .= "".$check[0]." x ".$check[1]." px.";
                 }                
                 
-                $detallesFichero = "<p><small>".$fichero."</small>";
-                //$detallesFichero .= "<br /> <small>(".  number_format(filesize($t)/1024,2)." Kb)</small>";
-                //$detallesFichero .= "<br /><small>".$dimensionesFichero."</small>";
+                $infoFichero = '<p>'.$fichero;
+                $infoFichero .= "<br /> <small>(".  number_format(filesize($t)/1024,2)." Kb)</small>";
+                $infoFichero .= "<br /><small>".$dimensionesFichero."</small>";
+                
+                $detallesFichero = "<p><small>".$fichero."</small>";                                
                 $detallesFichero .= '<br />';                
                 $detallesFichero .= '<a class="file" ><i class="fa fa-search" /></a>';                
-                $detallesFichero .= '| <a class="file" onclick="selectFile(\''.asset($parent_dir.$fichero).'\')"  ><i class="fa fa-hand-pointer-o" /></a></p>';
+                $detallesFichero .= '| <a class="file" onclick="selectFile(\''.asset($request->parent_dir.$fichero).'\',\''.$request->parent_dir.$fichero.'\',\''.$infoFichero.'\')"  >';
+                $detallesFichero .= '<i class="fa fa-hand-pointer-o" /></a></p>';
                 
                 $files_tree.= ''
                     . '<div class="ui-g-6 ui-md-4 ui-lg-2">'                    
-                    . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" title="'.$dimensionesFichero.'" />'                    
+                    . '<img style="width: 100px; height: 100px;" src="'.asset($request->parent_dir.$fichero).'" title="'.$dimensionesFichero.'" />'                    
                     . $detallesFichero
                     . ''
                     . '</div>';  
@@ -120,6 +131,20 @@ class SliderController extends Controller
         $slider->state = $request->state;
         
         $slider->save();
+        
+        //slider_images
+        $request_slider_images = $request->slider_images;
+        
+        if (isset($request_slider_images)):
+            //Crear page content
+            foreach ($request_slider_images as $slide) :                                    
+                $new_slide = new \App\SliderImage();
+                $new_slide->image_path = $slide['path'];
+                $new_slide->order = $slide['order'];                        
+                $new_slide->caption = $slide['caption'];
+                $slider->slider_images()->save($new_slide);                                
+            endforeach;
+        endif;
         
         return view($this->viewsDir.'partial.view_slider',compact('slider'));
 
