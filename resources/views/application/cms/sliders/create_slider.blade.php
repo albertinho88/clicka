@@ -343,6 +343,11 @@
 
                             <div class="EmptyBox10" ></div>
                             
+                            <div id="divSliderContent" class="">
+                                <ul id="ulSliderContent" >                                        
+                                </ul>
+                            </div>
+                            
                         </fieldset>
                         
                         <div class="EmptyBox10"></div>
@@ -391,7 +396,20 @@
 <script type="text/javascript">
 $(function() {
     
+    var newSliderCount = 1;
+    
     $("#divSelectFile").hide();
+    
+    $( "#ulSliderContent" ).sortable({
+        update: function( event, ui ) {                
+            var cont = 0;
+            $("input.page_content_order").each(function(index){
+                $(this).val(cont);
+                cont++;
+            });                                        
+        }
+    });
+    $( "#ulSliderContent" ).disableSelection(); 
     
     $("#selectFile").click(function(){        
         $("#divCreateSlider").hide("fade", 300);            
@@ -442,6 +460,25 @@ $(function() {
          }
          
     });
+    
+    selectFile = function(imagePath) {
+        //agregar imagen
+
+        var new_li = '';
+
+        new_li = '<li class="ui-state-default" id="li_nsec_' + newSliderCount + '">'
+                + '<div class="ui-grid-row">'
+                + '<div class="ui-grid-col-12" >'
+                + '<img src="'+ imagePath +'" />'
+                + '</div></div></li>'; 
+
+        $("#divSliderContent ul").append(new_li);  
+        setHtmlContent("div_files_tree", "");
+        $("#divSelectFile").hide("fade", 300);            
+        $("#divCreateSlider").show("fade", 400);
+
+        newSliderCount++;
+    };
         
 });
 
@@ -518,12 +555,7 @@ addMedia = function(){
     
 };
 
-selectFile = function(imagePath) {
-    //agregar imagen
-    setHtmlContent("div_files_tree", "");
-    $("#divSelectFile").hide("fade", 300);            
-    $("#divCreateSlider").show("fade", 400);
-};
+
 
 </script>
 

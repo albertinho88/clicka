@@ -432,4 +432,19 @@
       margin: 0px 0px 10px 0px;
       padding: 5px;      
       cursor: grab;
+  }
+
+  #divSliderContent{
+      font-size: 8pt;
+  }
+  #divSliderContent ul {
+      margin: 0;
+      padding: 0;
+  }
+  #divSliderContent ul li {
+      list-style: none;
+      border: 1px solid #a8acb1;
+      margin: 0px 0px 10px 0px;
+      padding: 5px;      
+      cursor: grab;
   }  

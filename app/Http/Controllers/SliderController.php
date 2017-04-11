@@ -69,7 +69,7 @@ class SliderController extends Controller
                 //$detallesFichero .= "<br /><small>".$dimensionesFichero."</small>";
                 $detallesFichero .= '<br />';                
                 $detallesFichero .= '<a class="file" ><i class="fa fa-search" /></a>';                
-                $detallesFichero .= '| <a class="file" onclick="selectFile(\''.$fichero.'\')"  ><i class="fa fa-hand-pointer-o" /></a></p>';
+                $detallesFichero .= '| <a class="file" onclick="selectFile(\''.asset($parent_dir.$fichero).'\')"  ><i class="fa fa-hand-pointer-o" /></a></p>';
                 
                 $files_tree.= ''
                     . '<div class="ui-g-6 ui-md-4 ui-lg-2">'                    
