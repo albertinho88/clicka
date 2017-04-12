@@ -410,6 +410,11 @@
       color: #5f666c;
   }
   
+  .back_directory {
+      cursor: pointer;
+      color: #5f666c;
+  }
+  
   .file {
       cursor: pointer;
       color: #5f666c;

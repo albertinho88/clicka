@@ -370,7 +370,7 @@
                         <div class="ui-grid ui-grid-responsive">
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-12">                                                
-                                    <input type="hidden" id="parent_dir" name="parent_dir" value="{{ $root_dir }}" style="width: 100%;"/>                                                
+                                    <input type="hidden" id="parent_dir" name="parent_dir" value="{{ $root_dir }}" />                                    
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">                                    
                                 </div>
                             </div>
@@ -462,17 +462,23 @@ $(function() {
                 + '<div class="ui-grid-col-12" >'
                 + '<button id="delete_slide_' + newSliderCount + '" class="delete_slide" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px; float: right;" parent_li="li_nsli_' + newSliderCount + '" ></button>'                
                 + '</div></div>'
-                + '<div class="ui-grid-row text-center">'
-                + '<div class="ui-grid-col-12" >'
+                + '<div class="ui-grid-row">'
+                + '<div class="ui-grid-col-4" >'
                 + '<input type="hidden" name="slider_images[new_slide_'+ newSliderCount +'][path]" value="' + relativePath + '"  />'
                 + '<input type="hidden" name="slider_images[new_slide_'+ newSliderCount +'][order]" value="' + li_count + '" class="slide_order" />'
-                + '<img src="'+ imagePath +'" style="width: 100px; height: 100px;" />' + infoFichero
-                + '<p><label>Caption: </label><input type="text" name="slider_images[new_slide_'+ newSliderCount +'][caption]" /></p>'
+                + '<img src="'+ imagePath +'" style="width: 120px; height: 120px;" />' 
+                + '</div>'
+                + '<div class="ui-grid-col-8" >'
+                + infoFichero
+                + '<p><label>Caption: </label><textarea id="txtarea_'+ newSliderCount +'" name="slider_images[new_slide_'+ newSliderCount +'][caption]" ></textarea></p>'
+                + '</div>'
                 + '</div>'                
                 +'</div></li>'; 
 
         $("#divSliderContent ul").append(new_li);  
         setHtmlContent("div_files_tree", "");
+        $("#txtarea_" + newSliderCount).puiinputtextarea();
+        $("#txtarea_" + newSliderCount).addClass("ui-inputfield ui-inputtextarea");
         $("#divSelectFile").hide("fade", 300);            
         $("#divCreateSlider").show("fade", 400);
         
@@ -508,16 +514,18 @@ listMediaFiles = function() {
 
 initCustomComponents = function() {
     $(".directory").click(function(){
-        $("#parent_dir").val($("#parent_dir").val() + $(this).attr("id") + "/");
-        // en listMediaFiles enviar tambien el directorio escogido como parametro separado.
-        listMediaFiles();        
-        //$("#parent_dir").val($("#parent_dir").val() + $(this).attr("id") + "/");
+        $("#parent_dir").val($("#parent_dir").val() + $(this).attr("id") + "/");        
+        listMediaFiles();                
     });
     
-    $("#div_files_tree a").contextmenu(function(e) {
-        //alert( "Handler for .contextmenu() called." );
+    $(".back_directory").click(function(){
+        $("#parent_dir").val($(this).attr("id") + "/");        
+        listMediaFiles();                
+    });
+    
+    $("#div_files_tree a").contextmenu(function(e) {        
         e.preventDefault();
-      });
+    });
 };
 
 addMedia = function(){       

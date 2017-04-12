@@ -49,12 +49,18 @@ class SliderController extends Controller
                 
         //$files_tree .= '<p-lightbox>';
         
-        $dir_tree.= '<a class="back_directory" id="'.$request->parent_dir.'" >'
-                    . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
-                    . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-back-128.png').'" />'
-                    . '<p><small><span class="text-center bolded"></span></small></p>'
-                    . '</div>'                    
-                    . '</a>';
+        if ($parent_dir != realpath('_resource/images/')):
+            $ud = realpath($request->parent_dir.DIRECTORY_SEPARATOR."..");
+            $pd = str_replace(base_path().DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR, "", $ud);
+            $up_level_dir = str_replace(DIRECTORY_SEPARATOR, "/", $pd);
+
+            $dir_tree.= '<a class="back_directory" id="'.$up_level_dir.'" >'
+                        . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
+                        . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-back-128.png').'" />'
+                        . '<p><small><span class="text-center bolded"></span></small></p>'
+                        . '</div>'                    
+                        . '</a>';
+        endif;                
         
         foreach ($images_files as $fichero) :
             $t = $parent_dir."\/".$fichero;            
