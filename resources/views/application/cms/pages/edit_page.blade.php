@@ -449,26 +449,29 @@
             }
         });
         
+        /**
+         * función para salir sin guardar de formulario para agregar/editar nueva sección html
+         */
         $("#cancel-new-section").click(function(){            
-            $("#divEditHtmlSection").hide("fade", 300);            
-            tinyMCE.get('newHtmlSection').setContent("");
-            $("#divEditPage").show("fade", 400);            
-            
-            $('html, body').animate({
-                scrollTop: $("#addHtmlSection").offset().top
-            }, 800);
+            $("#divEditHtmlSection").toggle("fade", 300);                        
+            $("#divEditPage").toggle("fade", 300, function() {
+                tinyMCE.get('newHtmlSection').setContent("");
+                $('html, body').animate({
+                    scrollTop: $("#addHtmlSection").offset().top
+                }, 200);
+            });                                    
         });
         
+        /**
+         * función para abrir formulario para agregar nueva sección html
+         */
         $("#addHtmlSection").click(function(){
-
             $("#edit-section").hide();
             $("#add-new-section").show();                                    
             $("#divEditPage").toggle("fade", 300);            
-            $("#divEditHtmlSection").toggle("fade", 300, function() {
-                    console.log();
-                    $('html, body').animate({scrollTop: 0}, 200);
-            });
-            
+            $("#divEditHtmlSection").toggle("fade", 300, function() {                    
+                $('html, body').animate({scrollTop: 0}, 200);
+            });            
         });
         
         $("#add-new-section").click(function(){              
