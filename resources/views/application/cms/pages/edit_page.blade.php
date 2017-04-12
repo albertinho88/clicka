@@ -460,10 +460,15 @@
         });
         
         $("#addHtmlSection").click(function(){
+
             $("#edit-section").hide();
-            $("#add-new-section").show();            
-            $("#divEditPage").hide("fade", 300);            
-            $("#divEditHtmlSection").show("fade", 400);            
+            $("#add-new-section").show();                                    
+            $("#divEditPage").toggle("fade", 300);            
+            $("#divEditHtmlSection").toggle("fade", 300, function() {
+                    console.log();
+                    $('html, body').animate({scrollTop: 0}, 200);
+            });
+            
         });
         
         $("#add-new-section").click(function(){              
@@ -502,9 +507,9 @@
             
             $("#divPageContent ul").append(new_li);                                                                                
             
-            $("#divEditHtmlSection").hide("fade", 300);            
+            $("#divEditHtmlSection").toggle("fade", 300);            
             tinyMCE.get('newHtmlSection').setContent("");
-            $("#divEditPage").show("fade", 400);                        
+            $("#divEditPage").toggle("fade", 400);                        
             
             $("#edit_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                                        
                 editHtmlSection($(this).attr('parent_li'),e);
@@ -546,9 +551,9 @@
             $("#" + $("#iptHtmlContentId").val() + '_columns_on_md_div').html($("#columns_on_md").puidropdown('getSelectedValue'));
             $("#" + $("#iptHtmlContentId").val() + '_columns_on_g_div').html($("#columns_on_g").puidropdown('getSelectedValue'));
             
-            $("#divEditHtmlSection").hide("fade", 300);            
+            $("#divEditHtmlSection").toggle("fade", 300);            
             tinyMCE.get('newHtmlSection').setContent("");
-            $("#divEditPage").show("fade", 400); 
+            $("#divEditPage").toggle("fade", 400); 
             
             $('html, body').animate({
                 scrollTop: $("#" + $("#iptHtmlContentId").val() + "_htmlcontent_div").offset().top
@@ -592,8 +597,13 @@
 
         $("#edit-section").show();
         $("#add-new-section").hide();
-        $("#divEditPage").hide("fade", 300);            
-        $("#divEditHtmlSection").show("fade", 400);
+        
+        $("#divEditPage").toggle("fade", 300);            
+        $("#divEditHtmlSection").toggle("fade", 300, function() {
+                console.log();
+                $('html, body').animate({scrollTop: 0}, 200);
+        });
+        
         e.preventDefault();
     };
     

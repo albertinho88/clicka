@@ -462,6 +462,10 @@
             $("#add-new-section").show();            
             $("#divEditPage").hide("fade", 300);            
             $("#divEditHtmlSection").show("fade", 400);            
+            
+            $('html, body').animate({
+                scrollTop: $("#divEditHtmlSection").offset().top
+            }, 800);
         });
         
         $("#add-new-section").click(function(){              
