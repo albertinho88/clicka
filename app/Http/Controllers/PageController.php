@@ -66,7 +66,10 @@ class PageController extends Controller
     public function create()
     {        
         $pages_list = $this->getPagesOptionTree(NULL, '', 1, NULL);
-        return view($this->viewsDir.'create_page',compact('pages_list'));
+        $page = new \App\Page();
+        $page_content = array();
+        $active_sliders = \App\Slider::where('state','A')->get();
+        return view($this->viewsDir.'create_page',compact(['pages_list','page','page_content','active_sliders']));
     }
     
     public function getPagesOptionTree($idPageParent, $pages_list, $nivel, $idSelectedPage) {               
@@ -232,7 +235,8 @@ class PageController extends Controller
         $page_content = \App\PageContent::where("page_id",$page->page_id)
                                     ->orderBy('order','asc')
                                     ->get();
-        return view($this->viewsDir.'edit_page',compact(['page','pages_list','page_content']));                                
+        $active_sliders = \App\Slider::where('state','A')->get();
+        return view($this->viewsDir.'edit_page',compact(['page','pages_list','page_content','active_sliders']));                                
     }
 
     /**

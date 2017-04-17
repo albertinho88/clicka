@@ -5,7 +5,7 @@
     <li>
         <a href="{{ route('create_page') }}" data-icon="fa-plus" class="">Nueva Página</a>
     </li>
-    @if(isset($page))
+    @if(isset($page->page_id))
     <li>
         <a href="{{ route('edit_page',['page_id' => $page->page_id]) }}" data-icon="fa-pencil" class="">Editar Página</a>
     </li>    
