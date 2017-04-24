@@ -7,7 +7,36 @@
             </div>
         </div>
     </div>
-
+    
+    <div class="EmptyBox10"></div>
+    
+    <div class="ui-g-12 ui-md-6 ui-lg-4">
+        <div class="ui-g card overview-box overview-box-1 " style="background-color: #BDBDBD;">  
+            test
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-4">
+        <div class="ui-g card overview-box overview-box-1 " style="background-color: #BDBDBD;">  
+            test
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-4">
+        <div class="ui-g card overview-box overview-box-1 " style="background-color: #BDBDBD;">  
+            test
+        </div>
+    </div>
+    
+    <div class="ui-g-12 ui-md-6 ui-lg-4">
+        <div class="ui-g card overview-box overview-box-1 " style="background-color: #BDBDBD;">  
+            test
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-4">
+        <div class="ui-g card overview-box overview-box-1 " style="background-color: #BDBDBD;">  
+            test
+        </div>
+    </div>
+    
     <div class="EmptyBox10"></div>
     
     <div class="ui-grid-row text-center">
