@@ -35,8 +35,9 @@ class SliderController extends Controller
      */
     public function create()
     {
-        $root_dir = '_resource/images/';
-        return view($this->viewsDir.'create_slider',compact('root_dir'));
+        $slider = new \App\Slider();
+        $root_dir = '_resource/images/';        
+        return view($this->viewsDir.'create_slider',compact(['root_dir','slider']));
     }
     
     public function listMediaFilesJson(Request $request) {
@@ -80,10 +81,10 @@ class SliderController extends Controller
                 
                 $infoFichero = '<p>'.$fichero;
                 $infoFichero .= "<br /> <small>(".  number_format(filesize($t)/1024,2)." Kb)</small>";
-                $infoFichero .= "<br /><small>".$dimensionesFichero."</small>";
+                $infoFichero .= "<br /><small>".$dimensionesFichero."</small></p>";
                 
                 $detallesFichero = "<p><small>".$fichero."</small>";                                
-                $detallesFichero .= '<br />';                
+                $detallesFichero .= '<br /><small>'.$dimensionesFichero.'</small><br />';                
                 $detallesFichero .= '<a class="file" ><i class="fa fa-search" /></a>';                
                 $detallesFichero .= '| <a class="file" onclick="selectFile(\''.asset($request->parent_dir.$fichero).'\',\''.$request->parent_dir.$fichero.'\',\''.$infoFichero.'\')"  >';
                 $detallesFichero .= '<i class="fa fa-hand-pointer-o" /></a></p>';
@@ -177,7 +178,8 @@ class SliderController extends Controller
     public function edit($id)
     {
         $slider = \App\Slider::findOrFail($id);
-        return view($this->viewsDir.'edit_slider',compact('slider'));
+        $root_dir = '_resource/images/';
+        return view($this->viewsDir.'edit_slider',compact('root_dir', 'slider'));
     }
 
     /**
@@ -215,6 +217,55 @@ class SliderController extends Controller
         $slider->state = $request->state;
         
         $slider->update();
+        
+        //slider_images
+        $request_slider_images = $request->slider_images;
+        
+        if (!$slider->slider_images->isEmpty()) :
+            if (isset($request_slider_images)) :
+                foreach($slider->slider_images as $slide):
+                    if (isset($request_slider_images[$slide->slider_image_id])) :
+                        
+                        $contentHasChanged = false;
+                        
+                        if ($slide->caption != $request_slider_images[$slide->slider_image_id]['caption']):
+                            $slide->caption = $request_slider_images[$slide->slider_image_id]['caption'];
+                            $contentHasChanged = true;                            
+                        endif;
+                        
+                        if ($slide->order != $request_slider_images[$slide->slider_image_id]['order']):
+                            $slide->order = $request_slider_images[$slide->slider_image_id]['order'];
+                            $contentHasChanged = true;                            
+                        endif;
+                        
+                        if ($contentHasChanged):
+                            $slide->update();
+                        endif;
+                        
+                        unset($request_slider_images[$slide->slider_image_id]);
+                    else:
+                        $slide->delete();
+                    endif; 
+                endforeach;
+            else :                              
+                foreach($slider->slider_images as $slide) :                    
+                    $slide->delete();
+                endforeach;                 
+            endif;
+        endif;
+        
+        if (isset($request_slider_images)):
+            //Crear page content
+            foreach ($request_slider_images as $slide) :                                    
+                $new_slide = new \App\SliderImage();
+                $new_slide->image_path = $slide['path'];
+                $new_slide->order = $slide['order'];                        
+                $new_slide->caption = $slide['caption'];
+                $slider->slider_images()->save($new_slide);                                
+            endforeach;
+        endif;
+        
+        $slider = \App\Slider::findOrFail($request->slider_id);
         
         return view($this->viewsDir.'partial.view_slider',compact('slider'));
         

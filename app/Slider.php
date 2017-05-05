@@ -17,4 +17,9 @@ class Slider extends Model
        return $this->hasMany('\App\SliderImage', 'slider_id');       
     }
     
+    public function ordered_slider_images()
+    {
+        return $this->hasMany('\App\SliderImage', 'slider_id')->orderBy('order');
+    }
+    
 }

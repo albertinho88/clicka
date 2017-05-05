@@ -207,13 +207,9 @@
                     
                     <div class="ui-grid-col-4">                        
                         <fieldset>
-                            <legend>Imágenes</legend>                        
-                            
-                            @foreach($slider->slider_images as $slide)
-                                <img src="{{ asset($slide->image_path) }}" style="width: 100px; height: 100px;" />
-                            @endforeach
-                            
-                            <?php //echo print_r($slider->slider_images) ?>
+                            <legend>Previsualización</legend>                                                                                
+                                                                               
+                            @include('partial.slider',['slider' => $slider])
                         </fieldset>
                     </div>
                 </div>

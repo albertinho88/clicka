@@ -21,7 +21,7 @@ class CreateContentsTable extends Migration
             $table->foreign(['cat_det_id_type', 'cat_id_type'])->references(['catalog_detail_id', 'catalog_id'])->on('catalog_details');
             
             $table->integer('htmlsection_id')->unsigned()->nullable();
-            $table->foreign('htmlsection_id')->references('htmlsection_id')->on('htmlsections');                                    
+            $table->foreign('htmlsection_id')->references('htmlsection_id')->on('htmlsections');                        
             
             $table->timestamps();
         });

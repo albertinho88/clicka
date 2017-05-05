@@ -1,67 +1,37 @@
-<script>
-    $(function () {                                                
-        // Slideshow 1
-        $("#slider1").responsiveSlides({
-          //maxwidth: 100%,
-          speed: 800,
-          auto: true,
-          pager: false,
-          nav: true,        
-          namespace: "callbacks",
-          before: function () {
-            $('.events').append("<li>before event fired.</li>");
-          },
-          after: function () {
-            $('.events').append("<li>after event fired.</li>");
-          }
-        });
-        
-        $(".rslides").responsiveSlides({
-            auto: true,             // Boolean: Animate automatically, true or false
-            speed: 500,            // Integer: Speed of the transition, in milliseconds
-            timeout: 4000,          // Integer: Time between slide transitions, in milliseconds
-            pager: false,           // Boolean: Show pager, true or false
-            nav: false,             // Boolean: Show navigation, true or false
-            random: false,          // Boolean: Randomize the order of the slides, true or false
-            pause: false,           // Boolean: Pause on hover, true or false
-            pauseControls: true,    // Boolean: Pause when hovering controls, true or false
-            prevText: "Previous",   // String: Text for the "previous" button
-            nextText: "Next",       // String: Text for the "next" button
-            maxwidth: "",           // Integer: Max-width of the slideshow, in pixels
-            navContainer: "",       // Selector: Where controls should be appended to, default is after the 'ul'
-            manualControls: "",     // Selector: Declare custom pager navigation
-            namespace: "rslides",   // String: Change the default namespace used
-            before: function(){},   // Function: Before callback
-            after: function(){}     // Function: After callback
-          });
-    });
-</script>
+<div class="callbacks_container">
+    <ul class="rslides" id="{{ $slider->name }}">
+        @foreach($slider->ordered_slider_images as $slide)
+            <li>
+                <img src="{{ asset($slide->image_path) }}" alt="" >
+              @if($slide->caption)
+                <p class="caption">{{ $slide->caption }}</p>
+              @endif
+            </li>
+        @endforeach                      
+    </ul>
+</div>                            
 
-<div class="ui-fluid">
-    <div class="ui-g">
-        <div class="ui-g-12">                
-            <!-- Slideshow 4 -->
-            <div class="callbacks_container">
-              <ul class="rslides" id="slider1">
-                <li>
-                  <img src="{{ asset('_resource/images/slider/slider_1.jpg')}}" alt="">
-                  <!--<p class="caption">"Un software personalizado puede convertirse en el activo mas importante de tu empresa."</p>-->
-                  <p class="caption">"Software a la Medida."</p>
-                </li>
-                <li>
-                  <img src="{{ asset('_resource/images/slider/slider_1.jpg')}}" alt="">
-                  <p class="caption">"Si tu negocio no está en internet, tu negocio no existe."</p>
-                </li>
-                <!--<li>
-                  <img src="images/2.jpg" alt="">
-                  <p class="caption">This is another caption</p>
-                </li>
-                <li>
-                  <img src="images/3.jpg" alt="">
-                  <p class="caption">The third caption</p>
-                </li>-->
-              </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<script type="text/javascript">
+    $("#{{ $slider->name }}").responsiveSlides({
+        auto: <?php echo isset($slider->animate_automatically)?'true':'false'; ?>,             // Boolean: Animate automatically, true or false
+        speed: {{ $slider->transition_speed }},            // Integer: Speed of the transition, in milliseconds
+        timeout: {{ $slider->time_between_transition }},          // Integer: Time between slide transitions, in milliseconds
+        pager: <?php echo $slider->show_pager?'true':'false'; ?>,           // Boolean: Show pager, true or false
+        nav: <?php echo $slider->show_navigation?'true':'false'; ?>,             // Boolean: Show navigation, true or false
+        random: <?php echo $slider->random_slides_order?'true':'false'; ?>,          // Boolean: Randomize the order of the slides, true or false
+        pause: <?php echo $slider->pause_on_hover?'true':'false'; ?>,           // Boolean: Pause on hover, true or false
+        pauseControls: <?php echo $slider->pause_hover_controls?'true':'false'; ?>,    // Boolean: Pause when hovering controls, true or false
+        prevText: "<?php echo $slider->prev_text; ?>",   // String: Text for the "previous" button
+        nextText: "<?php echo $slider->next_text; ?>",       // String: Text for the "next" button
+        maxwidth: "<?php echo $slider->max_width; ?>",           // Integer: Max-width of the slideshow, in pixels
+        navContainer: "",       // Selector: Where controls should be appended to, default is after the 'ul'
+        manualControls: "",     // Selector: Declare custom pager navigation
+        namespace: "callbacks",   // String: Change the default namespace used
+        before: function () {
+            $('.events').append("<li>before event fired.</li>");
+        },
+        after: function () {
+            $('.events').append("<li>after event fired.</li>");
+        }
+      });
+</script>
