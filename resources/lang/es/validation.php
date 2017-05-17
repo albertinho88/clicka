@@ -140,7 +140,9 @@ return [
         'pause_hover_controls' => 'pausa sobre controles',
         'prev_text' => 'texto anterior',
         'next_text' => 'texto siguiente',
-        'max_width' => 'ancho máximo'
+        'max_width' => 'ancho máximo',
+        
+        'cat_det_id_type' => 'tipo'
     ],
 
 ];

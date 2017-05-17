@@ -13,8 +13,7 @@ class AddSliderToContentTable extends Migration
      */
     public function up()
     {
-        Schema::table('content', function (Blueprint $table) {
-            //
+        Schema::table('content', function (Blueprint $table) {            
             
             $table->integer('slider_id')->unsigned()->nullable();
             $table->foreign('slider_id')->references('slider_id')->on('sliders');
@@ -29,8 +28,6 @@ class AddSliderToContentTable extends Migration
      */
     public function down()
     {
-        Schema::table('content', function (Blueprint $table) {
-            //
-        });
+       
     }
 }

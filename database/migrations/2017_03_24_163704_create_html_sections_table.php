@@ -28,5 +28,6 @@ class CreateHtmlSectionsTable extends Migration
     {
         Schema::dropIfExists('content'); 
         Schema::dropIfExists('htmlsections');
+        Schema::dropIfExists('sliders');
     }
 }

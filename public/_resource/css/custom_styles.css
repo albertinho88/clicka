@@ -427,11 +427,11 @@
   #divPageContent{
       font-size: 8pt;
   }
-  #divPageContent ul {
+  #ulPageContent {
       margin: 0;
       padding: 0;
   }
-  #divPageContent ul li {
+  .liPageContent {
       list-style: none;
       border: 1px solid #a8acb1;
       margin: 0px 0px 10px 0px;
@@ -452,4 +452,10 @@
       margin: 0px 0px 10px 0px;
       padding: 5px;      
       cursor: grab;
-  }  
+  }
+  .btn-mng-content {
+      height: 30px; 
+      width: 30px !important; 
+      float: right;
+  }
+  

@@ -1,5 +1,33 @@
 <input type="hidden" name="_token" value="{{ csrf_token() }}">                                                              
 
+<div class="EmptyBox10"></div>
+
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2">                                            
+        <label for="cat_det_id_type" class="col-md-4 control-label">Tipo:</label>
+    </div>
+    <div class="ui-grid-col-10">                                                                           
+        <select id="cat_det_id_type" name="cat_det_id_type" class="selectOneMenu">
+            <option value="">Seleccionar</option>
+            @foreach ($page_types as $page_type)
+                <option value="{{ $page_type->catalog_detail_id }}" <?php echo $page->cat_det_id_type==$page_type->catalog_detail_id?'selected':''; ?> >{{ $page_type->value }}</option>
+            @endforeach            
+        </select>
+    </div>                                                                                                                
+</div>
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2"></div>
+    <div class="ui-grid-col-10">
+        <span id="cat_det_id_type_help_block" class="help-block">
+            @if ($errors->has('cat_det_id_type'))                                                    
+                <strong>{{ $errors->first('cat_det_id_type') }}</strong>                                                    
+            @endif
+        </span>
+    </div>
+</div>  
+
+<div class="EmptyBox10"></div>
+
 <div class="ui-grid-row">
     <div class="ui-grid-col-2">                                            
         <label for="state" class="col-md-4 control-label">Estado:</label>
@@ -204,12 +232,10 @@
 
     <div class="EmptyBox10"></div>
 
-    <div id="divPageContent" class="{{ $page->container_class }}">
+    <div id="divPageContent" class="{{ $page->container_class }}">        
         <ul id="ulPageContent" >
-            @foreach($page_content as $pcontent)                                        
-                <li class="ui-state-default" id="li_sec_{{ $pcontent->page_content_id }}">  
-                    @include('application.cms.pages.partial.page_content',['pcontent' => $pcontent]) 
-                </li>                                        
+            @foreach($page->page_content_ordered as $pcontent)                                                        
+                @include('application.cms.pages.partial.page_content',['pcontent' => $pcontent]) 
             @endforeach
         </ul>
     </div>

@@ -14,6 +14,11 @@ class Content extends Model
     */
     public function htmlsection()
     {
-       return $this->hasOne('\App\HtmlSection', 'htmlsection_id');       
+       return $this->belongsTo('\App\HtmlSection', 'htmlsection_id');       
+    }
+    
+    public function slider()
+    {
+        return $this->belongsTo('\App\Slider', 'slider_id');
     }
 }

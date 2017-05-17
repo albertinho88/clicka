@@ -13,6 +13,7 @@ class CatalogsTableSeeder extends Seeder
     {
         $this->addMediaTypesCatalog();
         $this->addHtmlContentTypesCatalog();
+        $this->addPageTypesCatalog();
     }
     
     public function addMediaTypesCatalog() {
@@ -46,8 +47,32 @@ class CatalogsTableSeeder extends Seeder
         $newDetail->catalog_detail_id = "FORM";
         $newDetail->value = "Formulario";
         $newDetail->state = "A";
-        $catalog->catalog_details()->save($newDetail); 
+        $catalog->catalog_details()->save($newDetail);                  
+    }
+    
+    public function addPageTypesCatalog() {
+        $catalog = new \App\Catalog();
+        $catalog->catalog_id = 'TIPPAGWEB';
+        $catalog->name = 'Catálogo de tipos de páginas.';
+        $catalog->state = 'A';
+        $catalog->save();
         
-         
+        $newDetail = new \App\CatalogDetail();                
+        $newDetail->catalog_detail_id = "DYNPAG";
+        $newDetail->value = "Página Dinámica";
+        $newDetail->state = "A";
+        $catalog->catalog_details()->save($newDetail);
+        
+        $newDetail = new \App\CatalogDetail();                
+        $newDetail->catalog_detail_id = "ESTPAG";
+        $newDetail->value = "Página Estática";
+        $newDetail->state = "A";
+        $catalog->catalog_details()->save($newDetail);
+        
+        $newDetail = new \App\CatalogDetail();                
+        $newDetail->catalog_detail_id = "CUSPAG";
+        $newDetail->value = "Página Personalizada";
+        $newDetail->state = "A";
+        $catalog->catalog_details()->save($newDetail);
     }
 }

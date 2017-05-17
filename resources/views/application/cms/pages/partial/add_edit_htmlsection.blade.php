@@ -15,31 +15,59 @@
             <textarea id="newHtmlSection" ></textarea>
             <input id="iptHtmlContentId" type="hidden"/>
             <script type="text/javascript">
-                tinymce.init({ 
+                tinymce.init({
+                        selector:'#newHtmlSection',
                         cleanup_on_startup: false,
                         trim_span_elements: false,
                         verify_html: false,
                         cleanup: false,
-                        convert_urls: false,
-                        selector:'#newHtmlSection',
+                        convert_urls: false,                        
                         height: 200,
                         plugins: [
-                                "advlist autolink lists link image charmap print preview anchor",
+                                "advlist autolink lists link image charmap preview anchor",
                                 "searchreplace visualblocks code fullscreen",
-                                "insertdatetime media table contextmenu paste imagetools"
+                                "insertdatetime table contextmenu paste image imagetools emoticons"
                         ],
-                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image emoticons",
                         setup: function (editor) {
                                 editor.on('change', function () {
                                         editor.save();
                                 });
                         },
-                        init_instance_callback : function(editor) {
-                                console.log("Editor: " + editor.id + " is now initialized.");
-                                editor.save();
-                          }
+                        init_instance_callback : function(editor) {                                
+                            editor.save();
+                        },
+                        file_picker_types: 'image',
+                        file_picker_callback: function(callback, value, meta) {
+                            //alert("CB: " + cb + ", VALUE: " + value + ",META: " + meta); // debug/testing
+                            // Opens a HTML page inside a TinyMCE dialog
+                            tinymce.activeEditor.windowManager.open({
+                              title: 'Imágenes',
+                              url: "{{ route('view_image_selector')  }}",
+                              width: 700,
+                              height: 600
+                            }, {                                                                
+                                onselect: function(url)
+                                {
+                                    //win.document.getElementById(field_name).value = url;
+                                    callback(url);
+                                }
+                            });                            
+
+                        }
                 });                                                        
             </script>
+            <p-dialog id="dlgelement" title="Godfather I" modal showeffect="fade" hideeffect="fade" renderdelay="10">
+                <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+                    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+                    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+                    kind and benevolent to those who give respect, 
+                    but given to ruthless violence whenever anything stands against the good of the family.</p>
+                 <script type="x-facet-buttons">
+                    <button type="button" is="p-button" icon="fa-check" onclick="document.getElementById('dlgelement').hide()">Yes</button>
+                    <button type="button" is="p-button" icon="fa-close" onclick="document.getElementById('dlgelement').hide()">No</button>
+                </script>   
+            </p-dialog>
         </div>
     </div>
 
@@ -119,174 +147,3 @@
     </div> 
 
 </div>
-
-<script type="text/javascript">
-    
-    $(document).ready(function(){
-        var newHtmlSectionCount = 1;
-        
-        /**
-         * función para salir sin guardar de formulario para agregar/editar nueva sección html
-         */
-        $("#cancel-new-section").click(function(e){            
-            $("#divEditHtmlSection").toggle("fade", 300);                        
-            $("#divEditPage").toggle("fade", 300, function() {
-                tinyMCE.get('newHtmlSection').setContent("");
-                $('html, body').animate({
-                    scrollTop: $("#addHtmlSection").offset().top
-                }, 600);
-            });
-            e.preventDefault();
-        });
-        
-        $("#add-new-section").click(function(){              
-            
-            var li_count = $("#ulPageContent li").length;            
-            var new_li = '';
-            var v_columns_on_lg = $("#columns_on_lg").val();
-            var v_columns_on_md = $("#columns_on_md").val();
-            var v_columns_on_g = $("#columns_on_g").val();            
-            
-            new_li = '<li class="ui-state-default" id="li_nsec_' + newHtmlSectionCount + '">'
-                    + '<div class="ui-grid-row">'
-                    + '<div class="ui-grid-col-12" >'
-                    + '<button id="delete_nhtmlcontent_' + newHtmlSectionCount + '" class="delete_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
-                    + '<button id="edit_nhtmlcontent_' + newHtmlSectionCount + '" class="edit_htmlcontent" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-pencil" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
-                    + '<button id="show_nlayoutinfo_' + newHtmlSectionCount + '" class="show_layoutinfo" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-info-circle" style="height: 30px; width: 30px; float: right;" parent_li="li_nsec_' + newHtmlSectionCount + '" ></button>'
-                    + '<div id="li_nsec_' + newHtmlSectionCount + '_nlayoutinfo" title="Tamaño de columna por resolución" >'
-                    + '<div class="ui-grid-responsive">'
-                    + '<div class="ui-grid-row" ><div class="ui-grid-col-8"><span class="bolded">Dispositivos grandes: </span></div><div id="li_nsec_' + newHtmlSectionCount + '_columns_on_lg_div" class="ui-grid-col-4">' + v_columns_on_lg + '</div></div>'
-                    + '<div class="ui-grid-row" ><div class="ui-grid-col-8"><span class="bolded">Dispositivos medianos: </span></div><div id="li_nsec_' + newHtmlSectionCount + '_columns_on_md_div" class="ui-grid-col-4">' + v_columns_on_md + '</div></div>'
-                    + '<div class="ui-grid-row" ><div class="ui-grid-col-8"><span class="bolded">Dispositivos pequeños: </span></div><div id="li_nsec_' + newHtmlSectionCount + '_columns_on_g_div" class="ui-grid-col-4">' + v_columns_on_g + '</div></div>'                                        
-                    + '</div></div>'
-                    + '</div></div>'
-                    + '<div class="ui-grid-row"><div class="ui-grid-col-12">'
-                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][page_content_id]" value="" />'
-                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][order]" value="' + li_count + '" class="page_content_order" />'
-            
-                    + '<input id="li_nsec_' + newHtmlSectionCount + '_columns_on_lg" type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][columns_on_lg]" value="' + v_columns_on_lg + '" />' 
-                    + '<input id="li_nsec_' + newHtmlSectionCount + '_columns_on_md" type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][columns_on_md]" value="' + v_columns_on_md + '" />' 
-                    + '<input id="li_nsec_' + newHtmlSectionCount + '_columns_on_g" type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][columns_on_g]" value="' + v_columns_on_g + '" />'
-            
-                    + '<input type="hidden" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][content_type]" value="HTMLSEC" />'
-                    + '<input type="hidden" id="li_nsec_' + newHtmlSectionCount + '_htmlcontent" name="page_content[new_htmlsection_'+ newHtmlSectionCount +'][html_content]" value=\''  + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '\' />'
-                    + '<div id="li_nsec_' + newHtmlSectionCount + '_htmlcontent_div">' + tinyMCE.get('newHtmlSection').getContent({format : 'raw'}) + '</div>'
-                    + '</div></div></li>';                        
-            
-            $("#divPageContent ul").append(new_li);                                                                                
-            
-            $("#divEditHtmlSection").toggle("fade", 300);            
-            tinyMCE.get('newHtmlSection').setContent("");
-            $("#divEditPage").toggle("fade", 400);                        
-            
-            $("#edit_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                                        
-                editHtmlSection($(this).attr('parent_li'),e);
-            });
-            
-            $("#delete_nhtmlcontent_" + newHtmlSectionCount).click(function(e){                                                                                
-                deleteHtmlSection($(this).attr('parent_li'), e);
-            });
-            
-            $('#show_nlayoutinfo_' + newHtmlSectionCount).click(function(e){                
-                $('#' + $(this).attr('parent_li') + '_nlayoutinfo').puidialog('show');                
-                e.preventDefault();
-            });
-            
-            $('#li_nsec_' + newHtmlSectionCount + '_nlayoutinfo').puidialog({
-                showEffect: 'fade',
-                hideEffect: 'fade',                
-                responsive: true,
-                minWidth: 200,
-                modal: true
-            });                        
-            
-            $('html, body').animate({
-                scrollTop: $("#li_nsec_" + newHtmlSectionCount).offset().top
-            }, 800);
-            
-            newHtmlSectionCount++;
-        });
-        
-        $("#edit-section").click(function(){            
-            $("#" + $("#iptHtmlContentId").val() + '_htmlcontent').val(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
-            $("#" + $("#iptHtmlContentId").val() + "_htmlcontent_div").html(tinyMCE.get('newHtmlSection').getContent({format : 'raw'}));
-                        
-            $("#" + $("#iptHtmlContentId").val() + '_columns_on_lg').val($("#columns_on_lg").puidropdown('getSelectedValue'));
-            $("#" + $("#iptHtmlContentId").val() + '_columns_on_md').val($("#columns_on_md").puidropdown('getSelectedValue'));
-            $("#" + $("#iptHtmlContentId").val() + '_columns_on_g').val($("#columns_on_g").puidropdown('getSelectedValue'));
-            
-            $("#" + $("#iptHtmlContentId").val() + '_columns_on_lg_div').html($("#columns_on_lg").puidropdown('getSelectedValue'));
-            $("#" + $("#iptHtmlContentId").val() + '_columns_on_md_div').html($("#columns_on_md").puidropdown('getSelectedValue'));
-            $("#" + $("#iptHtmlContentId").val() + '_columns_on_g_div').html($("#columns_on_g").puidropdown('getSelectedValue'));
-            
-            $("#divEditHtmlSection").toggle("fade", 300);            
-            tinyMCE.get('newHtmlSection').setContent("");
-            $("#divEditPage").toggle("fade", 400); 
-            
-            $('html, body').animate({
-                scrollTop: $("#" + $("#iptHtmlContentId").val() + "_htmlcontent_div").offset().top
-            }, 800);
-        });
-        
-        initHtmlSectionButtons();
-                
-    });
-    
-    initHtmlSectionButtons = function(){
-        $(".delete_htmlcontent").click(function(e){                                                          
-            deleteHtmlSection($(this).attr('parent_li'), e);
-        });
-
-        $(".edit_htmlcontent").click(function(e){                                   
-            editHtmlSection($(this).attr('parent_li'),e);
-        });
-
-        $(".show_layoutinfo").click(function(e){              
-            document.getElementById($(this).attr('parent_li') + "_layoutinfo").show();            
-            e.preventDefault();
-        });
-
-    };
-
-    /**
-     * Método para eliminar una sección html
-     * 
-     * @param {String} htmlsection_id
-     * @param {Event} e
-     * @returns 
-     */
-    deleteHtmlSection = function(htmlsection_id, e) {
-        $("#" + htmlsection_id).fadeOut("normal", function() {
-            $(this).remove();
-        });
-        e.preventDefault();
-    };
-
-    /**
-     * Función para mostrar el formulario de edición de una sección html
-     * 
-     * @param {String} htmlsection_id
-     * @param {Event} e
-     * @returns 
-     */
-    editHtmlSection = function(htmlsection_id, e) {
-        tinyMCE.get('newHtmlSection').setContent($("#" + htmlsection_id + '_htmlcontent').val(),{format:'text'});            
-        $("#iptHtmlContentId").val(htmlsection_id);                
-
-        $('#columns_on_lg').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_lg').val());       
-        $('#columns_on_md').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_md').val());
-        $('#columns_on_g').puidropdown('selectValue', $("#" + htmlsection_id + '_columns_on_g').val());
-
-        $("#edit-section").show();
-        $("#add-new-section").hide();
-
-        $("#divEditPage").toggle("fade", 300);            
-        $("#divEditHtmlSection").toggle("fade", 300, function() {
-                console.log();
-                $('html, body').animate({scrollTop: 0}, 200);
-        });
-
-        e.preventDefault();
-    };
-    
-</script>

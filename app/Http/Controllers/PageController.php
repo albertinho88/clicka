@@ -69,7 +69,8 @@ class PageController extends Controller
         $page = new \App\Page();
         $page_content = array();
         $active_sliders = \App\Slider::where('state','A')->get();
-        return view($this->viewsDir.'create_page',compact(['pages_list','page','page_content','active_sliders']));
+        $page_types = \App\CatalogDetail::where('catalog_id','TIPPAGWEB')->get();
+        return view($this->viewsDir.'create_page',compact(['pages_list','page','page_content','active_sliders','page_types']));
     }
     
     public function getPagesOptionTree($idPageParent, $pages_list, $nivel, $idSelectedPage) {               
@@ -126,7 +127,7 @@ class PageController extends Controller
         
         $this->validate(request(),[
             'page_id' => 'string|required|unique:pages',
-            
+            'cat_det_id_type' => 'required',            
             'name' => 'string',
             'icon' => 'max:20',
             'menu_class' => 'max:50',            
@@ -141,6 +142,8 @@ class PageController extends Controller
         
         $page = new \App\Page();
         $page->page_id = $request->page_id;
+        $page->cat_id_type = "TIPPAGWEB";
+        $page->cat_det_id_type = $request->cat_det_id_type;
         
         if (isset($request->is_menu_item)) :
             $page->name = $request->name;
@@ -182,6 +185,7 @@ class PageController extends Controller
                     
                 elseif($pagcont['content_type'] == 'SLIDER') :
                     $new_content->cat_det_id_type = "SLIDER";
+                    $new_content->slider_id = $pagcont['slider_id'];
                 
                 elseif($pagcont['content_type'] == 'FORM') :
                     $new_content->cat_det_id_type = "FORM";
@@ -236,7 +240,8 @@ class PageController extends Controller
                                     ->orderBy('order','asc')
                                     ->get();
         $active_sliders = \App\Slider::where('state','A')->get();
-        return view($this->viewsDir.'edit_page',compact(['page','pages_list','page_content','active_sliders']));                                
+        $page_types = \App\CatalogDetail::where('catalog_id','TIPPAGWEB')->get();
+        return view($this->viewsDir.'edit_page',compact(['page','pages_list','page_content','active_sliders','page_types']));                                
     }
 
     /**
@@ -254,6 +259,7 @@ class PageController extends Controller
         
         $this->validate(request(),[
             'page_id' => 'string|required',
+            'cat_det_id_type' => 'required',
             
             'name' => 'string',
             'icon' => 'max:20',
@@ -268,6 +274,8 @@ class PageController extends Controller
         ], $messages);
         
         $page = \App\Page::find($request->page_id);
+        $page->cat_id_type = "TIPPAGWEB";
+        $page->cat_det_id_type = $request->cat_det_id_type;
         
         if (isset($request->is_menu_item)) :
             $page->name = $request->name;
@@ -334,12 +342,16 @@ class PageController extends Controller
                         
                         unset($request_page_content[$pagcont->page_content_id]);                    
                     else:
+                        $contfordelete = $pagcont->content;
                         $pagcont->delete();
+                        $contfordelete->delete();
                     endif; 
                 endforeach;
             else :
                 // Delete all page content                
-                foreach($page->page_content as $pagcontd) :                    
+                foreach($page->page_content as $pagcontd) :
+                    $contfordelete = $pagcontd->content;
+                    $contfordelete->delete();
                     $pagcontd->delete();
                 endforeach;                 
             endif;
@@ -361,6 +373,7 @@ class PageController extends Controller
                     
                 elseif($pagcont['content_type'] == 'SLIDER') :
                     $new_content->cat_det_id_type = "SLIDER";
+                    $new_content->slider_id = $pagcont['slider_id'];
                 
                 elseif($pagcont['content_type'] == 'FORM') :
                     $new_content->cat_det_id_type = "FORM";
@@ -386,5 +399,78 @@ class PageController extends Controller
         return view($this->viewsDir.'partial.view_page', compact(['page','page_content']));
     }
      
+    public function listMediaFilesJson(Request $request) {
+                        
+        if (!isset($request->parent_dir)) :
+            $request->parent_dir = '_resource/images/';
+        endif;
+        
+        $parent_dir = realpath($request->parent_dir);        
+        
+        $images_files = array_diff(scandir($parent_dir,0), array('.','..'));                
+        $dir_tree = '';
 
+        $files_tree = '';
+                
+        //$files_tree .= '<p-lightbox>';
+        
+        if ($parent_dir != realpath('_resource/images/')):
+            $ud = realpath($request->parent_dir.DIRECTORY_SEPARATOR."..");
+            $pd = str_replace(base_path().DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR, "", $ud);
+            $up_level_dir = str_replace(DIRECTORY_SEPARATOR, "/", $pd);
+
+            $dir_tree.= '<a class="back_directory" id="'.$up_level_dir.'" >'
+                        . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
+                        . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-back-128.png').'" />'
+                        . '<p><small><span class="text-center bolded"></span></small></p>'
+                        . '</div>'                    
+                        . '</a>';
+        endif;                
+        
+        foreach ($images_files as $fichero) :
+            $t = $parent_dir."\/".$fichero;            
+            if (is_dir($t)) :
+                $dir_tree.= '<a class="directory" id="'.$fichero.'" >'
+                    . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
+                    . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-128.png').'" />'
+                    . '<p><small><span class="text-center bolded">'.$fichero.'</span></small></p>'
+                    . '</div>'                    
+                    . '</a>';
+            elseif(is_file($t)):                               
+                $check = getimagesize($t);                
+                $dimensionesFichero = "";
+                if ($check != false) {
+                    $dimensionesFichero .= "".$check[0]." x ".$check[1]." px.";
+                }                
+                
+                $infoFichero = '<p>'.$fichero;
+                $infoFichero .= "<br /> <small>(".  number_format(filesize($t)/1024,2)." Kb)</small>";
+                $infoFichero .= "<br /><small>".$dimensionesFichero."</small></p>";
+                
+                $detallesFichero = "<p><small>".$fichero."</small>";                                
+                $detallesFichero .= '<br /><small>'.$dimensionesFichero.'</small>';
+                $detallesFichero .= "<br /> <small>(".  number_format(filesize($t)/1024,2)." Kb)</small>";
+                $detallesFichero .= '</p>';
+                
+                $files_tree.= ''
+                    . '<div class="ui-g-6 ui-md-4 ui-lg-2">'
+                    . '<a class="file" onclick="selectFile(\''.asset($request->parent_dir.$fichero).'\',\''.$request->parent_dir.$fichero.'\',\''.$infoFichero.'\')"  >'
+                    . '<img style="width: 100px; height: 100px;" src="'.asset($request->parent_dir.$fichero).'" title="'.$dimensionesFichero.'" />'
+                    . '</a>'                   
+                    . $detallesFichero
+                    . ''
+                    . '</div>';  
+            endif;
+            clearstatcache();            
+        endforeach;
+        //$files_tree .= '</p-lightbox>';
+        
+        $files_tree = $dir_tree.$files_tree;
+        return $files_tree;
+    }
+    
+    public function viewImageSelector() {
+        $root_dir = '_resource/images/';           
+        return view($this->viewsDir.'partial.image_selector',compact('root_dir'));
+    }
 }

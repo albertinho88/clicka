@@ -13,9 +13,15 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {            
+        Schema::create('pages', function (Blueprint $table) {   
+            
             $table->string('page_id',20);
             $table->primary('page_id');
+            
+            $table->string('cat_id_type',10);
+            $table->string('cat_det_id_type',10);
+            $table->foreign(['cat_det_id_type', 'cat_id_type'])->references(['catalog_detail_id', 'catalog_id'])->on('catalog_details');
+            
             // menu attributes
             
             $table->boolean('is_menu_item');
@@ -35,8 +41,7 @@ class CreatePagesTable extends Migration
             $table->string('page_parent_id',20)->nullable();
             $table->foreign('page_parent_id')->references('page_id')->on('pages');                        
             $table->timestamps();
-            
-            
+                        
         });
     }
 

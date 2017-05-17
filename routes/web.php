@@ -123,6 +123,10 @@ Route::group(['middleware' => ['auth']], function () {
 		->middleware('hasAccessOptional:application/cms/pages');
     Route::post('application/cms/pages/update','PageController@update')->name('update_page')
             ->middleware('hasAccessOptional:application/cms/pages/edit/{page_id}');
+    Route::get('application/cms/pages/list_media_slider_json','PageController@listMediaFilesJson')->name('list_media_page_json')
+            ->middleware('hasAccessOptional:application/cms/pages');
+    Route::get('application/cms/pages/view_image_selector','PageController@viewImageSelector')->name('view_image_selector')
+            ->middleware('hasAccessOptional:application/cms/pages');
 
     Route::get('application/cms/sliders/list_sliders_json','SliderController@listSlidersJson')->name('list_sliders_json')
 		->middleware('hasAccessOptional:application/cms/sliders');

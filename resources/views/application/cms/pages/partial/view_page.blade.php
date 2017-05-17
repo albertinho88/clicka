@@ -34,6 +34,17 @@
                 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">                                            
+                        <label for="cat_det_id_type" class="col-md-4 control-label">Tipo:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        
+                    </div>                                                                                                                
+                </div>
+                
+                <div class="EmptyBox10"></div>
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
                         <label for="is_menu_item" class="col-md-4 control-label">Es menú item:</label>
                     </div>
                     <div class="ui-grid-col-10">
@@ -117,21 +128,22 @@
                         </div>                                                                                                                
                     </div>                                                                        
                     
-                    <div id="divPageContent" class="{{ $page->container_class }}">
-                        @foreach($page_content as $pcontent)
-                            <div class="EmptyBox10"></div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-12">                                
-                                    @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                                                        
-                                        <?php echo $pcontent->content->htmlsection->html_content; ?>
-                                    @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')                                    
-                                        Slider
-                                    @elseif ($pcontent->content->cat_det_id_type == 'FORM')                                    
-                                        Formulario
-                                    @endif 
-                                </div>
-                            </div>                        
-                        @endforeach
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <div id="divPageContent" class="{{ $page->container_class }}">
+                                @foreach($page_content as $pcontent)                              
+                                    <div class="ui-g-{{ $pcontent->columns_on_g  }} ui-md-{{ $pcontent->columns_on_md  }} ui-lg-{{ $pcontent->columns_on_lg  }}">
+                                        @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                                                                                        
+                                            <?php echo $pcontent->content->htmlsection->html_content; ?>
+                                        @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')                                    
+                                            @include('partial.slider',['slider' => $pcontent->content->slider])
+                                        @elseif ($pcontent->content->cat_det_id_type == 'FORM')                                    
+                                            Formulario
+                                        @endif
+                                    </div>                                                       
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
 
                     

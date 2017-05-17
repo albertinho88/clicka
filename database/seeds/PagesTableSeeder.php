@@ -20,6 +20,8 @@ class PagesTableSeeder extends Seeder
     public function addHomePage() {
         $npage = new \App\Page();
         $npage->page_id = "home";
+        $npage->cat_id_type = "TIPPAGWEB";
+        $npage->cat_det_id_type = "DYNPAG";
         $npage->is_menu_item = true;
         $npage->name = "Inicio";
         $npage->icon = "home";
@@ -31,6 +33,8 @@ class PagesTableSeeder extends Seeder
     public function addAboutUsPage() {
         $npage = new \App\Page();
         $npage->page_id = "about_us";
+        $npage->cat_id_type = "TIPPAGWEB";
+        $npage->cat_det_id_type = "DYNPAG";
         $npage->is_menu_item = true;
         $npage->name = "Conócenos";
         $npage->icon = "comment-o";
@@ -89,6 +93,8 @@ class PagesTableSeeder extends Seeder
     public function addServicesPage() {
         $npage = new \App\Page();
         $npage->page_id = "services";
+        $npage->cat_id_type = "TIPPAGWEB";
+        $npage->cat_det_id_type = "CUSPAG";
         $npage->is_menu_item = true;
         $npage->name = "Servicios";
         $npage->icon = "laptop";
@@ -104,6 +110,8 @@ class PagesTableSeeder extends Seeder
     public function addContactUsPage() {
         $npage = new \App\Page();
         $npage->page_id = "contact_us";
+        $npage->cat_id_type = "TIPPAGWEB";
+        $npage->cat_det_id_type = "CUSPAG";
         $npage->is_menu_item = true;
         $npage->name = "Contáctanos";
         $npage->icon = "envelope-o";

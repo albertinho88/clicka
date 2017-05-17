@@ -33,4 +33,15 @@ class Page extends Model
     {
         return $this->hasMany('\App\PageContent', 'page_id');
     }
+    
+    /**
+     * Get all of the user_role for the user.
+     */
+    public function page_content_ordered()
+    {
+        return $this->hasMany('\App\PageContent', 'page_id')->orderBy('order','asc');
+    }
+    
+    
+    
 }

@@ -26,10 +26,10 @@
                             @if ($pcontent->content->cat_det_id_type == 'HTMLSEC')                            
                                 @include('partial.htmlsection',['htmlsection' => $pcontent->content->htmlsection])                                                    
                             @elseif ($pcontent->content->cat_det_id_type == 'SLIDER')                            
-                                @include('partial.slider')                            
+                                @include('partial.slider',['slider' => $pcontent->content->slider])                            
                             @elseif ($pcontent->content->cat_det_id_type == 'FORM')                            
                                 @include('partial.form')                            
-                        @endif                        
+                            @endif                        
                         </div>
                     @endforeach
                     
