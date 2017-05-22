@@ -7,29 +7,12 @@ use App\Contact;
 
 class SiteController extends Controller
 {
-    //
-    
-    public function viewHomePage() {
-        return view('site.home');
-    }
-    
-    public function viewAboutUsPage() {
-        return view('site.static.about_us');
-    }
-    
-    public function viewServicesPage() {
-        $services = \App\Service::where('state','A')->get();
-        
-        return view('site.services',compact('services'));
-    }
+    //        
     
     public function viewService($service_id) {
-        return view('site.'.$service_id);
-    }
-    
-    public function viewContactUsPage() {
-        return view('site.contact');
-    }
+        $service = \App\Service::findOrFail($service_id);
+        return view('site.custom.service',compact('service'));
+    }        
     
     public function getContactFormAjax() {
         return view('partial.contact_form');
@@ -55,13 +38,28 @@ class SiteController extends Controller
         return view('partial.contact_form_response', ['contacto' => $newContacto]);
     }
     
-    public function viewPage($page_id) {
-        $page = \App\Page::findOrFail($page_id);
+    public function viewPage($page_id = null) {
         
-        $page_content = \App\PageContent::where("page_id",$page_id)
-                                    ->orderBy('order','asc')
-                                    ->get();
+        if (!isset($page_id)):
+            $page_id = 'home';
+        endif;
         
-        return view('site.page',compact(['page','page_content']));
+        $page = \App\Page::findOrFail($page_id);                
+        
+        if ($page->cat_det_id_type == 'DYNPAG') :
+            return view('site.dynamic.page',compact('page'));
+        elseif ($page->cat_det_id_type == 'ESTPAG') :
+            return view('site.static.'.$page->page_id,compact('page'));        
+        elseif ($page->cat_det_id_type == 'CUSPAG') :
+            $data = array();
+            if ($page->page_id == 'services') {
+                $active_services = \App\Service::where('state','A')->get();
+                array_push($data, 'page');
+                array_push($data, 'active_services');
+            }
+            return view('site.custom.'.$page->page_id,compact($data));        
+        endif;
+        
+        return view('site.dynamic.page',compact('page'));
     }
 }

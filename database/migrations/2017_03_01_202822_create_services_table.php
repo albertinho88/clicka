@@ -13,8 +13,10 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
-            $table->increments('service_id');
+        Schema::create('services', function (Blueprint $table) {            
+            $table->string('service_id',20);
+            $table->primary('service_id');
+            
             $table->string('name',50);
             $table->string('slogan',500);
             $table->string('icon',20)->nullable();

@@ -8,4 +8,5 @@ class Service extends Model
 {
     protected $table = 'services';
     protected $primaryKey = 'service_id';
+    public $incrementing = false;
 }

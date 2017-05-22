@@ -34,7 +34,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view($this->viewsDir.'create_service');
+        $service = new \App\Service();
+        return view($this->viewsDir.'create_service', compact('service'));
     }
 
     /**
@@ -46,6 +47,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {                
         $this->validate(request(),[
+            'service_id' => 'required|unique:services',
             'name' => 'required|max:50',
             'slogan' => 'required|max:500',
             'icon' => 'max:20',
@@ -55,6 +57,7 @@ class ServiceController extends Controller
         ]);
         
         $service = new \App\Service();
+        $service->service_id = $request->service_id;
         $service->name = $request->name;
         $service->slogan = $request->slogan;
         $service->icon = $request->icon;
@@ -87,7 +90,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $service = \App\Service::find($id);
+        $service = \App\Service::findOrFail($id);
         return view($this->viewsDir.'edit_service', compact('service'));
     }
 

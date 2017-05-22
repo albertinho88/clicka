@@ -20,7 +20,18 @@
                 </div>
 
                 <div class="EmptyBox10" ></div>
-
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="service_id" class="col-md-4 control-label">Identificador:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        {{ $service->service_id }}
+                    </div>                                                                                                                
+                </div>
+                
+                <div class="EmptyBox10"></div>
+                
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">                                            
                         <label for="name" class="col-md-4 control-label">Nombre:</label>
@@ -52,9 +63,7 @@
                     </div>                                                                                                                
                 </div>
                 
-                <div class="EmptyBox10"></div>
-                
-                
+                <div class="EmptyBox10"></div>                                
                 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">                                            
@@ -76,6 +85,19 @@
                     </div>                                                                                                                
                 </div>                                
 
+                <div class="EmptyBox10"></div>
+                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">                                            
+                        <label for="state" class="col-md-4 control-label">Contenido:</label>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <div id="divPageContent" style="border: 1px solid #DEDEDE; padding: 10px;" >                                                                                                                    
+                            <?php echo $service->website_html_content; ?>                            
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="EmptyBox10"></div>
 
                 <div class="ui-grid-row">

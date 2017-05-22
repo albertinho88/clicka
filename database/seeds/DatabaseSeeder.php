@@ -200,67 +200,7 @@ class DatabaseSeeder extends Seeder
                         $menuop93->state = 'A';
                         $menuop93->order = 3;
                         $menuop93->menu_parent_id = $menuop9->menu_id;
-                        $menuop93->save();
-                
-            $menuop8 = new \App\MenuOption();
-            $menuop8->label = 'Archivos Multimedia';
-            $menuop8->icon = 'file-image-o';
-            $menuop8->url = 'application/management/media_files';        
-            $menuop8->type = 'EXT';
-            $menuop8->state = 'A';
-            $menuop8->order = 5;
-            $menuop8->menu_parent_id = $menuop1->menu_id;
-            $menuop8->save();
-                
-                /*$menuop81 = new \App\MenuOption();
-                $menuop81->label = 'Subir Archivo Multimedia';
-                $menuop81->icon = '';
-                $menuop81->url = 'application/management/media_files/create';        
-                $menuop81->type = 'INT';
-                $menuop81->state = 'A';
-                $menuop81->order = 1;
-                $menuop81->menu_parent_id = $menuop8->menu_id;
-                $menuop81->save();*/
-
-            $menuop7 = new \App\MenuOption();
-            $menuop7->label = 'Servicios';
-            $menuop7->icon = 'cubes';
-            $menuop7->url = 'application/management/services';        
-            $menuop7->type = 'EXT';
-            $menuop7->state = 'A';
-            $menuop7->order = 6;
-            $menuop7->menu_parent_id = $menuop1->menu_id;
-            $menuop7->save();
-            
-                $menuop71 = new \App\MenuOption();
-                $menuop71->label = 'Crear Servicio';
-                $menuop71->icon = '';
-                $menuop71->url = 'application/management/services/create';        
-                $menuop71->type = 'INT';
-                $menuop71->state = 'A';
-                $menuop71->order = 1;
-                $menuop71->menu_parent_id = $menuop7->menu_id;
-                $menuop71->save();
-
-                $menuop72 = new \App\MenuOption();
-                $menuop72->label = 'Editar Servicio';
-                $menuop72->icon = '';
-                $menuop72->url = 'application/management/services/edit/{service_id}';        
-                $menuop72->type = 'INT';
-                $menuop72->state = 'A';
-                $menuop72->order = 2;
-                $menuop72->menu_parent_id = $menuop7->menu_id;
-                $menuop72->save();
-
-                $menuop73 = new \App\MenuOption();
-                $menuop73->label = 'Ver Servicio';
-                $menuop73->icon = '';
-                $menuop73->url = 'application/management/services/show/{service_id}';        
-                $menuop73->type = 'INT';
-                $menuop73->state = 'A';
-                $menuop73->order = 3;
-                $menuop73->menu_parent_id = $menuop7->menu_id;
-                $menuop73->save();
+                        $menuop93->save();                            
         
         
         $menuop5 = new \App\MenuOption();
@@ -290,6 +230,16 @@ class DatabaseSeeder extends Seeder
         $menuop20->state = 'A';
         $menuop20->order = 3;
         $menuop20->save();
+        
+            $menuop8 = new \App\MenuOption();
+            $menuop8->label = 'Archivos Multimedia';
+            $menuop8->icon = 'file-image-o';
+            $menuop8->url = 'application/management/media_files';        
+            $menuop8->type = 'EXT';
+            $menuop8->state = 'A';
+            $menuop8->order = 0;
+            $menuop8->menu_parent_id = $menuop20->menu_id;
+            $menuop8->save();            
         
             $menuop201 = new \App\MenuOption();
             $menuop201->label = 'Páginas';
@@ -370,6 +320,46 @@ class DatabaseSeeder extends Seeder
                 $menuop3013->order = 3;
                 $menuop3013->menu_parent_id = $menuop301->menu_id;
                 $menuop3013->save();
+                
+            $menuop7 = new \App\MenuOption();
+            $menuop7->label = 'Servicios';
+            $menuop7->icon = 'cubes';
+            $menuop7->url = 'application/management/services';        
+            $menuop7->type = 'EXT';
+            $menuop7->state = 'A';
+            $menuop7->order = 6;
+            $menuop7->menu_parent_id = $menuop20->menu_id;
+            $menuop7->save();
+            
+                $menuop71 = new \App\MenuOption();
+                $menuop71->label = 'Crear Servicio';
+                $menuop71->icon = '';
+                $menuop71->url = 'application/management/services/create';        
+                $menuop71->type = 'INT';
+                $menuop71->state = 'A';
+                $menuop71->order = 1;
+                $menuop71->menu_parent_id = $menuop7->menu_id;
+                $menuop71->save();
+
+                $menuop72 = new \App\MenuOption();
+                $menuop72->label = 'Editar Servicio';
+                $menuop72->icon = '';
+                $menuop72->url = 'application/management/services/edit/{service_id}';        
+                $menuop72->type = 'INT';
+                $menuop72->state = 'A';
+                $menuop72->order = 2;
+                $menuop72->menu_parent_id = $menuop7->menu_id;
+                $menuop72->save();
+
+                $menuop73 = new \App\MenuOption();
+                $menuop73->label = 'Ver Servicio';
+                $menuop73->icon = '';
+                $menuop73->url = 'application/management/services/show/{service_id}';        
+                $menuop73->type = 'INT';
+                $menuop73->state = 'A';
+                $menuop73->order = 3;
+                $menuop73->menu_parent_id = $menuop7->menu_id;
+                $menuop73->save();
         
         $all_menu_options = \App\MenuOption::all();
         
@@ -379,6 +369,6 @@ class DatabaseSeeder extends Seeder
             $role_menu->menu_id = $menop->menu_id;
             $role_menu->state = 'A';
             $role_menu->save();
-        endforeach;                
+        endforeach;             
     }
 }

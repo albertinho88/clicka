@@ -39,9 +39,11 @@ class Page extends Model
      */
     public function page_content_ordered()
     {
-        return $this->hasMany('\App\PageContent', 'page_id')->orderBy('order','asc');
+        return $this->hasMany('\App\PageContent', 'page_id')->orderBy('order','asc');        
     }
     
-    
+    public function page_type() {
+        return \App\CatalogDetail::where('catalog_detail_id',$this->cat_det_id_type)->where('catalog_id',$this->cat_id_type)->first();
+    }
     
 }

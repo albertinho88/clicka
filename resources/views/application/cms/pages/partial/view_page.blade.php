@@ -37,7 +37,7 @@
                         <label for="cat_det_id_type" class="col-md-4 control-label">Tipo:</label>
                     </div>
                     <div class="ui-grid-col-10">
-                        
+                        {{ $page->page_type()->value }}
                     </div>                                                                                                                
                 </div>
                 

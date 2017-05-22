@@ -351,8 +351,8 @@ class PageController extends Controller
                 // Delete all page content                
                 foreach($page->page_content as $pagcontd) :
                     $contfordelete = $pagcontd->content;
-                    $contfordelete->delete();
                     $pagcontd->delete();
+                    $contfordelete->delete();                    
                 endforeach;                 
             endif;
         endif;
@@ -416,7 +416,7 @@ class PageController extends Controller
         
         if ($parent_dir != realpath('_resource/images/')):
             $ud = realpath($request->parent_dir.DIRECTORY_SEPARATOR."..");
-            $pd = str_replace(base_path().DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR, "", $ud);
+            $pd = str_replace(base_path().DIRECTORY_SEPARATOR."public_html".DIRECTORY_SEPARATOR, "", $ud);
             $up_level_dir = str_replace(DIRECTORY_SEPARATOR, "/", $pd);
 
             $dir_tree.= '<a class="back_directory" id="'.$up_level_dir.'" >'
@@ -428,7 +428,7 @@ class PageController extends Controller
         endif;                
         
         foreach ($images_files as $fichero) :
-            $t = $parent_dir."\/".$fichero;            
+            $t = $parent_dir."/".$fichero;            
             if (is_dir($t)) :
                 $dir_tree.= '<a class="directory" id="'.$fichero.'" >'
                     . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'

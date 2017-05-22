@@ -18,9 +18,10 @@ class ServicesTableSeeder extends Seeder
     
     public function addSoftwareService() {
         $ss = new \App\Service();
+        $ss->service_id = 'software';
         $ss->name = 'Software a la Medida';
         $ss->slogan = 'El activo más importante de tu empresa.';
-        $ss->icon = 'industry';
+        $ss->icon = 'fa-industry';
         $ss->website_bg_color = '0288d1';
         $ss->website_html_content = '<div class="ui-grid ui-grid-responsive">
                     <div class="ui-grid-row">
@@ -67,9 +68,10 @@ class ServicesTableSeeder extends Seeder
     
     public function addWebsiteService() {
         $ss = new \App\Service();
+        $ss->service_id = 'websites';
         $ss->name = 'Sitios Web';
         $ss->slogan = 'Si tu negocio no está en internet, tu negocio no existe.';
-        $ss->icon = 'cloud';
+        $ss->icon = 'fa-cloud';
         $ss->website_bg_color = 'fb8c00';
         $ss->website_html_content = '';
         $ss->featured = true;

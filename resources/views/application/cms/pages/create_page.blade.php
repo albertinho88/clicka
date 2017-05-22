@@ -61,6 +61,7 @@
     </div>
 </div>
 
-<script src="{{ asset('../resources/assets/js/page_management.js') }}" type="text/javascript"></script>
+<script src="{{ asset('_resource/js/page_management.js') }}" type="text/javascript"></script>
+
 
 @endsection

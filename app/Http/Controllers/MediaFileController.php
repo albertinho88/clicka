@@ -26,15 +26,33 @@ class MediaFileController extends Controller
     }
     
     public function listMediaFilesJson(Request $request) {
-                
-        $parent_dir = $request->parent_dir;            
-        $images_files = array_diff(scandir($parent_dir,0), array('.'));                
+        
+        if (!isset($request->parent_dir)) :
+            $request->parent_dir = '_resource/images/';
+        endif;
+        
+        $parent_dir = realpath($request->parent_dir);
+        $images_files = array_diff(scandir($parent_dir,0), array('.','..'));                   
         $dir_tree = '';
         $files_tree = '';
         
         $files_tree .= '<p-lightbox>';
+        
+        if ($parent_dir != realpath('_resource/images/')):
+            $ud = realpath($request->parent_dir.DIRECTORY_SEPARATOR."..");
+            $pd = str_replace(base_path().DIRECTORY_SEPARATOR."public_html".DIRECTORY_SEPARATOR, "", $ud);
+            $up_level_dir = str_replace(DIRECTORY_SEPARATOR, "/", $pd);
+
+            $dir_tree.= '<a class="back_directory" id="'.$up_level_dir.'" >'
+                        . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
+                        . '<img style="width: 100px; height: 100px;" src="'.asset('_resource/thumbs/folder-back-128.png').'" />'
+                        . '<p><small><span class="text-center bolded"></span></small></p>'
+                        . '</div>'                    
+                        . '</a>';
+        endif; 
+        
         foreach ($images_files as $fichero) :
-            $t = public_path().'/'.$parent_dir.$fichero;
+            $t = $parent_dir."/".$fichero;            
             if (is_dir($t)) :
                 $dir_tree.= '<a class="directory" id="'.$fichero.'" >'
                     . '<div class="ui-g-6 ui-md-4 ui-lg-2" >'
@@ -42,8 +60,7 @@ class MediaFileController extends Controller
                     . '<p><span class="text-center bolded">'.$fichero.'</span></p>'
                     . '</div>'                    
                     . '</a>';
-            elseif(is_file($t)):                
-                //if (file_exists(public_path().'/_resource/thumbs/'.$fichero)) :
+            elseif(is_file($t)):                                
                 $check = getimagesize($t);                
                 $dimensionesFichero = "";
             
@@ -53,11 +70,11 @@ class MediaFileController extends Controller
                 
                 $detallesFichero = "<p>".$fichero;
                 $detallesFichero .= "<br /> (".  number_format(filesize($t)/1024,2)." Kb) </p>";
-                //if($check != false):
-                    $files_tree.= '<a class="file" href="'.asset($parent_dir.$fichero).'" >'
+                //if($check != false):                    
+                    $files_tree.= '<a class="file" href="'.asset($request->parent_dir.$fichero).'" >'
                         . '<div class="ui-g-6 ui-md-4 ui-lg-2">'
-                        . '<img style="width: 100px; height: 100px;" src="'.asset($parent_dir.$fichero).'" title="'.$dimensionesFichero.'" />'
-                        . $detallesFichero
+                        . '<img style="width: 100px; height: 100px;" src="'.asset($request->parent_dir.$fichero).'" title="'.$dimensionesFichero.'" />'
+                        . $detallesFichero                            
                         . '</div>'
                         . '</a>';
                 /*else:

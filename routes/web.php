@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', 'SiteController@viewHomePage')->name('home');
-Route::get('about_us', 'SiteController@viewAboutUsPage');
-Route::get('services', 'SiteController@viewServicesPage')->name('services');
+Route::get('/', 'SiteController@viewPage')->name('home');
+
 Route::get('service/{service_id}', 'SiteController@viewService');
 
 Route::get('contact_us', 'SiteController@viewContactUsPage');

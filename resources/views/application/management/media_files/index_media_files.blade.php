@@ -153,6 +153,11 @@ initCustomComponents = function() {
         listMediaFiles();
     });
     
+    $(".back_directory").click(function(){
+        $("#parent_dir").val($(this).attr("id") + "/");        
+        listMediaFiles();                
+    });
+    
     $("#div_files_tree a").contextmenu(function(e) {
         //alert( "Handler for .contextmenu() called." );
         e.preventDefault();
