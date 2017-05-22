@@ -27,6 +27,4 @@
     </div>
 </div>
 
-@include('partial.main_services')
-
 @endsection 
