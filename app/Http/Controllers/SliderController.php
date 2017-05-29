@@ -150,6 +150,7 @@ class SliderController extends Controller
                 $new_slide->image_path = $slide['path'];
                 $new_slide->order = $slide['order'];                        
                 $new_slide->caption = $slide['caption'];
+                $new_slide->icon = $slide['icon'];
                 $slider->slider_images()->save($new_slide);                                
             endforeach;
         endif;
@@ -234,6 +235,11 @@ class SliderController extends Controller
                             $contentHasChanged = true;                            
                         endif;
                         
+                        if ($slide->icon != $request_slider_images[$slide->slider_image_id]['icon']):
+                            $slide->icon = $request_slider_images[$slide->slider_image_id]['icon'];
+                            $contentHasChanged = true;                            
+                        endif;
+                        
                         if ($slide->order != $request_slider_images[$slide->slider_image_id]['order']):
                             $slide->order = $request_slider_images[$slide->slider_image_id]['order'];
                             $contentHasChanged = true;                            
@@ -262,6 +268,7 @@ class SliderController extends Controller
                 $new_slide->image_path = $slide['path'];
                 $new_slide->order = $slide['order'];                        
                 $new_slide->caption = $slide['caption'];
+                $new_slide->icon = $slide['icon'];
                 $slider->slider_images()->save($new_slide);                                
             endforeach;
         endif;

@@ -169,22 +169,24 @@
   }
 
 .callbacks .caption {
+  font-family: 'coolvetica-rg';
   display: block;
   position: absolute;
   z-index: 2;
-  font-size: 14px;
+  font-size: 48px;
   text-shadow: none;
   color: #fff;
   background: #000;
-  background: rgba(0,0,0, .8);
+  background: rgba(0,0,0, .5);
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 20px 20px;
+  padding: 10px 20px;
   margin: 0;
   max-width: none;
   text-align: center;
   font-weight: normal;
+  margin-bottom: 10px;
   }
 
 .callbacks_nav {
@@ -244,6 +246,16 @@
     }
   .callbacks_nav {
     top: 47%;
+    }
+    .callbacks .caption {
+        font-size: 14px;
+        padding: 5px 5px;
+    }
+  }
+  @media screen and (max-width: 1024px) and (min-width: 600px) {
+      .callbacks .caption {
+        font-size: 32px;
+        padding: 10px 10px;
     }
   }
   

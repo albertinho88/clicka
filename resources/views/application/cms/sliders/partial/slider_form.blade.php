@@ -333,6 +333,10 @@
                                         <label>Caption: </label>
                                         <textarea id="txtarea_<?php echo $slide->slider_image_id; ?>" name="slider_images[<?php echo $slide->slider_image_id ?>][caption]" >{{ $slide->caption }}</textarea>
                                     </p>
+                                    <p>
+                                        <label>Icono: </label>
+                                        <input type="text" id="iptext_<?php echo $slide->slider_image_id; ?>" name="slider_images[<?php echo $slide->slider_image_id ?>][icon]" value="{{ $slide->icon }}" />
+                                    </p>
                                 </div>
                             </div>
                         </li>
@@ -392,7 +396,7 @@ $(function() {
         new_li = '<li class="ui-state-default" id="li_nsli_' + newSliderCount + '">'
                 + '<div class="ui-grid-row">'
                 + '<div class="ui-grid-col-12" >'
-                + '<button id="delete_slide_' + newSliderCount + '" class="delete_slide" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px; float: right;" parent_li="li_nsli_' + newSliderCount + '" ></button>'                
+                + '<button id="delete_nslide_' + newSliderCount + '" class="delete_slide" type="button" role="button" aria-disabled="false" is="p-button" icon="fa-trash-o" style="height: 30px; width: 30px; float: right;" parent_li="li_nsli_' + newSliderCount + '" ></button>'                
                 + '</div></div>'
                 + '<div class="ui-grid-row">'
                 + '<div class="ui-grid-col-4" >'
@@ -403,19 +407,22 @@ $(function() {
                 + '</div>'
                 + '<div class="ui-grid-col-8" >'
                 + infoFichero
-                + '<p><label>Caption: </label><textarea id="txtarea_'+ newSliderCount +'" name="slider_images[new_slide_'+ newSliderCount +'][caption]" ></textarea></p>'
+                + '<p><label>Caption: </label><textarea id="ntxtarea_'+ newSliderCount +'" name="slider_images[new_slide_'+ newSliderCount +'][caption]" ></textarea></p>'
+                + '<p><label>Icono: </label><input type="text" id="niptext_'+ newSliderCount +'" name="slider_images[new_slide_'+ newSliderCount +'][icon]" ></textarea></p>'
                 + '</div>'
                 + '</div>'                
                 +'</li>'; 
 
         $("#divSliderContent ul").append(new_li);  
         setHtmlContent("div_files_tree", "");
-        $("#txtarea_" + newSliderCount).puiinputtextarea();
-        $("#txtarea_" + newSliderCount).addClass("ui-inputfield ui-inputtextarea");
+        $("#ntxtarea_" + newSliderCount).puiinputtextarea();
+        $("#ntxtarea_" + newSliderCount).addClass("ui-inputfield ui-inputtextarea");
+        $("#niptext_" + newSliderCount).puiinputtext();
+        $("#niptext_" + newSliderCount).addClass( "ui-inputfield" );
         $("#divSelectFile").hide("fade", 300);            
         $("#divCreateEditSlider").show("fade", 400);
         
-        $("#delete_slide_" + newSliderCount).click(function(e){                                                                                
+        $("#delete_nslide_" + newSliderCount).click(function(e){                                                                                
             deleteSlide($(this).attr('parent_li'), e);
         });
         

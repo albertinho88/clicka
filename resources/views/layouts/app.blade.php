@@ -7,6 +7,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         
         <title>Clicka - Servicios TI</title>
+        
+        <link rel="shortcut icon" type="image/png" href="{{ asset('_resource/images/favicon.png') }}"/>
                 
         <link href="{{ asset('_resource/primeui-4.1.15/primeui.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('_resource/theme.css') }}" type="text/css" rel="stylesheet">

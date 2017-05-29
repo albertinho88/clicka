@@ -4,18 +4,25 @@
     $slider_uid .= str_random(8);
 ?>
 
+    
 <div class="callbacks_container">
-    <ul class="rslides" id="<?php echo $slider_uid ?>">
+    <ul class="rslides" id="<?php echo $slider_uid; ?>">
         @foreach($slider->ordered_slider_images as $slide)
             <li>
-                <img src="{{ asset($slide->image_path) }}" alt="" >
+                <img src="{{ asset($slide->image_path) }}" alt="" >                
               @if($slide->caption)
-                <p class="caption">{{ $slide->caption }}</p>
+                <p class="caption">
+                    @if($slide->icon)
+                         <i class="fa {{ $slide->icon }}" ></i><br />
+                    @endif
+                    {{ $slide->caption }}
+                </p>
               @endif
             </li>
         @endforeach                      
     </ul>
-</div>                            
+</div>   
+
 
 <script type="text/javascript">
     $("#<?php echo $slider_uid ?>").responsiveSlides({
