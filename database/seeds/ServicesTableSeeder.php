@@ -14,6 +14,7 @@ class ServicesTableSeeder extends Seeder
         //
         $this->addSoftwareService();
         $this->addWebsiteService();
+        $this->addDataManagementService();
     }
     
     public function addSoftwareService() {
@@ -73,6 +74,58 @@ class ServicesTableSeeder extends Seeder
         $ss->slogan = 'Si tu negocio no está en internet, tu negocio no existe.';
         $ss->icon = 'fa-cloud';
         $ss->website_bg_color = 'fb8c00';
+        $ss->website_html_content = '';
+        $ss->featured = true;
+        $ss->state = 'A';
+        $ss->save();
+    }
+ 
+    public function addDataManagementService() {
+        $ss = new \App\Service();
+        $ss->service_id = 'datamanagement';
+        $ss->name = 'Data Management';
+        $ss->slogan = 'Información, el elemento más valorado de tu empresa.';
+        $ss->icon = 'fa-database';
+        $ss->website_bg_color = '26a69a';
+        $ss->website_html_content = '';
+        $ss->featured = true;
+        $ss->state = 'A';
+        $ss->save();
+    }
+    
+    public function addEcommerceService() {
+        $ss = new \App\Service();
+        $ss->service_id = 'ecommerce';
+        $ss->name = 'E-Commerce';
+        $ss->slogan = 'Vender por internet, optimizando los recursos.';
+        $ss->icon = 'fa-shopping-cart';
+        $ss->website_bg_color = '43a047';
+        $ss->website_html_content = '';
+        $ss->featured = true;
+        $ss->state = 'A';
+        $ss->save();
+    }
+    
+    public function addBiService() {
+        $ss = new \App\Service();
+        $ss->service_id = 'bi';
+        $ss->name = 'Inteligencia de Negocios';
+        $ss->slogan = 'Algo peor que no tener información disponible, es tener mucha información y no saber que hacer con ella.';
+        $ss->icon = 'fa-line-chart';
+        $ss->website_bg_color = '26a69a';
+        $ss->website_html_content = '';
+        $ss->featured = true;
+        $ss->state = 'A';
+        $ss->save();
+    }
+    
+    public function addBpmService() {
+        $ss = new \App\Service();
+        $ss->service_id = 'bpm';
+        $ss->name = 'Business Process Management';
+        $ss->slogan = 'Optimizar los recursos mediante la automatización de los procesos de negocio.';
+        $ss->icon = 'fa-share-alt';
+        $ss->website_bg_color = '26a69a';
         $ss->website_html_content = '';
         $ss->featured = true;
         $ss->state = 'A';
