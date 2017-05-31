@@ -15,6 +15,9 @@ class ServicesTableSeeder extends Seeder
         $this->addSoftwareService();
         $this->addWebsiteService();
         $this->addDataManagementService();
+        $this->addEcommerceService();
+        $this->addBiService();
+        $this->addBpmService();
     }
     
     public function addSoftwareService() {
