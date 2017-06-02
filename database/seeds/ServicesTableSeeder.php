@@ -15,6 +15,9 @@ class ServicesTableSeeder extends Seeder
         $this->addSoftwareService();
         $this->addWebsiteService();
         $this->addDataManagementService();
+        $this->addEcommerceService();
+        $this->addBiService();
+        $this->addBpmService();
     }
     
     public function addSoftwareService() {
@@ -110,9 +113,9 @@ class ServicesTableSeeder extends Seeder
         $ss = new \App\Service();
         $ss->service_id = 'bi';
         $ss->name = 'Inteligencia de Negocios';
-        $ss->slogan = 'Algo peor que no tener información disponible, es tener mucha información y no saber que hacer con ella.';
+        $ss->slogan = 'Analizar la información para tomar decisiones.';
         $ss->icon = 'fa-line-chart';
-        $ss->website_bg_color = '26a69a';
+        $ss->website_bg_color = '6c76af';
         $ss->website_html_content = '';
         $ss->featured = true;
         $ss->state = 'A';
@@ -123,9 +126,9 @@ class ServicesTableSeeder extends Seeder
         $ss = new \App\Service();
         $ss->service_id = 'bpm';
         $ss->name = 'Business Process Management';
-        $ss->slogan = 'Optimizar los recursos mediante la automatización de los procesos de negocio.';
+        $ss->slogan = 'Optimizar recursos mediante la automatización de procesos de negocio.';
         $ss->icon = 'fa-share-alt';
-        $ss->website_bg_color = '26a69a';
+        $ss->website_bg_color = '63c9f1';
         $ss->website_html_content = '';
         $ss->featured = true;
         $ss->state = 'A';

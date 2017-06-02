@@ -21,7 +21,7 @@
                 
                 
                 @foreach ($active_services as $actser) 
-                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                <div class="ui-g-12 ui-md-6 ui-lg-4">
                     <a href="<?php echo url('service',['service_id' => $actser->service_id]); ?>"  >
                     <div class="ui-g card overview-box overview-box-1 " style="background-color: #{{ $actser->website_bg_color }};">                        
                         <div class="ui-g-12 text-center">
