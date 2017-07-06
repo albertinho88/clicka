@@ -115,7 +115,7 @@ class ServicesTableSeeder extends Seeder
         $ss->name = 'Inteligencia de Negocios';
         $ss->slogan = 'Algo peor que no tener información disponible, es tener mucha información y no saber que hacer con ella.';
         $ss->icon = 'fa-line-chart';
-        $ss->website_bg_color = '26a69a';
+        $ss->website_bg_color = '6c76af';
         $ss->website_html_content = '';
         $ss->featured = true;
         $ss->state = 'A';
@@ -128,7 +128,7 @@ class ServicesTableSeeder extends Seeder
         $ss->name = 'Business Process Management';
         $ss->slogan = 'Optimizar los recursos mediante la automatización de los procesos de negocio.';
         $ss->icon = 'fa-share-alt';
-        $ss->website_bg_color = '26a69a';
+        $ss->website_bg_color = 'f77286';
         $ss->website_html_content = '';
         $ss->featured = true;
         $ss->state = 'A';

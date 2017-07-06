@@ -331,11 +331,7 @@
                                     </p>
                                     <p>
                                         <label>Caption: </label>
-                                        <textarea id="txtarea_<?php echo $slide->slider_image_id; ?>" name="slider_images[<?php echo $slide->slider_image_id ?>][caption]" >{{ $slide->caption }}</textarea>
-                                    </p>
-                                    <p>
-                                        <label>Icono: </label>
-                                        <input type="text" id="iptext_<?php echo $slide->slider_image_id; ?>" name="slider_images[<?php echo $slide->slider_image_id ?>][icon]" value="{{ $slide->icon }}" />
+                                        <textarea id="txtarea_<?php echo $slide->slider_image_id; ?>" name="slider_images[<?php echo $slide->slider_image_id ?>][caption]" style="font-size: 10px;" >{{ $slide->caption }}</textarea>
                                     </p>
                                 </div>
                             </div>
@@ -407,8 +403,7 @@ $(function() {
                 + '</div>'
                 + '<div class="ui-grid-col-8" >'
                 + infoFichero
-                + '<p><label>Caption: </label><textarea id="ntxtarea_'+ newSliderCount +'" name="slider_images[new_slide_'+ newSliderCount +'][caption]" ></textarea></p>'
-                + '<p><label>Icono: </label><input type="text" id="niptext_'+ newSliderCount +'" name="slider_images[new_slide_'+ newSliderCount +'][icon]" ></textarea></p>'
+                + '<p><label>Caption: </label><textarea id="ntxtarea_'+ newSliderCount +'" name="slider_images[new_slide_'+ newSliderCount +'][caption]" style="font-size: 10px;" ></textarea></p>'                
                 + '</div>'
                 + '</div>'                
                 +'</li>'; 
@@ -416,9 +411,7 @@ $(function() {
         $("#divSliderContent ul").append(new_li);  
         setHtmlContent("div_files_tree", "");
         $("#ntxtarea_" + newSliderCount).puiinputtextarea();
-        $("#ntxtarea_" + newSliderCount).addClass("ui-inputfield ui-inputtextarea");
-        $("#niptext_" + newSliderCount).puiinputtext();
-        $("#niptext_" + newSliderCount).addClass( "ui-inputfield" );
+        $("#ntxtarea_" + newSliderCount).addClass("ui-inputfield ui-inputtextarea");        
         $("#divSelectFile").hide("fade", 300);            
         $("#divCreateEditSlider").show("fade", 400);
         

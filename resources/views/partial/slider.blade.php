@@ -10,14 +10,11 @@
         @foreach($slider->ordered_slider_images as $slide)
             <li>
                 <img src="{{ asset($slide->image_path) }}" alt="" >                
-              @if($slide->caption)
-                <p class="caption">
-                    @if($slide->icon)
-                         <i class="fa {{ $slide->icon }}" ></i><br />
-                    @endif
-                    {{ $slide->caption }}
-                </p>
-              @endif
+                @if($slide->caption)
+                  <p class="caption">                    
+                      <?php echo $slide->caption; ?>
+                  </p>
+                @endif
             </li>
         @endforeach                      
     </ul>
