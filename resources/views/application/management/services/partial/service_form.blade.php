@@ -102,6 +102,27 @@
 </div>
 
 <div class="EmptyBox10"></div>
+                        
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2">                                            
+        <label for="order" class="col-md-4 control-label">Orden:</label>
+    </div>
+    <div class="ui-grid-col-10">
+        <input id="order" name="order" type="text" autocomplete="off" class="form-control" value="{{ $service->order }}" />
+    </div>                                                                                                                
+</div>
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2"></div>
+    <div class="ui-grid-col-10">
+        <span id="order_help_block" class="help-block">
+            @if ($errors->has('order'))                                                    
+                <strong>{{ $errors->first('order') }}</strong>                                                    
+            @endif
+        </span>
+    </div>
+</div>
+
+<div class="EmptyBox10"></div>
 
 <div class="ui-grid-row">
     <div class="ui-grid-col-2">                                            
