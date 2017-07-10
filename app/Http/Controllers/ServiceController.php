@@ -53,7 +53,8 @@ class ServiceController extends Controller
             'icon' => 'max:20',
             'website_bg_color' => 'max:6',            
             //'featured' => 'boolean',
-            'state' => 'required|max:1'
+            'state' => 'required|max:1',
+            'order' => 'required|numeric|integer'
         ]);
         
         $service = new \App\Service();
@@ -65,6 +66,7 @@ class ServiceController extends Controller
         $service->website_html_content = $request->website_html_content;
         $service->featured = isset($request->featured) ? true : false;
         $service->state = $request->state;
+        $service->order = $request->order;
         $service->save();
         
         return view($this->viewsDir.'partial.view_service', compact('service'));
@@ -109,7 +111,8 @@ class ServiceController extends Controller
             'icon' => 'max:20',
             'website_bg_color' => 'max:6',            
             //'featured' => 'boolean',
-            'state' => 'required|max:1'
+            'state' => 'required|max:1',
+            'order' => 'required|numeric|integer'
         ]);
         $service = \App\Service::find($request->service_id);
         $service->name = $request->name;
@@ -119,6 +122,7 @@ class ServiceController extends Controller
         $service->website_html_content = $request->website_html_content;
         $service->featured = isset($request->featured) ? true : false;
         $service->state = $request->state;
+        $service->order = $request->order;
         $service->update();
         
         return view($this->viewsDir.'partial.view_service', compact('service'));

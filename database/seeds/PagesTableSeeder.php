@@ -27,7 +27,7 @@ class PagesTableSeeder extends Seeder
         $npage->icon = "home";
         $npage->order = 1;
         $npage->state = "A";
-        $npage->save();
+        $npage->save();                
     }
     
     public function addAboutUsPage() {

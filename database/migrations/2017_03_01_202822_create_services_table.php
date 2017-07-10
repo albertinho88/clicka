@@ -24,6 +24,7 @@ class CreateServicesTable extends Migration
             $table->text('website_html_content')->nullable();
             $table->boolean('featured');
             $table->string('state',1);
+            $table->integer('order'); 
             $table->timestamps();
         });
     }

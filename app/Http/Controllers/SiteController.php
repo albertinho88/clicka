@@ -53,7 +53,9 @@ class SiteController extends Controller
         elseif ($page->cat_det_id_type == 'CUSPAG') :
             $data = array();
             if ($page->page_id == 'services') {
-                $active_services = \App\Service::where('state','A')->get();
+                $active_services = \App\Service::where('state','A')
+                        ->orderBy('order','asc')
+                        ->get();
                 array_push($data, 'page');
                 array_push($data, 'active_services');
             }
