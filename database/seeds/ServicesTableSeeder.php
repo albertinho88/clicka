@@ -155,7 +155,7 @@ class ServicesTableSeeder extends Seeder
         $ss = new \App\Service();
         $ss->service_id = 'bi';
         $ss->name = 'Inteligencia de Negocios';
-        $ss->slogan = 'Algo peor que no tener información disponible, es tener mucha información y no saber que hacer con ella.';
+        $ss->slogan = 'Analizar la información para tomar decisiones.';
         $ss->icon = 'fa-line-chart';
         $ss->website_bg_color = '6c76af';
         $ss->website_html_content = '<div class="ui-grid ui-grid-responsive">
@@ -200,6 +200,7 @@ class ServicesTableSeeder extends Seeder
             <div class="ui-grid-col-1"></div>
             </div>
             </div>';
+        $ss->website_html_content = '';
         $ss->featured = true;
         $ss->state = 'A';
         $ss->order = 5;
@@ -210,7 +211,7 @@ class ServicesTableSeeder extends Seeder
         $ss = new \App\Service();
         $ss->service_id = 'bpm';
         $ss->name = 'Business Process Management';
-        $ss->slogan = 'Optimizar los recursos mediante la automatización de los procesos de negocio.';
+        $ss->slogan = 'Optimizar recursos mediante la automatización de procesos de negocio.';
         $ss->icon = 'fa-share-alt';
         $ss->website_bg_color = 'f77286';
         $ss->website_html_content = '<div class="ui-grid ui-grid-responsive">
@@ -279,6 +280,8 @@ class ServicesTableSeeder extends Seeder
             <img src="http://clicka.ec/_resource/images/tools/jbossjbpm64.png" alt="" width="158" height="64" /></div>
             </div>
             </div>';
+        $ss->website_bg_color = '63c9f1';
+        $ss->website_html_content = '';
         $ss->featured = true;
         $ss->state = 'A';
         $ss->order = 6;
