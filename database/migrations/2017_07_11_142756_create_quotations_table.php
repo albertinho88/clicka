@@ -17,11 +17,12 @@ class CreateQuotationsTable extends Migration
             $table->increments('quotation_id');
             
             $table->string('name',50);
-            $table->string('identification',15)->nullable();
+            $table->string('identification',13)->nullable();                        
+            $table->string('email',30)->nullable();
             $table->string('phone',10)->nullable();
-            $table->string('address',100)->nullable();
-            $table->string('email',100)->nullable();
             $table->integer('days_of_validity');
+            $table->string('state',1);
+            $table->text('observation')->nullable(); 
             
             $table->timestamps();
         });

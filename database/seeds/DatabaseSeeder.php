@@ -204,21 +204,61 @@ class DatabaseSeeder extends Seeder
         
         
         $menuop5 = new \App\MenuOption();
-        $menuop5->label = 'Procesos';
-        $menuop5->icon = 'code-fork';
+        $menuop5->label = 'Ventas';
+        $menuop5->icon = 'tags';
         $menuop5->url = '#';        
         $menuop5->type = 'EXT';
         $menuop5->state = 'A';
         $menuop5->order = 2;
         $menuop5->save();
+                                
+            $menuop501 = new \App\MenuOption();
+            $menuop501->label = 'Items de Venta';
+            $menuop501->icon = 'shopping-bag';
+            $menuop501->url = 'application/sales/sales_items';        
+            $menuop501->type = 'EXT';
+            $menuop501->state = 'A';
+            $menuop501->order = 1;
+            $menuop501->menu_parent_id = $menuop5->menu_id;
+            $menuop501->save();
+            
+                $menuop5011 = new \App\MenuOption();
+                $menuop5011->label = 'Crear Item de Venta';
+                $menuop5011->icon = '';
+                $menuop5011->url = 'application/sales/sales_items/create';        
+                $menuop5011->type = 'INT';
+                $menuop5011->state = 'A';
+                $menuop5011->order = 1;
+                $menuop5011->menu_parent_id = $menuop501->menu_id;
+                $menuop5011->save();
+
+                $menuop5012 = new \App\MenuOption();
+                $menuop5012->label = 'Editar Item de Venta';
+                $menuop5012->icon = '';
+                $menuop5012->url = 'application/sales/sales_items/edit/{sales_item_id}';        
+                $menuop5012->type = 'INT';
+                $menuop5012->state = 'A';
+                $menuop5012->order = 2;
+                $menuop5012->menu_parent_id = $menuop501->menu_id;
+                $menuop5012->save();
+
+                $menuop5013 = new \App\MenuOption();
+                $menuop5013->label = 'Ver Item de Venta';
+                $menuop5013->icon = '';
+                $menuop5013->url = 'application/sales/sales_items/show/{sales_item_id}';        
+                $menuop5013->type = 'INT';
+                $menuop5013->state = 'A';
+                $menuop5013->order = 3;
+                $menuop5013->menu_parent_id = $menuop501->menu_id;
+                $menuop5013->save();
         
             $menuop6 = new \App\MenuOption();
             $menuop6->label = 'Cotizar';
             $menuop6->icon = 'calculator';
-            $menuop6->url = '#';        
+            $menuop6->url = 'application/sales/quotation/create';        
             $menuop6->type = 'EXT';
             $menuop6->state = 'A';
-            $menuop6->order = 1;
+            $menuop6->order = 2;
             $menuop6->menu_parent_id = $menuop5->menu_id;
             $menuop6->save();
             

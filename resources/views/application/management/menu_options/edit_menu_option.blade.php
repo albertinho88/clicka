@@ -232,8 +232,11 @@
 
                         <div class="ui-grid-row text-center">
                             <div class="ui-grid-col-12" >                                                                                         
-                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" class="width_auto">
+                                <button type="submit" role="button" aria-disabled="false" is="p-button" icon="fa-floppy-o" class="width_auto" >
                                     Guardar
+                                </button>
+                                <button type="button" role="button" aria-disabled="false" is="p-button" icon="fa-ban" class="width_auto" onclick="window.history.go(-1);">
+                                    Cancelar
                                 </button>
                             </div>
                         </div> 

@@ -70,9 +70,8 @@ initUiComponents = function() {
             editor.save();
         }
     });
-    $(document).puitooltip();
-    //initSubmitAjaxForms();
-    //initAjaxLinks();
+    $(document).puitooltip();    
+    
 };
 
 addMessage = function(msg) {

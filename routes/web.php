@@ -77,7 +77,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('application/cms/sliders/create','SliderController@create')->name('create_slider');
         Route::post('application/cms/sliders/create','SliderController@store')->name('store_slider');
         Route::get('application/cms/sliders/edit/{slider_id}','SliderController@edit')->name('edit_slider');        
-        Route::get('application/cms/sliders/show/{slider_id}','SliderController@show')->name('show_slider');                
+        Route::get('application/cms/sliders/show/{slider_id}','SliderController@show')->name('show_slider'); 
+        
+        Route::get('application/sales/sales_items','SalesItemController@index')->name('index_sales_items');
+        Route::get('application/sales/sales_items/create','SalesItemController@create')->name('create_sales_item');
+        Route::post('application/sales/sales_items/create','SalesItemController@store')->name('store_sales_item');
+        Route::get('application/sales/sales_items/edit/{sales_item_id}','SalesItemController@edit')->name('edit_sales_item');        
+        Route::get('application/sales/sales_items/show/{sales_item_id}','SalesItemController@show')->name('show_sales_item');  
+        
+        Route::get('application/sales/quotation/create','QuotationController@create')->name('create_quotation');
+        Route::post('application/sales/quotation/create','QuotationController@store')->name('store_quotation');
         
     });
     
