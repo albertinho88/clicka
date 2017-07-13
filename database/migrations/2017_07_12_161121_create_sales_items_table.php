@@ -16,9 +16,12 @@ class CreateSalesItemsTable extends Migration
         Schema::create('sales_items', function (Blueprint $table) {
             $table->increments('sales_item_id');
             
-            $table->text('description')->nullable();
-            
-            $table->string('state',1);
+            $table->string('code',15)->unique();            
+            $table->text('description');
+            $table->float('price',8,2);            
+            $table->boolean('fixed_price');
+            $table->string('state',1);            
+            $table->integer('creator_user')->nullable();                        
             
             $table->timestamps();
         });
@@ -30,7 +33,8 @@ class CreateSalesItemsTable extends Migration
      * @return void
      */
     public function down()
-    {
+    {        
         Schema::dropIfExists('sales_items');
+        Schema::dropIfExists('item_types');
     }
 }

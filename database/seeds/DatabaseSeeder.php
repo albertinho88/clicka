@@ -211,14 +211,94 @@ class DatabaseSeeder extends Seeder
         $menuop5->state = 'A';
         $menuop5->order = 2;
         $menuop5->save();
-                                
+            
+            $menuop701 = new \App\MenuOption();
+            $menuop701->label = 'Impuestos';
+            $menuop701->icon = 'money';
+            $menuop701->url = 'application/sales/taxes';        
+            $menuop701->type = 'EXT';
+            $menuop701->state = 'A';
+            $menuop701->order = 1;
+            $menuop701->menu_parent_id = $menuop5->menu_id;
+            $menuop701->save();
+
+                            $menuop7011 = new \App\MenuOption();
+                            $menuop7011->label = 'Crear Impuesto';
+                            $menuop7011->icon = '';
+                            $menuop7011->url = 'application/sales/taxes/create';        
+                            $menuop7011->type = 'INT';
+                            $menuop7011->state = 'A';
+                            $menuop7011->order = 1;
+                            $menuop7011->menu_parent_id = $menuop701->menu_id;
+                            $menuop7011->save();
+
+                            $menuop7012 = new \App\MenuOption();
+                            $menuop7012->label = 'Editar Impuesto';
+                            $menuop7012->icon = '';
+                            $menuop7012->url = 'application/sales/taxes/edit/{tax_id}';        
+                            $menuop7012->type = 'INT';
+                            $menuop7012->state = 'A';
+                            $menuop7012->order = 2;
+                            $menuop7012->menu_parent_id = $menuop701->menu_id;
+                            $menuop7012->save();
+
+                            $menuop7013 = new \App\MenuOption();
+                            $menuop7013->label = 'Ver Impuesto';
+                            $menuop7013->icon = '';
+                            $menuop7013->url = 'application/sales/taxes/show/{tax_id}';        
+                            $menuop7013->type = 'INT';
+                            $menuop7013->state = 'A';
+                            $menuop7013->order = 3;
+                            $menuop7013->menu_parent_id = $menuop701->menu_id;
+                            $menuop7013->save();
+                            
+            $menuop601 = new \App\MenuOption();
+            $menuop601->label = 'Categorías de Items';
+            $menuop601->icon = 'filter';
+            $menuop601->url = 'application/sales/item_types';        
+            $menuop601->type = 'EXT';
+            $menuop601->state = 'A';
+            $menuop601->order = 2;
+            $menuop601->menu_parent_id = $menuop5->menu_id;
+            $menuop601->save();
+
+                    $menuop6011 = new \App\MenuOption();
+                    $menuop6011->label = 'Crear Categoría de Items';
+                    $menuop6011->icon = '';
+                    $menuop6011->url = 'application/sales/item_types/create';        
+                    $menuop6011->type = 'INT';
+                    $menuop6011->state = 'A';
+                    $menuop6011->order = 1;
+                    $menuop6011->menu_parent_id = $menuop601->menu_id;
+                    $menuop6011->save();
+
+                    $menuop6012 = new \App\MenuOption();
+                    $menuop6012->label = 'Editar Categoría de Items';
+                    $menuop6012->icon = '';
+                    $menuop6012->url = 'application/sales/item_types/edit/{item_type_id}';        
+                    $menuop6012->type = 'INT';
+                    $menuop6012->state = 'A';
+                    $menuop6012->order = 2;
+                    $menuop6012->menu_parent_id = $menuop601->menu_id;
+                    $menuop6012->save();
+
+                    $menuop6013 = new \App\MenuOption();
+                    $menuop6013->label = 'Ver Categoría de Items';
+                    $menuop6013->icon = '';
+                    $menuop6013->url = 'application/sales/item_types/show/{item_type_id}';        
+                    $menuop6013->type = 'INT';
+                    $menuop6013->state = 'A';
+                    $menuop6013->order = 3;
+                    $menuop6013->menu_parent_id = $menuop601->menu_id;
+                    $menuop6013->save();
+        
             $menuop501 = new \App\MenuOption();
             $menuop501->label = 'Items de Venta';
             $menuop501->icon = 'shopping-bag';
             $menuop501->url = 'application/sales/sales_items';        
             $menuop501->type = 'EXT';
             $menuop501->state = 'A';
-            $menuop501->order = 1;
+            $menuop501->order = 3;
             $menuop501->menu_parent_id = $menuop5->menu_id;
             $menuop501->save();
             
@@ -250,7 +330,7 @@ class DatabaseSeeder extends Seeder
                 $menuop5013->state = 'A';
                 $menuop5013->order = 3;
                 $menuop5013->menu_parent_id = $menuop501->menu_id;
-                $menuop5013->save();
+                $menuop5013->save();                            
         
             $menuop6 = new \App\MenuOption();
             $menuop6->label = 'Cotizar';
@@ -258,7 +338,7 @@ class DatabaseSeeder extends Seeder
             $menuop6->url = 'application/sales/quotation/create';        
             $menuop6->type = 'EXT';
             $menuop6->state = 'A';
-            $menuop6->order = 2;
+            $menuop6->order = 4;
             $menuop6->menu_parent_id = $menuop5->menu_id;
             $menuop6->save();
             

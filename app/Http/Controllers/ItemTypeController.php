@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SalesItemController extends Controller
+class ItemTypeController extends Controller
 {
     
     protected $viewsDir;
     
     public function __construct() {        
-        $this->viewsDir = "application.sales.sales_items.";
+        $this->viewsDir = "application.sales.item_types.";
     }
-    
     
     /**
      * Display a listing of the resource.
@@ -21,10 +20,10 @@ class SalesItemController extends Controller
      */
     public function index()
     {
-        return view($this->viewsDir.'index_sales_items');
+        return view($this->viewsDir.'index_item_types');
     }
     
-    public function listSalesItemsJson() {
+    public function listItemTypesJson() {
         
     }
 
@@ -35,8 +34,7 @@ class SalesItemController extends Controller
      */
     public function create()
     {
-        $sales_item = new \App\SalesItem();
-        return view($this->viewsDir.'create_sales_item', compact('sales_item'));
+        //
     }
 
     /**

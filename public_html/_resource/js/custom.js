@@ -70,7 +70,9 @@ initUiComponents = function() {
             editor.save();
         }
     });
-    $(document).puitooltip();    
+    $(document).puitooltip(); 
+    
+    
     
 };
 

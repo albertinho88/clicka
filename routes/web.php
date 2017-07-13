@@ -83,7 +83,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('application/sales/sales_items/create','SalesItemController@create')->name('create_sales_item');
         Route::post('application/sales/sales_items/create','SalesItemController@store')->name('store_sales_item');
         Route::get('application/sales/sales_items/edit/{sales_item_id}','SalesItemController@edit')->name('edit_sales_item');        
-        Route::get('application/sales/sales_items/show/{sales_item_id}','SalesItemController@show')->name('show_sales_item');  
+        Route::get('application/sales/sales_items/show/{sales_item_id}','SalesItemController@show')->name('show_sales_item');
+        
+        Route::get('application/sales/item_types','ItemTypeController@index')->name('index_item_types');
+        Route::get('application/sales/item_types/create','ItemTypeController@create')->name('create_item_type');
+        Route::post('application/sales/item_types/create','ItemTypeController@store')->name('store_item_type');
+        Route::get('application/sales/item_types/edit/{item_type_id}','ItemTypeController@edit')->name('edit_item_type');        
+        Route::get('application/sales/item_types/show/{item_type_id}','ItemTypeController@show')->name('show_item_type'); 
+        
+        Route::get('application/sales/taxes','TaxController@index')->name('index_taxes');
+        Route::get('application/sales/taxes/create','TaxController@create')->name('create_tax');
+        Route::post('application/sales/taxes/create','TaxController@store')->name('store_tax');
+        Route::get('application/sales/taxes/edit/{tax_id}','TaxController@edit')->name('edit_tax');        
+        Route::get('application/sales/taxes/show/{tax_id}','TaxController@show')->name('show_tax');
         
         Route::get('application/sales/quotation/create','QuotationController@create')->name('create_quotation');
         Route::post('application/sales/quotation/create','QuotationController@store')->name('store_quotation');
@@ -143,6 +155,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('application/cms/sliders/update','SliderController@update')->name('update_slider')
             ->middleware('hasAccessOptional:application/cms/sliders/edit/{slider_id}');
     
+    Route::get('application/sales/sales_items/list_sales_items_json','SalesItemController@listSalesItemsJson')->name('list_sales_items_json')
+		->middleware('hasAccessOptional:application/sales/sales_items');
+    Route::post('application/sales/sales_items/update','SalesItemController@update')->name('update_sales_item')
+                    ->middleware('hasAccessOptional:application/sales/sales_items/edit/{sales_item_id}');
+    
+    Route::get('application/sales/item_types/list_item_types_json','ItemTypeController@listItemTypesJson')->name('list_item_types_json')
+		->middleware('hasAccessOptional:application/sales/item_types');
+    Route::post('application/sales/item_types/update','ItemTypeController@update')->name('update_item_type')
+                    ->middleware('hasAccessOptional:application/sales/item_types/edit/{item_type_id}'); 
+    
+    Route::get('application/sales/taxes/list_taxes_json','TaxController@listTaxesJson')->name('list_taxes_json')
+            ->middleware('hasAccessOptional:application/sales/taxes');
+    Route::post('application/sales/taxes/update','TaxController@update')->name('update_tax')
+                                    ->middleware('hasAccessOptional:application/sales/taxes/edit/{tax_id}'); 
 });
 
 
