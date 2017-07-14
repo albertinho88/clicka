@@ -70,7 +70,8 @@ class ItemTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        $item_type = \App\ItemType::findOrFail($id);
+        return view($this->viewsDir.'show_item_types', compact('item_type'));
     }
 
     /**
@@ -81,7 +82,8 @@ class ItemTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item_type = \App\ItemType::findOrFail($id);
+        return view($this->viewsDir.'edit_item_types', compact('item_type'));
     }
 
     /**
@@ -91,9 +93,21 @@ class ItemTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validate(request(),[            
+            'name' => 'required|max:25',
+            'description' => 'max:100',
+            'state' => 'required|max:1'
+        ]);
+        
+        $item_type = \App\ItemType::findOrFail($request->item_type_id);       
+        $item_type->name = $request->name;
+        $item_type->description = $request->description;
+        $item_type->state = $request->state;       
+        $item_type->save();
+        
+        return view($this->viewsDir.'partial.view_item_types', compact('item_type'));
     }
 
     /**

@@ -25,7 +25,8 @@ class SalesItemController extends Controller
     }
     
     public function listSalesItemsJson() {
-        
+        $sales_items = \App\SalesItem::all();
+        return response()->json($sales_items);
     }
 
     /**

@@ -51,16 +51,27 @@
             columns: [                
                 {field: 'item_type_id', headerText: 'Id', headerStyle: 'width:15%'},
                 {field: 'name', headerText: 'Nombre'},
-                {field: 'state', headerText: 'Estado', headerStyle: 'width:25%'},
+                {
+                    content: function(rowData) {
+                        if (rowData.state == 'A') {
+                            return 'Activo';
+                        } else if (rowData.state == 'I') {
+                            return 'Inactivo';
+                        } else {
+                            return '';
+                        }
+                    },
+                    headerText: 'Estado', 
+                    headerStyle: 'width:25%'},
                 {                     
                     content: function(rowData) {
-                        return '<a href="' +$('#show_url').val() + '/' + rowData.role_id + '" class=""><i class="fa fa-search" /></a>';
+                        return '<a href="' +$('#show_url').val() + '/' + rowData.item_type_id + '" class=""><i class="fa fa-search" /></a>';
                     },                                        
                     headerStyle: 'width:34px'
                 },
                 {                     
                     content: function(rowData) {
-                        return '<a href="' +$('#edit_url').val() + '/' + rowData.role_id + '" class=""><i class="fa fa-pencil" /></a>';
+                        return '<a href="' +$('#edit_url').val() + '/' + rowData.item_type_id + '" class=""><i class="fa fa-pencil" /></a>';
                     },                                        
                     headerStyle: 'width:34px'
                 }

@@ -9,7 +9,7 @@
                 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
-                        @include('application.sales.sales_items.partial.menu_sales_items')
+                        @include('application.sales.sales_items.partial.menu_sales_item')
                     </div>
                 </div>
                 
@@ -30,7 +30,7 @@
 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
-                        <div id="tblItemsVenta"></div> 
+                        <div id="tblSalesItems"></div> 
                     </div>
                 </div>                
             </div>
@@ -38,29 +38,29 @@
     </div>
 </div>
 
-<input id="show_url" type="hidden" value="{{ route('show_role',['role_id' => '']) }}" />
-<input id="edit_url" type="hidden" value="{{ route('edit_role',['role_id' => '']) }}" />
+<input id="show_url" type="hidden" value="{{ route('show_sales_item',['sales_item_id' => '']) }}" />
+<input id="edit_url" type="hidden" value="{{ route('edit_sales_item',['sales_item_id' => '']) }}" />
 
 <script type="text/javascript">
     $(function() {                          
         
-        $('#tblItemsVenta').puidatatable({            
+        $('#tblSalesItems').puidatatable({            
             paginator: {
                 rows: 10
             },
             columns: [                
-                {field: 'role_id', headerText: 'Id'},
+                {field: 'sales_item_id', headerText: 'Id'},
                 {field: 'name', headerText: 'Nombre'},
                 {field: 'state', headerText: 'Estado'},
                 {                     
                     content: function(rowData) {
-                        return '<a href="' +$('#show_url').val() + '/' + rowData.role_id + '" class=""><i class="fa fa-search" /></a>';
+                        return '<a href="' +$('#show_url').val() + '/' + rowData.sales_item_id + '" class=""><i class="fa fa-search" /></a>';
                     },                                        
                     headerStyle: 'width:34px'
                 },
                 {                     
                     content: function(rowData) {
-                        return '<a href="' +$('#edit_url').val() + '/' + rowData.role_id + '" class=""><i class="fa fa-pencil" /></a>';
+                        return '<a href="' +$('#edit_url').val() + '/' + rowData.sales_item_id + '" class=""><i class="fa fa-pencil" /></a>';
                     },                                        
                     headerStyle: 'width:34px'
                 }
@@ -69,7 +69,7 @@
             datasource: function(callback) {
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('list_roles_json')  }}",
+                    url: "{{ route('list_sales_items_json')  }}",
                     dataType: "json",
                     context: this,
                     success: function(response) {

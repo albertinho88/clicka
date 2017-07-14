@@ -14,15 +14,13 @@ class CreateSalesItemsTable extends Migration
     public function up()
     {
         Schema::create('sales_items', function (Blueprint $table) {
-            $table->increments('sales_item_id');
-            
+            $table->increments('sales_item_id');            
             $table->string('code',15)->unique();            
+            $table->string('name',25);
             $table->text('description');
             $table->float('price',8,2);            
             $table->boolean('fixed_price');
-            $table->string('state',1);            
-            $table->integer('creator_user')->nullable();                        
-            
+            $table->string('state',1);                                                
             $table->timestamps();
         });
     }

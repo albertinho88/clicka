@@ -9,7 +9,7 @@
                 <div class="ui-grid ui-grid-responsive">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
-                            @include('application.sales.sales_items.partial.menu_sales_items')
+                            @include('application.sales.sales_items.partial.menu_sales_item')
                         </div>
                     </div>
                     
@@ -23,6 +23,12 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <form id="createSalesItemForm" name="createSalesItemForm" method="POST" action="{{ route('store_sales_item') }}" class="ajaxJsonForm form-horizontal">                                                
+                        
+                        @include('application.sales.sales_items.partial.sales_item_form')
+                        
+                    </form>
                 </div>
             </div>
         </div>
