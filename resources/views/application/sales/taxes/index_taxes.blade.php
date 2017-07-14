@@ -48,9 +48,24 @@
             paginator: {
                 rows: 10
             },
-            columns: [                
-                {field: 'tax_id', headerText: 'Id'},
-                {field: 'description', headerText: 'Descripción'},                
+            columns: [                                
+                {field: 'name', headerText: 'Nombre'},
+                {
+                    field: 'init_date', 
+                    headerText: 'Inicio Vigencia',
+                    headerStyle: 'width:25%'
+                },
+                {
+                    headerText: 'Fin Vigencia',
+                    content: function(rowData) {
+                        if (rowData.expiration_date == null) {
+                            return "";
+                        } else {
+                            return rowData.expiration_date;
+                        }                        
+                    },
+                    headerStyle: 'width:25%'
+                },
                 {                     
                     content: function(rowData) {
                         return '<a href="' +$('#show_url').val() + '/' + rowData.tax_id + '" class=""><i class="fa fa-search" /></a>';

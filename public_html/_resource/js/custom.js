@@ -48,6 +48,16 @@ initUiComponents = function() {
         }
     });
     
+    $( ".datepicker-ui" ).each(function(index){
+        var date_val = $(this).attr('value');
+        $(this).datepicker();
+        $(this).datepicker( "option", "dateFormat", "yy-mm-dd" );
+        $(this).datepicker( "setDate",  date_val);
+    });
+    
+    /*$( ".datepicker-ui" ).datepicker();
+    $( ".datepicker-ui" ).datepicker( "option", "dateFormat", "yy-mm-dd" );*/
+    
     $('.ui-listbox').addClass('ui-selectonelistbox');
     
     $('#growlel').puigrowl({sticky: true});        
@@ -71,7 +81,6 @@ initUiComponents = function() {
         }
     });
     $(document).puitooltip(); 
-    
     
     
 };

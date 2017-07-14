@@ -7,20 +7,41 @@
         <label for="tax_id" class="col-md-4 control-label">Identificador:</label>
     </div>
     <div class="ui-grid-col-10">
-        {{ $tax->tax_id }}
+        {{ $tax->tax_id }}                
     </div>                                                                                                                
 </div>
 
 @endif
 
+<div class="EmptyBox20"></div>
+
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2">                                            
+        <label for="name" class="col-md-4 control-label">Nombre:</label>
+    </div>
+    <div class="ui-grid-col-10">
+        <input id="name" name="name" type="text" autocomplete="off" class="form-control" value="{{ $tax->name }}" maxlength="25" />
+    </div>                                                                                                                
+</div>
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2"></div>
+    <div class="ui-grid-col-10">
+        <span id="name_help_block" class="help-block">
+            @if ($errors->has('name'))                                                    
+                <strong>{{ $errors->first('name') }}</strong>                                                    
+            @endif
+        </span>
+    </div>
+</div> 
+
 <div class="EmptyBox10"></div>
 
 <div class="ui-grid-row">
     <div class="ui-grid-col-2">                                            
-        <label for="name" class="col-md-4 control-label">Descripción:</label>
+        <label for="description" class="col-md-4 control-label">Descripción:</label>
     </div>
     <div class="ui-grid-col-10">
-        <input id="description" name="description" type="text" autocomplete="off" class="form-control" value="{{ $tax->description }}" maxlength="25" />
+        <input id="description" name="description" type="text" autocomplete="off" class="form-control" value="{{ $tax->description }}" maxlength="100" />
     </div>                                                                                                                
 </div>
 <div class="ui-grid-row">
@@ -62,8 +83,7 @@
         <label for="init_date" class="col-md-4 control-label">Inicio Vigencia:</label>
     </div>
     <div class="ui-grid-col-10">
-        <p-datepicker id="dp_ini_date" dateFormat="mm-dd-yy"  >            
-        </p-datepicker>
+        <input id="init_date" name="init_date" type="text" class="datepicker-ui form-control" autocomplete="off" value="{{ $tax->init_date }}" />
     </div>                                                                                                                
 </div>
 <div class="ui-grid-row">
@@ -83,9 +103,8 @@
     <div class="ui-grid-col-2">                                            
         <label for="expiration_date" class="col-md-4 control-label">Fin Vigencia:</label>
     </div>
-    <div class="ui-grid-col-10">
-        <p-datepicker id="dp_expiration_date" dateFormat="mm-dd-yy" ></p-datepicker>
-        <p-growl id="select"></p-growl>
+    <div class="ui-grid-col-10">        
+        <input id="expiration_date" name="expiration_date" type="text" class="datepicker-ui form-control" autocomplete="off" value="{{ $tax->expiration_date }}" />        
     </div>                                                                                                                
 </div>
 <div class="ui-grid-row">

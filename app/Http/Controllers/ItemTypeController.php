@@ -24,7 +24,8 @@ class ItemTypeController extends Controller
     }
     
     public function listItemTypesJson() {
-        
+        $item_types = \App\ItemType::all();
+        return response()->json($item_types);
     }
 
     /**
@@ -34,7 +35,8 @@ class ItemTypeController extends Controller
      */
     public function create()
     {
-        //
+        $item_type = new \App\ItemType();
+        return view($this->viewsDir.'create_item_types', compact('item_type'));
     }
 
     /**
@@ -45,7 +47,19 @@ class ItemTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(),[            
+            'name' => 'required|max:25',
+            'description' => 'max:100',
+            'state' => 'required|max:1'
+        ]);
+        
+        $item_type = new \App\ItemType();        
+        $item_type->name = $request->name;
+        $item_type->description = $request->description;
+        $item_type->state = $request->state;       
+        $item_type->save();
+        
+        return view($this->viewsDir.'partial.view_item_types', compact('item_type'));
     }
 
     /**

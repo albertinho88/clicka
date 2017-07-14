@@ -24,7 +24,7 @@ class TaxController extends Controller
     }
     
     public function listTaxesJson() {
-        $taxes = \App\Tax::all();
+        $taxes = \App\Tax::orderBy('init_date','desc')->orderBy('expiration_date','desc')->get();
         return response()->json($taxes);
     }
 
@@ -35,8 +35,7 @@ class TaxController extends Controller
      */
     public function create()
     {
-        $tax = new \App\Tax();
-        $tax->ini_date = date('m-d-y');
+        $tax = new \App\Tax();        
         return view($this->viewsDir.'create_tax', compact('tax'));
     }
 
@@ -49,16 +48,25 @@ class TaxController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(),[            
-            'description' => 'required|max:25',
+            'name' => 'required|max:25',
+            'description' => 'max:100',
             'percentage' => 'required|numeric',
             'init_date' => 'required|date',
-            'expiration_date' => 'date',
+            'expiration_date' => 'date'
         ]);
         
         $tax = new \App\Tax();        
+        $tax->name = $request->name;
         $tax->description = $request->description;
+        $tax->percentage = $request->percentage;
+        $tax->init_date = $request->init_date;               
+        if (isset($request->expiration_date) && trim($request->expiration_date) != "") {
+            $tax->expiration_date = $request->expiration_date;
+        } else {
+            $tax->expiration_date = null;
+        }
        
-        //$tax->save();
+        $tax->save();
         
         return view($this->viewsDir.'partial.view_tax', compact('tax'));
     }
@@ -71,7 +79,8 @@ class TaxController extends Controller
      */
     public function show($id)
     {
-        //
+        $tax = \App\Tax::findOrFail($id);        
+        return view($this->viewsDir.'show_tax', compact('tax'));
     }
 
     /**
@@ -82,7 +91,8 @@ class TaxController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tax = \App\Tax::findOrFail($id);        
+        return view($this->viewsDir.'edit_tax', compact('tax'));
     }
 
     /**
@@ -92,9 +102,30 @@ class TaxController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validate(request(),[            
+            'name' => 'required|max:25',
+            'description' => 'max:100',
+            'percentage' => 'required|numeric',
+            'init_date' => 'required|date',
+            'expiration_date' => 'date'
+        ]);
+        
+        $tax = \App\Tax::findOrFail($request->tax_id);         
+        $tax->name = $request->name;
+        $tax->description = $request->description;
+        $tax->percentage = $request->percentage;
+        $tax->init_date = $request->init_date;               
+        if (isset($request->expiration_date) && trim($request->expiration_date) != "") {
+            $tax->expiration_date = $request->expiration_date;
+        } else {
+            $tax->expiration_date = null;
+        }
+       
+        $tax->update();
+        
+        return view($this->viewsDir.'partial.view_tax', compact('tax'));
     }
 
     /**

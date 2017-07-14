@@ -31,7 +31,7 @@ return [
     ],
     'boolean'              => 'El campo :attribute debe ser true o false.',
     'confirmed'            => 'The :attribute confirmation does not match.',
-    'date'                 => 'The :attribute is not a valid date.',
+    'date'                 => 'El campo :attribute no contiene una fecha válida.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'El :attribute y :other deben ser diferentes.',
     'digits'               => 'The :attribute must be :digits digits.',
@@ -142,7 +142,11 @@ return [
         'next_text' => 'texto siguiente',
         'max_width' => 'ancho máximo',
         
-        'cat_det_id_type' => 'tipo'
+        'cat_det_id_type' => 'tipo',
+        
+        'percentage' => 'porcentaje',
+        'init_date' => 'inicio vigencia',
+        'expiration_date' => 'fin vigencia',
     ],
 
 ];

@@ -20,7 +20,7 @@
                         <div class="text-center titulo">
                             <p>
                                 <i class="fa fa-th-list" ></i>
-                                <h1 class="coolvetica-rg" >Tipos de Items de Venta.</h1>
+                                <h1 class="coolvetica-rg" >Categorías de Items de Venta.</h1>
                             </p>                
                         </div>
                     </div>
@@ -30,7 +30,7 @@
 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
-                        <div id="tblItemsVenta"></div> 
+                        <div id="tblItemTypes"></div> 
                     </div>
                 </div>                
             </div>
@@ -38,20 +38,20 @@
     </div>
 </div>
 
-<input id="show_url" type="hidden" value="{{ route('show_role',['role_id' => '']) }}" />
-<input id="edit_url" type="hidden" value="{{ route('edit_role',['role_id' => '']) }}" />
+<input id="show_url" type="hidden" value="{{ route('show_item_type',['item_type_id' => '']) }}" />
+<input id="edit_url" type="hidden" value="{{ route('edit_item_type',['item_type_id' => '']) }}" />
 
 <script type="text/javascript">
     $(function() {                          
         
-        $('#tblItemsVenta').puidatatable({            
+        $('#tblItemTypes').puidatatable({            
             paginator: {
                 rows: 10
             },
             columns: [                
-                {field: 'role_id', headerText: 'Id'},
+                {field: 'item_type_id', headerText: 'Id', headerStyle: 'width:15%'},
                 {field: 'name', headerText: 'Nombre'},
-                {field: 'state', headerText: 'Estado'},
+                {field: 'state', headerText: 'Estado', headerStyle: 'width:25%'},
                 {                     
                     content: function(rowData) {
                         return '<a href="' +$('#show_url').val() + '/' + rowData.role_id + '" class=""><i class="fa fa-search" /></a>';
@@ -69,7 +69,7 @@
             datasource: function(callback) {
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('list_roles_json')  }}",
+                    url: "{{ route('list_item_types_json')  }}",
                     dataType: "json",
                     context: this,
                     success: function(response) {

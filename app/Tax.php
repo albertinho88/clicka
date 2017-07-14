@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tax extends Model
 {
-    //
+    protected $table = 'taxes';
+    protected $primaryKey = 'tax_id';    
 }
