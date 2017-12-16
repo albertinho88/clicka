@@ -58,7 +58,7 @@ class SiteController extends Controller
                         ->get();
                 array_push($data, 'page');
                 array_push($data, 'active_services');
-            }
+            } 
             return view('site.custom.'.$page->page_id,compact($data));        
         endif;
         
